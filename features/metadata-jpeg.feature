@@ -1,4 +1,5 @@
 # features/metadata-jpeg.feature
+# Needs Exif library such as ExifTool as used in the Proven POC
 Feature: Apply metadata to JPEG photo
 
 Scenario: User has taken a picture and needs to add metadata to the JPEG file
