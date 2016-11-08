@@ -1,5 +1,5 @@
 # features/create-index.feature
-Feature: Create an index.html which lists the file
+Feature: Create an index.html which lists the files in the payload
 
 Scenario: User takes a picture we create a manifest need an index page
   Given a manifest.json
