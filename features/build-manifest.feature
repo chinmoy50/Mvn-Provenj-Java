@@ -19,6 +19,10 @@ Scenario: A picture needs to be listed in the manifest.
 
 # Problem: "other hash from the last file submitted" doesn't allow for multiple
 # files in the same payload
+# Possible solution: each file in a manifest contains the file hash of the
+# previous file in this manifest (or from any manifest from the same device).
+# 2nd possible solution: generate a GUID for each file instead of using a hash
+#
 Scenario: Multiple pictures need to be added to the manifest in a batch
   Given a JPEG file named IMG_00001.jpeg
   and a JPEG file named IMG_00002.jpeg
