@@ -25,3 +25,9 @@ or hashes.
 
 Ubuntu prerequisites:
 `apt-get install maven`
+
+## Libraries used
+https://github.com/bitcoinj/bitcoinj
+https://github.com/ethereum/ethereumj
+https://github.com/ether-camp/ethereumj.starter
+
