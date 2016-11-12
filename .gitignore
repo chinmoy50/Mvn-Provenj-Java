@@ -1,1 +1,6 @@
-/bin/
+/.idea/
+*.iml
+/target/
+/lib
+/build/
+/.gradle/

@@ -20,3 +20,8 @@ or hashes.
 ## Proven smart contract interface
 * Submit image for verification
 * Check verification by image hash
+
+## Building
+
+Ubuntu prerequisites:
+`apt-get install maven`
