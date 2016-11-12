@@ -67,12 +67,12 @@ file.
 
 Specify a particular scenario by *line* (and use the pretty plugin, which prints the scenario back)
 
-    -Dcucumber.options="classpath:skeleton/belly.feature:4 --plugin pretty"
+    -Dcucumber.options="classpath:provenj/belly.feature:4 --plugin pretty"
 
 This works because Maven puts `./src/test/resources` on your `classpath`.
 You can also specify files to run by filesystem path:
 
-    -Dcucumber.options="src/test/resources/skeleton/belly.feature:4 --plugin pretty"
+    -Dcucumber.options="src/test/resources/provenj/belly.feature:4 --plugin pretty"
 
 You can also specify what to run by *tag*:
 

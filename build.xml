@@ -59,7 +59,7 @@
             <arg value="--plugin"/>
             <arg value="html:target/cucumber-html-report"/>
             <arg value="--glue"/>
-            <arg value="skeleton"/>
+            <arg value="provenj"/>
             <arg value="src/test/resources"/>
         </java>
 

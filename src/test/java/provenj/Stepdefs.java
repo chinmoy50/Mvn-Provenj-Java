@@ -1,4 +1,4 @@
-package skeleton;
+package provenj;
 
 import cucumber.api.java.en.Given;
 
