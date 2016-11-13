@@ -1,7 +1,7 @@
 # features/create-index.feature
 Feature: Create an index.html which lists the files in the payload
 
-Scenario: User takes a picture we create a manifest need an index page
+Scenario: Create an index page from a manifest which includes a picture
   Given a manifest.json
   When I create an index
   Then the output file should list the file names with static links to the files

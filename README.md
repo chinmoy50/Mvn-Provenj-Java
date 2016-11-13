@@ -10,8 +10,8 @@ original file names as well as metadata, and allows us to present the file
 in a web browser.
 
 `./manifest.json` contains information about the files in the payload and
-whatever metadata is associated with each of them, such as digital signatures
-or hashes.
+whatever metadata is associated with each of them, such as file names, types,
+digital signatures, hashes, and GUID.
 
 `./index.html` contains a plain HTML list of the files included in the payload. It contains JavaScript to load previews of the file, which runs if JavaScript is available.
 
