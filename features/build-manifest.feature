@@ -15,6 +15,6 @@ Scenario: A picture needs to be listed in the manifest.
     and manifest.BitcoinLastBlockHash should equal btc_hash
     and manifest.EthereumBlockNumber should equal eth_block
     and manifest.EthereumLastBlockHash should equal eth_hash
-    and manifest.ProvenPrevIFPSHandle should equal hash_ipfs
-    and manifest.ProvenFileHashes should equal file_hashes
+    and manifest.PreviousIFPSHash should equal hash_ipfs
+    and manifest.FileHashes should equal file_hashes
     and manifest.GUID should equal GUID
