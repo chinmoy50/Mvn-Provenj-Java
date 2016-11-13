@@ -4,7 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
-
+import org.json.simple.JSONObject;
 
 public class Stepdefs {
     // Meaningless templates from cucumber skeleton for Belly
@@ -25,8 +25,12 @@ public class Stepdefs {
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
     public void a_JPEG_file_named(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	Manifest manifest = new Manifest();
+	manifest.addFile(arg1);
+	JSONObject json = manifest.get();
+	if ( arg1 != (String) json.get("FileName")) {
+            throw new RuntimeException();
+	}
     }
 
     @Given("^the current Bitcoin block number btc_block$")
