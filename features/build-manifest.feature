@@ -9,10 +9,12 @@ Scenario: A picture needs to be listed in the manifest.
   and the current Ethereum block hash eth_hash
   and the IPFS hash from the last submitted file hash_ipfs
   and the other hashes from the last submitted file file_hashes
+  and the file GUID
   When I ask for a manifest file
-  Then manifest.file[0].BitcoinBlockNumber should match btc_block
-    and manifest.file[0].BitcoinLastBlockHash should equal btc_hash
-    and manifest.file[0].EthereumBlockNumber should equal eth_block
-    and manifest.file[0].EthereumLastBlockHash should equal eth_hash
-    and manifest.file[0].ProvenPrevIFPSHandle should equal hash_ipfs
-    and manifest.file[0].ProvenFileHashes should equal file_hashes
+  Then manifest.BitcoinBlockNumber should match btc_block
+    and manifest.BitcoinLastBlockHash should equal btc_hash
+    and manifest.EthereumBlockNumber should equal eth_block
+    and manifest.EthereumLastBlockHash should equal eth_hash
+    and manifest.ProvenPrevIFPSHandle should equal hash_ipfs
+    and manifest.ProvenFileHashes should equal file_hashes
+    and manifest.GUID should equal GUID

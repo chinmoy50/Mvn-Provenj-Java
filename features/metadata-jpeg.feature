@@ -10,6 +10,7 @@ Scenario: User has taken a picture and needs to add metadata to the JPEG file
   and the current Ethereum block hash eth_hash
   and the IPFS hash from the last submitted file hash_ipfs
   and the other hashes from the last submitted file file_hashes
+  and the file GUID
   When I apply that data to the JPEG file
   Then Exif.BitcoinBlockNumber should match btc_block
     and Exif.BitcoinLastBlockHash should equal btc_hash
@@ -17,3 +18,4 @@ Scenario: User has taken a picture and needs to add metadata to the JPEG file
     and Exif.EthereumLastBlockHash should equal eth_hash
     and Exif.ProvenPrevIFPSHandle should equal hash_ipfs
     and Exif.ProvenFileHashes should equal file_hashes
+    and Exif.ProvenGUID should equal GUID
