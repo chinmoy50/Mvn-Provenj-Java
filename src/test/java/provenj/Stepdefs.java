@@ -64,53 +64,52 @@ public class Stepdefs {
         assertEquals((String)json.get("FileName"),filename);
     }
 
-@Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
-public void manifest_BitcoinBlockNumber_should_be(int arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
+    public void manifest_BitcoinBlockNumber_should_be(int bitcoinBlockNumber) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((int)json.get("BitcoinBlockNumber"),bitcoinBlockNumber);
+    }
 
-@Then("^manifest\\.BitcoinBlockHash should equal \"([^\"]*)\"$")
-public void manifest_BitcoinBlockHash_should_equal(String arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.BitcoinBlockHash should equal \"([^\"]*)\"$")
+    public void manifest_BitcoinBlockHash_should_equal(String hash) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((String)json.get("BitcoinBlockHash"),hash);
+    }
 
-@Then("^manifest\\.EthereumBlockNumber should equal (\\d+)$")
-public void manifest_EthereumBlockNumber_should_equal(int arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.EthereumBlockNumber should equal (\\d+)$")
+    public void manifest_EthereumBlockNumber_should_equal(int num) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((int)json.get("EthereumBlockNumber"),num);
+    }
 
-@Then("^manifest\\.EthereumBlockHash should equal \"([^\"]*)\"$")
-public void manifest_EthereumBlockHash_should_equal(String arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.EthereumBlockHash should equal \"([^\"]*)\"$")
+    public void manifest_EthereumBlockHash_should_equal(String hash) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((String)json.get("EthereumBlockHash"),hash);
+    }
 
-@Then("^manifest\\.PreviousIFPSHash should equal \"([^\"]*)\"$")
-public void manifest_PreviousIFPSHash_should_equal(String arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.PreviousIFPSHash should equal \"([^\"]*)\"$")
+    public void manifest_PreviousIFPSHash_should_equal(String hash) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((String)json.get("PreviousIPFSHash"),hash);
+    }
 
-@Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
-public void manifest_PreviousFileHashes_should_equal(String arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
+    public void manifest_PreviousFileHashes_should_equal(String hashes) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((String)json.get("PreviousFileHashes"),hashes);
+    }
 
-@Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
-public void manifest_GUID_should_equal(String arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
+    public void manifest_GUID_should_equal(String guid) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((String)json.get("GUID"),guid);
+    }
 
-@Given("^the current time and a connection to the internet$")
-public void the_current_time_and_a_connection_to_the_internet() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Given("^the current time and a connection to the internet$")
+    public void the_current_time_and_a_connection_to_the_internet() throws Throwable {
+        // assumed
+    }
 
 @When("^called$")
 public void called() throws Throwable {

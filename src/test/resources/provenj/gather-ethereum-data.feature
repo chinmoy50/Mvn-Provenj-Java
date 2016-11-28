@@ -1,4 +1,4 @@
-# features/gather-ethereum-data.feature
+# src/test/resources/provenj/gather-ethereum-data.feature
 Feature: Collect Ethereum block info to prove earliest possible creation date
 
 Scenario: Need the most recent Ethereum block number
