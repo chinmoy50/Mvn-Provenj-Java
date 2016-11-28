@@ -57,59 +57,94 @@ public class Stepdefs {
         JSONObject json = manifest.get();
     }
 
-    @Then("^manifest\\.FileName should equal \"([^\"]*)\"$")
-    public void manifest_FileName_should_equal(String fileName) throws Throwable {
-	if ( fileName != (String) manifest.get().get("FileName")) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.FileName should equal \"([^\"]*)\"$")
+public void manifest_FileName_should_equal(String arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
 
-    @Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
-    public void manifest_BitcoinBlockNumber_should_be(int blockNumber) throws Throwable {
-	if ( blockNumber != (int) manifest.get().get("BitcoinBlockNumber")) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
+public void manifest_BitcoinBlockNumber_should_be(int arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
 
-    @Then("^manifest\\.BitcoinBlockHash should equal \"([^\"]*)\"$")
-    public void manifest_BitcoinBlockHash_should_equal(String blockHash) throws Throwable {
-	if (!blockHash.equals((String) manifest.get().get("BitcoinBlockHash"))) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.BitcoinBlockHash should equal \"([^\"]*)\"$")
+public void manifest_BitcoinBlockHash_should_equal(String arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
 
-    @Then("^manifest\\.EthereumBlockNumber should equal (\\d+)$")
-    public void manifest_EthereumBlockNumber_should_equal(int blockNumber) throws Throwable {
-	if (blockNumber != (int) manifest.get().get("EthereumBlockNumber")) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.EthereumBlockNumber should equal (\\d+)$")
+public void manifest_EthereumBlockNumber_should_equal(int arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
 
-    @Then("^manifest\\.EthereumBlockHash should equal \"([^\"]*)\"$")
-    public void manifest_EthereumBlockHash_should_equal(String blockHash) throws Throwable {
-	if (!blockHash.equals((String) manifest.get().get("EthereumBlockHash"))) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.EthereumBlockHash should equal \"([^\"]*)\"$")
+public void manifest_EthereumBlockHash_should_equal(String arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
 
-    @Then("^manifest\\.PreviousIFPSHash should equal \"([^\"]*)\"$")
-    public void manifest_PreviousIFPSHash_should_equal(String ifpsHash) throws Throwable {
-	if (!ifpsHash.equals((String) manifest.get().get("PreviousIPFSHash"))) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.PreviousIFPSHash should equal \"([^\"]*)\"$")
+public void manifest_PreviousIFPSHash_should_equal(String arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
 
-    @Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
-    public void manifest_PreviousFileHashes_should_equal(String fileHashes) throws Throwable {
-	if (!fileHashes.equals((String) manifest.get().get("PreviousFileHashes"))) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
+public void manifest_PreviousFileHashes_should_equal(String arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
 
-    @Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
-    public void manifest_GUID_should_equal(String guid) throws Throwable {
-	if (!guid.equals((String) manifest.get().get("GUID"))) {
-            throw new RuntimeException();
-	}
-    }
+@Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
+public void manifest_GUID_should_equal(String arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@Given("^the current time and a connection to the internet$")
+public void the_current_time_and_a_connection_to_the_internet() throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@When("^called$")
+public void called() throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@Then("^returned value should be greater than (\\d+)$")
+public void returned_value_should_be_greater_than(int arg1) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@Then("^the returned value should be a valid Bitcoin block hash$")
+public void the_returned_value_should_be_a_valid_Bitcoin_block_hash() throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@When("^asked for the most recent Ethereum block number$")
+public void asked_for_the_most_recent_Ethereum_block_number() throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@When("^asked for the most recent Ethereum block hash$")
+public void asked_for_the_most_recent_Ethereum_block_hash() throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+@Then("^the returned value should be a valid Ethereum block hash$")
+public void the_returned_value_should_be_a_valid_Ethereum_block_hash() throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
 }
