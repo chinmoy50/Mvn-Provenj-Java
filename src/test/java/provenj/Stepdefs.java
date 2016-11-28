@@ -6,6 +6,7 @@ import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
 import org.json.simple.JSONObject;
 import java.util.UUID;
+import static org.junit.Assert.assertEquals;
 
 public class Stepdefs {
 
@@ -57,11 +58,11 @@ public class Stepdefs {
         JSONObject json = manifest.get();
     }
 
-@Then("^manifest\\.FileName should equal \"([^\"]*)\"$")
-public void manifest_FileName_should_equal(String arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
+    @Then("^manifest\\.FileName should equal \"([^\"]*)\"$")
+    public void manifest_FileName_should_equal(String filename) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals((String)json.get("FileName"),filename);
+    }
 
 @Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
 public void manifest_BitcoinBlockNumber_should_be(int arg1) throws Throwable {
