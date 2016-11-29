@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'jacoco'
 
 project.ext {
     cucumberVersion = '1.2.5'
@@ -22,3 +23,12 @@ test {
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
