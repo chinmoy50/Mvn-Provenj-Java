@@ -27,7 +27,5 @@ Ubuntu prerequisites:
 `apt-get install maven`
 
 ## Libraries used
-https://github.com/bitcoinj/bitcoinj
-https://github.com/ethereum/ethereumj
-https://github.com/ether-camp/ethereumj.starter
-
+https://github.com/ethereum/go-ethereum/wiki/Mobile-Clients:-Libraries-and-Inproc-Ethereum-Nodes
+https://bintray.com/karalabe/ethereum/download_file?file_path=geth.aar
