@@ -105,46 +105,4 @@ public class Stepdefs {
         JSONObject json = manifest.get();
         assertEquals(json.get("GUID"),guid);
     }
-
-    @Given("^the current time and a connection to the internet$")
-    public void the_current_time_and_a_connection_to_the_internet() throws Throwable {
-        // assumed
-    }
-
-@When("^called$")
-public void called() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
-
-@Then("^returned value should be greater than (\\d+)$")
-public void returned_value_should_be_greater_than(int arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
-
-@Then("^the returned value should be a valid Bitcoin block hash$")
-public void the_returned_value_should_be_a_valid_Bitcoin_block_hash() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
-
-@When("^asked for the most recent Ethereum block number$")
-public void asked_for_the_most_recent_Ethereum_block_number() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
-
-@When("^asked for the most recent Ethereum block hash$")
-public void asked_for_the_most_recent_Ethereum_block_hash() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
-
-@Then("^the returned value should be a valid Ethereum block hash$")
-public void the_returned_value_should_be_a_valid_Ethereum_block_hash() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
-}
-
 }
