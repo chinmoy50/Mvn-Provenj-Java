@@ -61,7 +61,7 @@ public class Stepdefs {
     @Then("^manifest\\.FileName should equal \"([^\"]*)\"$")
     public void manifest_FileName_should_equal(String filename) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((String)json.get("FileName"),filename);
+        assertEquals(json.get("FileName"),filename);
     }
 
     @Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
@@ -73,7 +73,7 @@ public class Stepdefs {
     @Then("^manifest\\.BitcoinBlockHash should equal \"([^\"]*)\"$")
     public void manifest_BitcoinBlockHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((String)json.get("BitcoinBlockHash"),hash);
+        assertEquals(json.get("BitcoinBlockHash"),hash);
     }
 
     @Then("^manifest\\.EthereumBlockNumber should equal (\\d+)$")
@@ -85,25 +85,25 @@ public class Stepdefs {
     @Then("^manifest\\.EthereumBlockHash should equal \"([^\"]*)\"$")
     public void manifest_EthereumBlockHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((String)json.get("EthereumBlockHash"),hash);
+        assertEquals(json.get("EthereumBlockHash"),hash);
     }
 
     @Then("^manifest\\.PreviousIFPSHash should equal \"([^\"]*)\"$")
     public void manifest_PreviousIFPSHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((String)json.get("PreviousIPFSHash"),hash);
+        assertEquals(json.get("PreviousIPFSHash"),hash);
     }
 
     @Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
     public void manifest_PreviousFileHashes_should_equal(String hashes) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((String)json.get("PreviousFileHashes"),hashes);
+        assertEquals(json.get("PreviousFileHashes"),hashes);
     }
 
     @Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
     public void manifest_GUID_should_equal(String guid) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((String)json.get("GUID"),guid);
+        assertEquals(json.get("GUID"),guid);
     }
 
     @Given("^the current time and a connection to the internet$")

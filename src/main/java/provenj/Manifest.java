@@ -45,6 +45,7 @@ public class Manifest {
 	m_guid = guid;
     }
 
+    @SuppressWarnings("unchecked") // JSONObject doesn't support parameters to make it generic
     public JSONObject get(){
        JSONObject result = new JSONObject();
        result.put("FileName", m_filename);
