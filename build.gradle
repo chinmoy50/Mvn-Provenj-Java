@@ -11,7 +11,6 @@ dependencies {
     testCompile 'info.cukes:cucumber-java:' + cucumberVersion
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
-    compile project(':geth')
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }
 
