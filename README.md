@@ -3,9 +3,8 @@
 [![Build Status](https://travis-ci.org/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj.svg?branch=master)](https://travis-ci.org/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj)
 [![codecov](https://codecov.io/gh/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/branch/master/graph/badge.svg)](https://codecov.io/gh/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj)
 
-Java library with API for Proven:
-* creating Proven-compliant IPFS payloads
-* interacting with Proven smart contracts on Ethereum
+Java library with APIs for interacting with Proven:
+* creating Proven-compliant IPFS payloads and manifests
 
 ## IPFS file layout
 Proven stores each submission in a directory in IPFS. This allows us to store
@@ -20,15 +19,7 @@ digital signatures, hashes, and GUID.
 
 `./payload/` contains the actual files being proven.
 
-## Proven smart contract interface
-* Submit image for verification
-* Check verification by image hash
-
 ## Building
 
 Ubuntu prerequisites:
 `apt-get install maven`
-
-## Libraries used
-https://github.com/ethereum/go-ethereum/wiki/Mobile-Clients:-Libraries-and-Inproc-Ethereum-Nodes
-https://bintray.com/karalabe/ethereum/download_file?file_path=geth.aar
