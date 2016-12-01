@@ -13,6 +13,7 @@ public class Stepdefs {
 
     // Build manifest
     Manifest manifest = new Manifest();
+    File file = null;
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
     public void a_JPEG_file_named(String filename) throws Throwable {
@@ -109,9 +110,8 @@ public class Stepdefs {
 
     // Apply Exif to JPEG
     @Given("^a JPEG file \"([^\"]*)\"$")
-    public void a_JPEG_file(File file) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void a_JPEG_file(String fileName) throws Throwable {
+	file = new File(fileName);
     }
 
     @Given("^the Bitcoin block number (\\d+)$")

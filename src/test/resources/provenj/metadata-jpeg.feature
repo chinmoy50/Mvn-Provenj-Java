@@ -2,7 +2,7 @@
 Feature: Apply metadata to JPEG photo
 
   Scenario: User has taken a picture and needs to add metadata to the JPEG file
-    Given a JPEG file "IMG_00001.jpeg"
+    Given a JPEG file "src/test/resources/provenj/2016-12-01-175915.jpg"
     And the Bitcoin block number 438712
     And the Bitcoin block hash "00000000000000000341b8be019c7c1bff721b2d412285ab796ef5ab2ae36213"
     And the Ethereum block number 2619567
