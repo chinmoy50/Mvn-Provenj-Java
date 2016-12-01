@@ -15,21 +15,6 @@
         <maven.compiler.version>3.3</maven.compiler.version>
     </properties>
 
-    <repositories>
-    <repository>
-        <id>oss.sonatype.org</id>
-        <name>Sonatype Snapshot Repository</name>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        <releases>
-            <enabled>false</enabled>
-        </releases>
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
-    </repository> 
-    </repositories>
-
-
     <dependencies>
         <dependency>
             <groupId>info.cukes</groupId>
@@ -58,11 +43,6 @@
             <groupId>com.github.mjeanroy</groupId>
             <artifactId>exiftool-lib</artifactId>
             <version>2.1.0</version>
-        </dependency>
-	<dependency>
-            <groupId>com.github.dragon66</groupId>
-	    <artifactId>icafe</artifactId>
-            <version>1.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

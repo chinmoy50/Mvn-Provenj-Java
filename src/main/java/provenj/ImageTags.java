@@ -1,7 +1,6 @@
 package provenj;
 
 import java.util.UUID;
-import com.icafe4j.image.ImageIO;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 

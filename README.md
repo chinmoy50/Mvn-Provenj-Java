@@ -20,7 +20,7 @@ digital signatures, hashes, and GUID.
 `./payload/` contains the actual files being proven.
 
 ## Exif/XMP tagging
-This library will tag JPEG images with the Exif/XMP tags standard for Proven verification.  It uses [icafe](https://github.com/dragon66/icafe) in order to remain pure Java, although [ExifTool](http://www.sno.phy.queensu.ca/~phil/exiftool/) is the clear reference implementation and would have been preferable if it were reliably available for calling on all platforms. Therefore, the tests use Exiftool (via [a Java wrapper](https://github.com/mjeanroy/exiftool)) to verify that the tags are written correctly.
+This library will tag JPEG images with the Exif/XMP tags standard for Proven verification.  It writes XMP manually to remain pure Java, although [ExifTool](http://www.sno.phy.queensu.ca/~phil/exiftool/) is the clear reference implementation and would have been preferable if it were reliably available for calling on all platforms. Therefore, the tests use Exiftool (via [a Java wrapper](https://github.com/mjeanroy/exiftool)) to verify that the tags are written correctly.
 
 ## Building
 
