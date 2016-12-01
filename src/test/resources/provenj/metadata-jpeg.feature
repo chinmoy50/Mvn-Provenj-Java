@@ -10,7 +10,7 @@ Feature: Apply metadata to JPEG photo
     And the IPFS hash from the last file "QmP1KyrSsD4KGPFRsVxV66cZ95LqhLWGbwCakzRsoKjrTu"
     And the other hashes from the last file "dff0c94255cd1f68a824e81005b00f617afecd74c6cccecfbae0d2b7875fabf3"
     And the GUID "0b89ff5d-c1d8-4dce-949a-a7e29215b09d"
-    When I load the data from the JPEG file "IMG_00001.jpeg"
+    When I load the data from the JPEG file returned
     Then Exif.BitcoinBlockNumber should match 438712
     And Exif.BitcoinLastBlockHash should equal "00000000000000000341b8be019c7c1bff721b2d412285ab796ef5ab2ae36213"
     And Exif.EthereumBlockNumber should equal 2619567

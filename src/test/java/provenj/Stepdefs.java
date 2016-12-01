@@ -6,6 +6,8 @@ import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
 import org.json.simple.JSONObject;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 
@@ -13,7 +15,6 @@ public class Stepdefs {
 
     // Build manifest
     Manifest manifest = new Manifest();
-    File file = null;
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
     public void a_JPEG_file_named(String filename) throws Throwable {
@@ -109,55 +110,55 @@ public class Stepdefs {
     }
 
     // Apply Exif to JPEG
+    ImageTags imageTags = null;
+
     @Given("^a JPEG file \"([^\"]*)\"$")
     public void a_JPEG_file(String fileName) throws Throwable {
-	file = new File(fileName);
+	FileInputStream inputFile = new FileInputStream(fileName);
+	File tempFile = File.createTempFile("provenj", "jpeg");
+	tempFile.deleteOnExit();
+	FileOutputStream outputFile = new FileOutputStream(tempFile.getCanonicalFile());
+
+        imageTags = new ImageTags(inputFile,outputFile);
     }
 
     @Given("^the Bitcoin block number (\\d+)$")
     public void the_Bitcoin_block_number(int blockNumber) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	imageTags.setBitcoinBlockNumber(blockNumber);
     }
 
     @Given("^the Bitcoin block hash \"([^\"]*)\"$")
     public void the_Bitcoin_block_hash(String blockHash) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	imageTags.setBitcoinBlockHash(blockHash);
     }
 
     @Given("^the Ethereum block number (\\d+)$")
     public void the_Ethereum_block_number(int blockNumber) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	imageTags.setEthereumBlockNumber(blockNumber);
     }
 
     @Given("^the Ethereum block hash \"([^\"]*)\"$")
     public void the_Ethereum_block_hash(String blockHash) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	imageTags.setEthereumBlockHash(blockHash);
     }
 
     @Given("^the IPFS hash from the last file \"([^\"]*)\"$")
     public void the_IPFS_hash_from_the_last_file(String ipfsHash) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	imageTags.setPreviousIPFSHash(ipfsHash);
     }
 
     @Given("^the other hashes from the last file \"([^\"]*)\"$")
     public void the_other_hashes_from_the_last_file(String otherHashes) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	imageTags.setPreviousFileHashes(otherHashes);
     }
 
     @Given("^the GUID \"([^\"]*)\"$")
     public void the_GUID(String guid) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	imageTags.setGUID(UUID.fromString(guid));
     }
 
-    @When("^I load the data from the JPEG file \"([^\"]*)\"$")
-    public void i_load_the_data_from_the_JPEG_file(String arg1) throws Throwable {
+    @When("^I load the data from the JPEG file returned$")
+    public void i_load_the_data_from_the_JPEG_file_returned() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
