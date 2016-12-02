@@ -12,7 +12,6 @@ dependencies {
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    compile group: 'com.github.mjeanroy', name: 'exiftool-lib', version: '1.2'
 }
 
 repositories {
