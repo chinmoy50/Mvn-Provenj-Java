@@ -5,19 +5,13 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
 import org.json.simple.JSONObject;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import static java.util.Arrays.asList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStreamReader;
 import java.util.UUID;
 import static org.junit.Assert.assertEquals;
-import com.thebuzzmedia.exiftool.ExifTool;
-import com.thebuzzmedia.exiftool.ExifToolBuilder;
-import com.thebuzzmedia.exiftool.Tag;
-import com.thebuzzmedia.exiftool.core.StandardTag;
 
 public class Stepdefs {
 
@@ -165,31 +159,27 @@ public class Stepdefs {
 	imageTags.setGUID(UUID.fromString(guid));
     }
 
-    File outputFile = null;
+    String outputFileName = "";
 
     private String getTag(String tagName) {
-        ExifTool exifTool = new ExifToolBuilder().build();
-        List<Tag> tags = asList(
-               (Tag)StandardTag.ISO,
-               (Tag)StandardTag.X_RESOLUTION,
-               (Tag)StandardTag.Y_RESOLUTION);
-        
-        try {
-            Map<Tag,String> map = exifTool.getImageMeta(outputFile, tags);
-            return map.get((Tag)StandardTag.ISO);
-        }
-        catch (Exception e) {
-            return("");
-        }
+        Runtime rt = Runtime.getRuntime();
+        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, outputFileName);
+	try {
+            Process proc = rt.exec(command);
+  
+            BufferedReader stdInput = new BufferedReader(new 
+                InputStreamReader(proc.getInputStream()));
+
+	    return stdInput.readLine();
+	}
+	catch (Exception e) {
+            return "";
+	}
     }
 
     @When("^I load the data from the JPEG file returned$")
     public void i_load_the_data_from_the_JPEG_file_returned() throws Throwable {
-	try {
-            outputFile = new File(imageTags.getFile().getFD().toString());
-	} catch (Exception e) { 
-            throw e;
-        }
+        outputFileName = imageTags.getFile().getFD().toString();
     }
 
     @Then("^Exif\\.BitcoinBlockNumber should match (\\d+)$")
