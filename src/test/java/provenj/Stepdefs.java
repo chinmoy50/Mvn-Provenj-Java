@@ -189,38 +189,32 @@ public class Stepdefs {
 
     @Then("^Exif\\.BitcoinLastBlockHash should equal \"([^\"]*)\"$")
     public void exif_BitcoinLastBlockHash_should_equal(String blockHash) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(blockHash, getTag("BitcoinLastBlockHash"));
     }
 
     @Then("^Exif\\.EthereumBlockNumber should equal (\\d+)$")
     public void exif_EthereumBlockNumber_should_equal(int blockNumber) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(blockNumber, getTag("EthereumBlockNumber"));
     }
 
     @Then("^Exif\\.EthereumLastBlockHash should equal \"([^\"]*)\"$")
     public void exif_EthereumLastBlockHash_should_equal(String blockHash) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(blockHash, getTag("EthereumLastBlockHash"));
     }
 
     @Then("^Exif\\.ProvenPrevIFPSHandle should equal \"([^\"]*)\"$")
     public void exif_ProvenPrevIFPSHandle_should_equal(String ipfsHash) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(ipfsHash, getTag("ProvenPrevIFPSHandle"));
     }
 
     @Then("^Exif\\.ProvenFileHashes should equal \"([^\"]*)\"$")
     public void exif_ProvenFileHashes_should_equal(String hashes) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(hashes, getTag("ProvenFileHashes"));
     }
 
     @Then("^Exif\\.ProvenGUID should equal \"([^\"]*)\"$")
     public void exif_ProvenGUID_should_equal(String guid) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(guid, getTag("ProvenGUID"));
     }
 
 }
