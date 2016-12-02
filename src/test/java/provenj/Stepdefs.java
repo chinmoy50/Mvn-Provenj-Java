@@ -189,7 +189,7 @@ public class Stepdefs {
 
     @Then("^Exif\\.BitcoinLastBlockHash should equal \"([^\"]*)\"$")
     public void exif_BitcoinLastBlockHash_should_equal(String blockHash) throws Throwable {
-        assertEquals(blockHash, getTag("BitcoinLastBlockHash"));
+        assertEquals(blockHash, getTag("BitcoinBlockHash"));
     }
 
     @Then("^Exif\\.EthereumBlockNumber should equal (\\d+)$")
@@ -199,12 +199,12 @@ public class Stepdefs {
 
     @Then("^Exif\\.EthereumLastBlockHash should equal \"([^\"]*)\"$")
     public void exif_EthereumLastBlockHash_should_equal(String blockHash) throws Throwable {
-        assertEquals(blockHash, getTag("EthereumLastBlockHash"));
+        assertEquals(blockHash, getTag("EthereumBlockHash"));
     }
 
     @Then("^Exif\\.ProvenPrevIFPSHandle should equal \"([^\"]*)\"$")
     public void exif_ProvenPrevIFPSHandle_should_equal(String ipfsHash) throws Throwable {
-        assertEquals(ipfsHash, getTag("ProvenPrevIFPSHandle"));
+        assertEquals(ipfsHash, getTag("PreviousIFPSHandle"));
     }
 
     @Then("^Exif\\.ProvenFileHashes should equal \"([^\"]*)\"$")
@@ -214,7 +214,7 @@ public class Stepdefs {
 
     @Then("^Exif\\.ProvenGUID should equal \"([^\"]*)\"$")
     public void exif_ProvenGUID_should_equal(String guid) throws Throwable {
-        assertEquals(guid, getTag("ProvenGUID"));
+        assertEquals(guid, getTag("GUID"));
     }
 
 }
