@@ -8,8 +8,16 @@ import org.json.simple.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import static java.util.Arrays.asList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import static org.junit.Assert.assertEquals;
+import com.thebuzzmedia.exiftool.ExifTool;
+import com.thebuzzmedia.exiftool.ExifToolBuilder;
+import com.thebuzzmedia.exiftool.Tag;
+import com.thebuzzmedia.exiftool.core.StandardTag;
 
 public class Stepdefs {
 
@@ -64,49 +72,49 @@ public class Stepdefs {
     @Then("^manifest\\.FileName should equal \"([^\"]*)\"$")
     public void manifest_FileName_should_equal(String filename) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(json.get("FileName"),filename);
+        assertEquals(filename,json.get("FileName"));
     }
 
     @Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
     public void manifest_BitcoinBlockNumber_should_be(int bitcoinBlockNumber) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((int)json.get("BitcoinBlockNumber"),bitcoinBlockNumber);
+        assertEquals(bitcoinBlockNumber,(int)json.get("BitcoinBlockNumber"));
     }
 
     @Then("^manifest\\.BitcoinBlockHash should equal \"([^\"]*)\"$")
     public void manifest_BitcoinBlockHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(json.get("BitcoinBlockHash"),hash);
+        assertEquals(hash,json.get("BitcoinBlockHash"));
     }
 
     @Then("^manifest\\.EthereumBlockNumber should equal (\\d+)$")
     public void manifest_EthereumBlockNumber_should_equal(int num) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals((int)json.get("EthereumBlockNumber"),num);
+        assertEquals(num, (int)json.get("EthereumBlockNumber"));
     }
 
     @Then("^manifest\\.EthereumBlockHash should equal \"([^\"]*)\"$")
     public void manifest_EthereumBlockHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(json.get("EthereumBlockHash"),hash);
+        assertEquals(hash,json.get("EthereumBlockHash"));
     }
 
     @Then("^manifest\\.PreviousIFPSHash should equal \"([^\"]*)\"$")
     public void manifest_PreviousIFPSHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(json.get("PreviousIPFSHash"),hash);
+        assertEquals(hash, json.get("PreviousIPFSHash"));
     }
 
     @Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
     public void manifest_PreviousFileHashes_should_equal(String hashes) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(json.get("PreviousFileHashes"),hashes);
+        assertEquals(hashes, json.get("PreviousFileHashes"));
     }
 
     @Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
     public void manifest_GUID_should_equal(String guid) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(json.get("GUID"),guid);
+        assertEquals(guid, json.get("GUID"));
     }
 
     // Apply Exif to JPEG
@@ -157,16 +165,36 @@ public class Stepdefs {
 	imageTags.setGUID(UUID.fromString(guid));
     }
 
+    File outputFile = null;
+
+    private String getTag(String tagName) {
+        ExifTool exifTool = new ExifToolBuilder().build();
+        List<Tag> tags = asList(
+               (Tag)StandardTag.ISO,
+               (Tag)StandardTag.X_RESOLUTION,
+               (Tag)StandardTag.Y_RESOLUTION);
+        
+        try {
+            Map<Tag,String> map = exifTool.getImageMeta(outputFile, tags);
+            return map.get((Tag)StandardTag.ISO);
+        }
+        catch (Exception e) {
+            return("");
+        }
+    }
+
     @When("^I load the data from the JPEG file returned$")
     public void i_load_the_data_from_the_JPEG_file_returned() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+	try {
+            outputFile = new File(imageTags.getFile().getFD().toString());
+	} catch (Exception e) { 
+            throw e;
+        }
     }
 
     @Then("^Exif\\.BitcoinBlockNumber should match (\\d+)$")
     public void exif_BitcoinBlockNumber_should_match(int blockNumber) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertEquals(blockNumber, getTag("BitcoinBlockNumber"));
     }
 
     @Then("^Exif\\.BitcoinLastBlockHash should equal \"([^\"]*)\"$")

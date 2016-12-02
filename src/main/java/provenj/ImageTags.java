@@ -48,7 +48,10 @@ public class ImageTags {
 	m_guid = guid;
     }
 
-    public FileOutputStream getFileWithTags() {
+    public FileOutputStream getFile() {
+	try {
+            m_outputFile.getFD().sync();
+	} catch (Exception e) { }
         return m_outputFile;
     }
 }
