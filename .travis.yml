@@ -7,4 +7,4 @@ notifications:
 addons:
   apt:
     packages:
-      - exiftool
+      - libimage-exiftool-perl
