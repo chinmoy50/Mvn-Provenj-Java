@@ -113,12 +113,14 @@ public class Stepdefs {
 
     // Apply Exif to JPEG
     ImageTags imageTags = null;
+    String outputFileName = "";
 
     @Given("^a JPEG file \"([^\"]*)\"$")
     public void a_JPEG_file(String fileName) throws Throwable {
 	FileInputStream inputFile = new FileInputStream(fileName);
-	File tempFile = File.createTempFile("provenj", "jpeg");
+	File tempFile = File.createTempFile("provenj", ".jpeg");
 	tempFile.deleteOnExit();
+	outputFileName = tempFile.getCanonicalPath();
 	FileOutputStream outputFile = new FileOutputStream(tempFile.getCanonicalFile());
 
         imageTags = new ImageTags(inputFile,outputFile);
@@ -159,11 +161,10 @@ public class Stepdefs {
 	imageTags.setGUID(UUID.fromString(guid));
     }
 
-    String outputFileName = "";
-
     private String getTag(String tagName) {
         Runtime rt = Runtime.getRuntime();
         String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, outputFileName);
+
 	try {
             Process proc = rt.exec(command);
   
@@ -179,12 +180,13 @@ public class Stepdefs {
 
     @When("^I load the data from the JPEG file returned$")
     public void i_load_the_data_from_the_JPEG_file_returned() throws Throwable {
-        outputFileName = imageTags.getFile().getFD().toString();
+	FileOutputStream outputFile = imageTags.getFile();
+	outputFile.close();
     }
 
     @Then("^Exif\\.BitcoinBlockNumber should match (\\d+)$")
     public void exif_BitcoinBlockNumber_should_match(int blockNumber) throws Throwable {
-        assertEquals(blockNumber, getTag("BitcoinBlockNumber"));
+        assertEquals(Integer.toString(blockNumber), getTag("BitcoinBlockNumber"));
     }
 
     @Then("^Exif\\.BitcoinLastBlockHash should equal \"([^\"]*)\"$")
@@ -194,7 +196,7 @@ public class Stepdefs {
 
     @Then("^Exif\\.EthereumBlockNumber should equal (\\d+)$")
     public void exif_EthereumBlockNumber_should_equal(int blockNumber) throws Throwable {
-        assertEquals(blockNumber, getTag("EthereumBlockNumber"));
+        assertEquals(Integer.toString(blockNumber), getTag("EthereumBlockNumber"));
     }
 
     @Then("^Exif\\.EthereumLastBlockHash should equal \"([^\"]*)\"$")
@@ -204,12 +206,12 @@ public class Stepdefs {
 
     @Then("^Exif\\.ProvenPrevIFPSHandle should equal \"([^\"]*)\"$")
     public void exif_ProvenPrevIFPSHandle_should_equal(String ipfsHash) throws Throwable {
-        assertEquals(ipfsHash, getTag("PreviousIFPSHandle"));
+        assertEquals(ipfsHash, getTag("PreviousIPFSHash"));
     }
 
     @Then("^Exif\\.ProvenFileHashes should equal \"([^\"]*)\"$")
     public void exif_ProvenFileHashes_should_equal(String hashes) throws Throwable {
-        assertEquals(hashes, getTag("ProvenFileHashes"));
+        assertEquals(hashes, getTag("PreviousFileHashes"));
     }
 
     @Then("^Exif\\.ProvenGUID should equal \"([^\"]*)\"$")

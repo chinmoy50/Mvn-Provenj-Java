@@ -50,8 +50,8 @@ public class XmpUtil {
   private static final int XMP_HEADER_SIZE = 29;
   private static final String XMP_HEADER = "http://ns.adobe.com/xap/1.0/\0";
   private static final int MAX_XMP_BUFFER_SIZE = 65502;
-  private static final String PROVEN_NAMESPACE = "http://ns.facted.net/proven/1.0/facted/";
-  private static final String PROVEN_PREFIX = "Proven";
+  public static String PROVEN_NAMESPACE = "http://ns.facted.net/proven/1.0/facted/";
+  public static String PROVEN_PREFIX = "Proven";
   private static final int M_SOI = 0xd8; // File start marker.
   private static final int M_APP1 = 0xe1; // Marker for Exif or XMP.
   private static final int M_SOS = 0xda; // Image data marker.

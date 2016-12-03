@@ -1,8 +1,11 @@
 package provenj;
 
+import com.adobe.internal.xmp.XMPMeta;
+import com.adobe.internal.xmp.XMPException;
 import java.util.UUID;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ImageTags {
     private FileInputStream m_inputFile;
@@ -48,10 +51,24 @@ public class ImageTags {
 	m_guid = guid;
     }
 
-    public FileOutputStream getFile() {
+    public FileOutputStream getFile() throws IOException, XMPException {
 	try {
-            m_outputFile.getFD().sync();
-	} catch (Exception e) { }
+	    XMPMeta meta = XmpUtil.createXMPMeta();
+
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, "BitcoinBlockNumber", m_bitcoinBlockNumber);
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, "BitcoinBlockHash", m_bitcoinBlockHash);
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, "EthereumBlockNumber", m_ethereumBlockNumber);
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, "EthereumBlockHash", m_ethereumBlockHash);
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, "PreviousIPFSHash", m_previousIPFSHash);
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, "PreviousFileHashes", m_previousFileHashes);
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, "GUID", m_guid.toString());
+
+	    XmpUtil.writeXMPMeta(m_inputFile, m_outputFile, meta);
+	}
+       	catch (Exception e)
+       	{
+            throw e;
+	}
         return m_outputFile;
     }
 }
