@@ -37,12 +37,12 @@ import java.util.List;
  * image format, and doesn't support extended xmp now.
  * To use it:
  * XMPMeta xmpMeta = XmpUtil.extractOrCreateXMPMeta(filename);
- * xmpMeta.setProperty(PanoConstants.GOOGLE_PANO_NAMESPACE, "property_name", "value");
+ * xmpMeta.setProperty(PanoConstants.PROVEN_NAMESPACE, "property_name", "value");
  * XmpUtil.writeXMPMeta(filename, xmpMeta);
  *
  * Or if you don't care the existing XMP meta data in image file:
  * XMPMeta xmpMeta = XmpUtil.createXMPMeta();
- * xmpMeta.setPropertyBoolean(PanoConstants.GOOGLE_PANO_NAMESPACE, "bool_property_name", "true");
+ * xmpMeta.setPropertyBoolean(PanoConstants.PROVEN_NAMESPACE, "bool_property_name", "true");
  * XmpUtil.writeXMPMeta(filename, xmpMeta);
  */
 public class XmpUtil {
@@ -50,8 +50,8 @@ public class XmpUtil {
   private static final int XMP_HEADER_SIZE = 29;
   private static final String XMP_HEADER = "http://ns.adobe.com/xap/1.0/\0";
   private static final int MAX_XMP_BUFFER_SIZE = 65502;
-  private static final String GOOGLE_PANO_NAMESPACE = "http://ns.google.com/photos/1.0/panorama/";
-  private static final String PANO_PREFIX = "GPano";
+  private static final String PROVEN_NAMESPACE = "http://ns.facted.net/proven/1.0/facted/";
+  private static final String PROVEN_PREFIX = "Proven";
   private static final int M_SOI = 0xd8; // File start marker.
   private static final int M_APP1 = 0xe1; // Marker for Exif or XMP.
   private static final int M_SOS = 0xda; // Image data marker.
@@ -65,7 +65,7 @@ public class XmpUtil {
   static {
     try {
       XMPMetaFactory.getSchemaRegistry().registerNamespace(
-          GOOGLE_PANO_NAMESPACE, PANO_PREFIX);
+          PROVEN_NAMESPACE, PROVEN_PREFIX);
     } catch (XMPException e) {
       e.printStackTrace();
     }
