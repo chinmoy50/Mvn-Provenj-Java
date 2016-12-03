@@ -66,49 +66,49 @@ public class Stepdefs {
     @Then("^manifest\\.FileName should equal \"([^\"]*)\"$")
     public void manifest_FileName_should_equal(String filename) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(filename,json.get("FileName"));
+        assertEquals(filename,json.get(ProvenLib.PROVEN_FILE_NAME));
     }
 
     @Then("^manifest\\.BitcoinBlockNumber should be (\\d+)$")
     public void manifest_BitcoinBlockNumber_should_be(int bitcoinBlockNumber) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(bitcoinBlockNumber,(int)json.get("BitcoinBlockNumber"));
+        assertEquals(bitcoinBlockNumber,(int)json.get(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER));
     }
 
     @Then("^manifest\\.BitcoinBlockHash should equal \"([^\"]*)\"$")
     public void manifest_BitcoinBlockHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(hash,json.get("BitcoinBlockHash"));
+        assertEquals(hash,json.get(ProvenLib.PROVEN_BITCOIN_BLOCK_HASH));
     }
 
     @Then("^manifest\\.EthereumBlockNumber should equal (\\d+)$")
     public void manifest_EthereumBlockNumber_should_equal(int num) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(num, (int)json.get("EthereumBlockNumber"));
+        assertEquals(num, (int)json.get(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER));
     }
 
     @Then("^manifest\\.EthereumBlockHash should equal \"([^\"]*)\"$")
     public void manifest_EthereumBlockHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(hash,json.get("EthereumBlockHash"));
+        assertEquals(hash,json.get(ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH));
     }
 
     @Then("^manifest\\.PreviousIFPSHash should equal \"([^\"]*)\"$")
     public void manifest_PreviousIFPSHash_should_equal(String hash) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(hash, json.get("PreviousIPFSHash"));
+        assertEquals(hash, json.get(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH));
     }
 
     @Then("^manifest\\.FileHashes should equal \"([^\"]*)\"$")
     public void manifest_FileHashes_should_equal(String hashes) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(hashes, json.get("PreviousFileHashes"));
+        assertEquals(hashes, json.get(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
     }
 
     @Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
     public void manifest_GUID_should_equal(String guid) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(guid, json.get("GUID"));
+        assertEquals(guid, json.get(ProvenLib.PROVEN_GUID));
     }
 
     // Apply Exif to JPEG
@@ -186,37 +186,37 @@ public class Stepdefs {
 
     @Then("^Exif\\.BitcoinBlockNumber should match (\\d+)$")
     public void exif_BitcoinBlockNumber_should_match(int blockNumber) throws Throwable {
-        assertEquals(Integer.toString(blockNumber), getTag("BitcoinBlockNumber"));
+        assertEquals(Integer.toString(blockNumber), getTag(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER));
     }
 
     @Then("^Exif\\.BitcoinLastBlockHash should equal \"([^\"]*)\"$")
     public void exif_BitcoinLastBlockHash_should_equal(String blockHash) throws Throwable {
-        assertEquals(blockHash, getTag("BitcoinBlockHash"));
+        assertEquals(blockHash, getTag(ProvenLib.PROVEN_BITCOIN_BLOCK_HASH));
     }
 
     @Then("^Exif\\.EthereumBlockNumber should equal (\\d+)$")
     public void exif_EthereumBlockNumber_should_equal(int blockNumber) throws Throwable {
-        assertEquals(Integer.toString(blockNumber), getTag("EthereumBlockNumber"));
+        assertEquals(Integer.toString(blockNumber), getTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER));
     }
 
     @Then("^Exif\\.EthereumLastBlockHash should equal \"([^\"]*)\"$")
     public void exif_EthereumLastBlockHash_should_equal(String blockHash) throws Throwable {
-        assertEquals(blockHash, getTag("EthereumBlockHash"));
+        assertEquals(blockHash, getTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH));
     }
 
     @Then("^Exif\\.ProvenPrevIFPSHandle should equal \"([^\"]*)\"$")
     public void exif_ProvenPrevIFPSHandle_should_equal(String ipfsHash) throws Throwable {
-        assertEquals(ipfsHash, getTag("PreviousIPFSHash"));
+        assertEquals(ipfsHash, getTag(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH));
     }
 
     @Then("^Exif\\.ProvenFileHashes should equal \"([^\"]*)\"$")
     public void exif_ProvenFileHashes_should_equal(String hashes) throws Throwable {
-        assertEquals(hashes, getTag("PreviousFileHashes"));
+        assertEquals(hashes, getTag(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
     }
 
     @Then("^Exif\\.ProvenGUID should equal \"([^\"]*)\"$")
     public void exif_ProvenGUID_should_equal(String guid) throws Throwable {
-        assertEquals(guid, getTag("GUID"));
+        assertEquals(guid, getTag(ProvenLib.PROVEN_GUID));
     }
 
 }

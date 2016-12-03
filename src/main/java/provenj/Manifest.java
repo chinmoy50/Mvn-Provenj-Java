@@ -48,14 +48,14 @@ public class Manifest {
     @SuppressWarnings("unchecked") // JSONObject doesn't support parameters to make it generic
     public JSONObject get(){
        JSONObject result = new JSONObject();
-       result.put("FileName", m_filename);
-       result.put("BitcoinBlockNumber", m_bitcoinBlockNumber);
-       result.put("BitcoinBlockHash", m_bitcoinBlockHash);
-       result.put("EthereumBlockNumber", m_ethereumBlockNumber);
-       result.put("EthereumBlockHash", m_ethereumBlockHash);
-       result.put("PreviousIPFSHash", m_previousIPFSHash);
-       result.put("PreviousFileHashes", m_previousFileHashes);
-       result.put("GUID", m_guid.toString());
+       result.put(ProvenLib.PROVEN_FILE_NAME, m_filename);
+       result.put(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER, m_bitcoinBlockNumber);
+       result.put(ProvenLib.PROVEN_BITCOIN_BLOCK_HASH, m_bitcoinBlockHash);
+       result.put(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER, m_ethereumBlockNumber);
+       result.put(ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH, m_ethereumBlockHash);
+       result.put(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH, m_previousIPFSHash);
+       result.put(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES, m_previousFileHashes);
+       result.put(ProvenLib.PROVEN_GUID, m_guid.toString());
        return result;
     }
 }
