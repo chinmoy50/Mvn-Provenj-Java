@@ -1,2 +1,2 @@
 ignore:
-  - "./src/main/java/provenj/XmpUtil.java" # This came from Android Open Source
+  - "src/main/java/provenj/XmpUtil.java" # This came from Android Open Source
