@@ -167,7 +167,7 @@ public class Stepdefs {
 	try {
             Process proc = rt.exec(command);
   
-            BufferedReader stdInput = new BufferedReader(new 
+            BufferedReader stdInput = new BufferedReader(new
                 InputStreamReader(proc.getInputStream()));
 
 	    return stdInput.readLine();

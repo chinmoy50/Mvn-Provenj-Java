@@ -1,3 +1,4 @@
+// Original version 
 // https://android.googlesource.com/platform/packages/apps/Camera2/+/kitkat-cts-release/src/com/android/camera/util/XmpUtil.java
 /*
  * Copyright (C) 2013 The Android Open Source Project
@@ -14,13 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// Further modifications Copyright (C) 2016 "The Partnership"
+// (Ethereum 0x12B0621D90c69867957A836d677C64c46EC4291D)
+package provenj;
 
-package com.android.camera.util;
-import android.util.Log;
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.XMPMetaFactory;
-import com.adobe.xmp.options.SerializeOptions;
+import com.adobe.internal.xmp.XMPException;
+import com.adobe.internal.xmp.XMPMeta;
+import com.adobe.internal.xmp.XMPMetaFactory;
+import com.adobe.internal.xmp.options.SerializeOptions;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -77,13 +79,11 @@ public class XmpUtil {
   public static XMPMeta extractXMPMeta(String filename) {
     if (!filename.toLowerCase().endsWith(".jpg")
         && !filename.toLowerCase().endsWith(".jpeg")) {
-      Log.d(TAG, "XMP parse: only jpeg file is supported");
       return null;
     }
     try {
       return extractXMPMeta(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
-      Log.e(TAG, "Could not read file: " + filename, e);
       return null;
     }
   }
@@ -109,7 +109,6 @@ public class XmpUtil {
           XMPMeta result = XMPMetaFactory.parseFromBuffer(buffer);
           return result;
         } catch (XMPException e) {
-          Log.d(TAG, "XMP parse error", e);
           return null;
         }
       }
@@ -135,7 +134,6 @@ public class XmpUtil {
   public static boolean writeXMPMeta(String filename, XMPMeta meta) {
     if (!filename.toLowerCase().endsWith(".jpg")
         && !filename.toLowerCase().endsWith(".jpeg")) {
-      Log.d(TAG, "XMP parse: only jpeg file is supported");
       return false;
     }
     List<Section> sections = null;
@@ -146,7 +144,6 @@ public class XmpUtil {
         return false;
       }
     } catch (FileNotFoundException e) {
-      Log.e(TAG, "Could not read file: " + filename, e);
       return false;
     }
     FileOutputStream os = null;
@@ -155,7 +152,6 @@ public class XmpUtil {
       os = new FileOutputStream(filename);
       writeJpegFile(os, sections);
     } catch (IOException e) {
-      Log.d(TAG, "Write file failed:" + filename, e);
       return false;
     } finally {
       if (os != null) {
@@ -182,7 +178,6 @@ public class XmpUtil {
       // Overwrite the image file with the new meta data.
       writeJpegFile(outputStream, sections);
     } catch (IOException e) {
-      Log.d(TAG, "Write to stream failed", e);
       return false;
     } finally {
       if (outputStream != null) {
@@ -231,7 +226,6 @@ public class XmpUtil {
       options.setOmitPacketWrapper(true);
       buffer = XMPMetaFactory.serializeToBuffer(meta, options);
     } catch (XMPException e) {
-      Log.d(TAG, "Serialize xmp failed", e);
       return null;
     }
     if (buffer.length > MAX_XMP_BUFFER_SIZE) {
@@ -368,7 +362,6 @@ public class XmpUtil {
       }
       return sections;
     } catch (IOException e) {
-      Log.d(TAG, "Could not parse file.", e);
       return null;
     } finally {
       if (is != null) {
