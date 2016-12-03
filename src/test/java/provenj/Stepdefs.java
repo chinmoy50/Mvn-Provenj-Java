@@ -48,8 +48,8 @@ public class Stepdefs {
 	manifest.setPreviousIPFSHash(ipfsHash);
     }
 
-    @Given("^the other hashes from the last submitted file \"([^\"]*)\"$")
-    public void the_other_hashes_from_the_last_submitted_file(String fileHashes) throws Throwable {
+    @Given("^the other hashes for the file \"([^\"]*)\"$")
+    public void the_other_hashes_for_the_file(String fileHashes) throws Throwable {
 	manifest.setPreviousFileHashes(fileHashes);
     }
 
@@ -99,8 +99,8 @@ public class Stepdefs {
         assertEquals(hash, json.get("PreviousIPFSHash"));
     }
 
-    @Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
-    public void manifest_PreviousFileHashes_should_equal(String hashes) throws Throwable {
+    @Then("^manifest\\.FileHashes should equal \"([^\"]*)\"$")
+    public void manifest_FileHashes_should_equal(String hashes) throws Throwable {
         JSONObject json = manifest.get();
         assertEquals(hashes, json.get("PreviousFileHashes"));
     }
