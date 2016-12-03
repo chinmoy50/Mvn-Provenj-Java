@@ -2,8 +2,8 @@
 Feature: Submit a payload to IPFS
 
 Scenario: User takes a picture we created manifest need to submit to IPFS
-  Given a manifest.json
-    and a payload IMG_00001.jpeg
+  Given a payload IMG_00001.jpeg
+    and a manifest.json
     and an index.html
   When we submit those files to IPFS
   Then they should be stored in IPFS
