@@ -180,8 +180,8 @@ public class Stepdefs {
 
     @When("^I load the data from the JPEG file returned$")
     public void i_load_the_data_from_the_JPEG_file_returned() throws Throwable {
-	FileOutputStream outputFile = imageTags.getFile();
-	outputFile.close();
+        FileOutputStream outputFile = imageTags.getFile();
+        outputFile.close();
     }
 
     @Then("^Exif\\.BitcoinBlockNumber should match (\\d+)$")
