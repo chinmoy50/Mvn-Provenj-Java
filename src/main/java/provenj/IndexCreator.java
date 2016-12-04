@@ -11,8 +11,12 @@ public class IndexCreator {
                    title("Proven")
                ),
                body().with(
-                   main().with(
-                   )
+                       main().with(
+                               a().withHref(String.format("./payload/%s",manifest.getFileName())).with(
+                                       p(manifest.getFileName())
+                               ),
+                               p(manifest.getEthereumBlockHash())
+                       )
                )
            ).render();
        return result;
