@@ -229,11 +229,18 @@ public class Stepdefs {
     }
 
     // Test enclosure creation
+    Enclosure enclosure = null;
 
     @When("^I ask to create an enclosure for an image$")
     public void i_ask_to_create_an_enclosure_for_an_image() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        // create temporary directory for the enclosure
+        // apply the metadata to the images
+        imageTags.copy(metadata);
+        // put image in the enclosure
+        // put the file hash in the manifest
+        // put manifest in the enclosure
+        // put index in the enclosure
+
     }
 
     @Then("^there should exist a directory$")
