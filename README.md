@@ -19,7 +19,10 @@ digital signatures, hashes, and GUID.
 
 `./payload/` contains the actual files being proven.
 
+## Exif/XMP tagging
+This library will tag JPEG images with the Exif/XMP tags standard for Proven verification.  It writes XMP manually to remain pure Java, although [ExifTool](http://www.sno.phy.queensu.ca/~phil/exiftool/) is the clear reference implementation and would have been preferable if it were reliably available for calling on all platforms. Therefore, the tests use Exiftool directly to verify that the tags are written correctly.
+
 ## Building
 
 Ubuntu prerequisites:
-`apt-get install maven`
+`apt-get install maven exiftool`

@@ -11,62 +11,71 @@ public class Manifest {
     private String m_ethereumBlockHash;
     private String m_previousIPFSHash;
     private String m_previousFileHashes;
+    private String m_fileHashes;
     private UUID   m_guid;
 
     public void addFile(String fileName) {
-	m_fileName = fileName;
+        m_fileName = fileName;
     }
 
     public String getFileName() {
-	return m_fileName;
+        return m_fileName;
     }
 
     public void setBitcoinBlockNumber(int blockNumber) {
-	m_bitcoinBlockNumber = blockNumber;
+        m_bitcoinBlockNumber = blockNumber;
     }
 
     public int getBitcoinBlockNumber() {
-	return m_bitcoinBlockNumber;
+        return m_bitcoinBlockNumber;
     }
 
     public void setBitcoinBlockHash(String blockHash) {
-	m_bitcoinBlockHash = blockHash;
+        m_bitcoinBlockHash = blockHash;
     }
 
     public String getBitcoinBlockHash() {
-	return m_bitcoinBlockHash;
+        return m_bitcoinBlockHash;
     }
 
     public void setEthereumBlockNumber(int blockNumber) {
-	m_ethereumBlockNumber = blockNumber;
+        m_ethereumBlockNumber = blockNumber;
     }
 
     public int getEthereumBlockNumber() {
-	return m_ethereumBlockNumber;
+        return m_ethereumBlockNumber;
     }
 
     public void setEthereumBlockHash(String blockHash) {
-	m_ethereumBlockHash = blockHash;
+        m_ethereumBlockHash = blockHash;
     }
 
     public String getEthereumBlockHash() {
-	return m_ethereumBlockHash;
+        return m_ethereumBlockHash;
     }
 
     public void setPreviousIPFSHash(String ipfsHash) {
-	m_previousIPFSHash = ipfsHash;
+        m_previousIPFSHash = ipfsHash;
     }
 
     public String getPreviousIPFSHash() {
-	return m_previousIPFSHash;
+        return m_previousIPFSHash;
     }
 
     public void setPreviousFileHashes(String fileHashes) {
-	m_previousFileHashes = fileHashes;
+        m_previousFileHashes = fileHashes;
     }
 
     public String getPreviousFileHashes() {
-	return m_previousFileHashes;
+        return m_previousFileHashes;
+    }
+
+    public void setFileHashes(String fileHashes) {
+        m_fileHashes = fileHashes;
+    }
+
+    public String getFileHashes() {
+        return m_fileHashes;
     }
 
     public void setGUID(UUID guid) {
@@ -80,14 +89,15 @@ public class Manifest {
     @SuppressWarnings("unchecked") // JSONObject doesn't support parameters to make it generic
     public JSONObject get(){
        JSONObject result = new JSONObject();
-       result.put("FileName", getFileName());
-       result.put("BitcoinBlockNumber", getBitcoinBlockNumber());
-       result.put("BitcoinBlockHash", getBitcoinBlockHash());
-       result.put("EthereumBlockNumber", getEthereumBlockNumber());
-       result.put("EthereumBlockHash", getEthereumBlockHash());
-       result.put("PreviousIPFSHash", getPreviousIPFSHash());
-       result.put("PreviousFileHashes", getPreviousFileHashes());
-       result.put("GUID", getGUID().toString());
+       result.put(ProvenLib.PROVEN_FILE_NAME,             getFileName());
+       result.put(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER,  getBitcoinBlockNumber());
+       result.put(ProvenLib.PROVEN_BITCOIN_BLOCK_HASH,    getBitcoinBlockHash());
+       result.put(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER, getEthereumBlockNumber());
+       result.put(ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH,   getEthereumBlockHash());
+       result.put(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,    getPreviousIPFSHash());
+       result.put(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,  getPreviousFileHashes());
+       result.put(ProvenLib.PROVEN_FILE_HASHES,           getFileHashes());
+       result.put(ProvenLib.PROVEN_GUID,                  getGUID().toString());
        return result;
     }
 }

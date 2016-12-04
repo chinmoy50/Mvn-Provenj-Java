@@ -1,0 +1,8 @@
+codecov:
+  branch: master
+coverage:
+  precision: 1
+  round: up
+  range: 55...100
+  ignore:
+    -  "src/main/java/provenj/XmpU*.java"
