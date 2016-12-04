@@ -67,7 +67,6 @@ public class XmpUtil {
       XMPMetaFactory.getSchemaRegistry().registerNamespace(
           PROVEN_NAMESPACE, PROVEN_PREFIX);
     } catch (XMPException e) {
-      e.printStackTrace();
     }
   }
   /**

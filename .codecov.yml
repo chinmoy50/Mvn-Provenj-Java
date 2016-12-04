@@ -5,4 +5,4 @@ coverage:
   round: up
   range: 55...100
   ignore:
-    -  "src/main/java/provenj/XmpU*.java"
+    - src/main/java/provenj/XmpUtil.java
