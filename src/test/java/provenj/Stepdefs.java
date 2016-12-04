@@ -21,33 +21,33 @@ public class Stepdefs {
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
     public void a_JPEG_file_named(String fileName) throws Throwable {
-	manifest.addFile(fileName);
+        manifest.addFile(fileName);
         m_fileName = fileName;
     }
 
     @Given("^the current Bitcoin block number (\\d+)$")
     public void the_current_Bitcoin_block_number(int blockNumber) throws Throwable {
-	manifest.setBitcoinBlockNumber(blockNumber);
+        manifest.setBitcoinBlockNumber(blockNumber);
     }
 
     @Given("^the current Bitcoin block hash \"([^\"]*)\"$")
     public void the_current_Bitcoin_block_hash(String blockHash) throws Throwable {
-	manifest.setBitcoinBlockHash(blockHash);
+        manifest.setBitcoinBlockHash(blockHash);
     }
 
     @Given("^the current Ethereum block number (\\d+)$")
     public void the_current_Ethereum_block_number(int blockNumber) throws Throwable {
-	manifest.setEthereumBlockNumber(blockNumber);
+        manifest.setEthereumBlockNumber(blockNumber);
     }
 
     @Given("^the current Ethereum block hash \"([^\"]*)\"$")
     public void the_current_Ethereum_block_hash(String blockHash) throws Throwable {
-	manifest.setEthereumBlockHash(blockHash);
+        manifest.setEthereumBlockHash(blockHash);
     }
 
     @Given("^the IPFS hash from the last submitted file \"([^\"]*)\"$")
     public void the_IPFS_hash_from_the_last_submitted_file(String ipfsHash) throws Throwable {
-	manifest.setPreviousIPFSHash(ipfsHash);
+        manifest.setPreviousIPFSHash(ipfsHash);
     }
 
     @Given("^the hashes for the last submitted file \"([^\"]*)\"$")
@@ -62,12 +62,12 @@ public class Stepdefs {
 
     @Given("^the other hashes for the file \"([^\"]*)\"$")
     public void the_other_hashes_for_the_file(String fileHashes) throws Throwable {
-	manifest.setFileHashes(fileHashes);
+        manifest.setFileHashes(fileHashes);
     }
 
     @Given("^the GUID for the submission \"([^\"]*)\"$")
     public void the_GUID_for_the_submission(String guid) throws Throwable {
-	manifest.setGUID(UUID.fromString(guid));
+        manifest.setGUID(UUID.fromString(guid));
     }
 
     @When("^I ask for a manifest file$")
@@ -135,65 +135,65 @@ public class Stepdefs {
 
     @Given("^a JPEG file \"([^\"]*)\"$")
     public void a_JPEG_file(String fileName) throws Throwable {
-	FileInputStream inputFile = new FileInputStream(fileName);
-	File tempFile = File.createTempFile("provenj", ".jpeg");
-	tempFile.deleteOnExit();
-	outputFileName = tempFile.getCanonicalPath();
-	FileOutputStream outputFile = new FileOutputStream(tempFile.getCanonicalFile());
+        FileInputStream inputFile = new FileInputStream(fileName);
+        File tempFile = File.createTempFile("provenj", ".jpeg");
+        tempFile.deleteOnExit();
+        outputFileName = tempFile.getCanonicalPath();
+        FileOutputStream outputFile = new FileOutputStream(tempFile.getCanonicalFile());
 
         imageTags = new ImageTags(inputFile,outputFile);
     }
 
     @Given("^the Bitcoin block number (\\d+)$")
     public void the_Bitcoin_block_number(int blockNumber) throws Throwable {
-	imageTags.setBitcoinBlockNumber(blockNumber);
+        imageTags.setBitcoinBlockNumber(blockNumber);
     }
 
     @Given("^the Bitcoin block hash \"([^\"]*)\"$")
     public void the_Bitcoin_block_hash(String blockHash) throws Throwable {
-	imageTags.setBitcoinBlockHash(blockHash);
+        imageTags.setBitcoinBlockHash(blockHash);
     }
 
     @Given("^the Ethereum block number (\\d+)$")
     public void the_Ethereum_block_number(int blockNumber) throws Throwable {
-	imageTags.setEthereumBlockNumber(blockNumber);
+        imageTags.setEthereumBlockNumber(blockNumber);
     }
 
     @Given("^the Ethereum block hash \"([^\"]*)\"$")
     public void the_Ethereum_block_hash(String blockHash) throws Throwable {
-	imageTags.setEthereumBlockHash(blockHash);
+        imageTags.setEthereumBlockHash(blockHash);
     }
 
     @Given("^the IPFS hash from the last file \"([^\"]*)\"$")
     public void the_IPFS_hash_from_the_last_file(String ipfsHash) throws Throwable {
-	imageTags.setPreviousIPFSHash(ipfsHash);
+        imageTags.setPreviousIPFSHash(ipfsHash);
     }
 
     @Given("^the other hashes from the last file \"([^\"]*)\"$")
     public void the_other_hashes_from_the_last_file(String otherHashes) throws Throwable {
-	imageTags.setPreviousFileHashes(otherHashes);
+        imageTags.setPreviousFileHashes(otherHashes);
     }
 
     @Given("^the GUID \"([^\"]*)\"$")
     public void the_GUID(String guid) throws Throwable {
-	imageTags.setGUID(UUID.fromString(guid));
+        imageTags.setGUID(UUID.fromString(guid));
     }
 
     private String getTag(String tagName) {
         Runtime rt = Runtime.getRuntime();
         String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, outputFileName);
 
-	try {
+        try {
             Process proc = rt.exec(command);
-  
-            BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(proc.getInputStream()));
 
-	    return stdInput.readLine();
-	}
-	catch (Exception e) {
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(proc.getInputStream()));
+
+            return stdInput.readLine();
+        }
+        catch (Exception e) {
             return "";
-	}
+        }
     }
 
     @When("^I load the data from the JPEG file returned$")
