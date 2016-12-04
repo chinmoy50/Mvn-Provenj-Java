@@ -12,10 +12,12 @@ public class Stepdefs {
 
     // Build manifest
     Manifest manifest = new Manifest();
+    String m_fileName;
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
-    public void a_JPEG_file_named(String filename) throws Throwable {
-	manifest.addFile(filename);
+    public void a_JPEG_file_named(String fileName) throws Throwable {
+	manifest.addFile(fileName);
+        m_fileName = fileName;
     }
 
     @Given("^the current Bitcoin block number (\\d+)$")
@@ -104,5 +106,28 @@ public class Stepdefs {
     public void manifest_GUID_should_equal(String guid) throws Throwable {
         JSONObject json = manifest.get();
         assertEquals(json.get("GUID"),guid);
+    }
+
+    String index;
+
+    @When("^I create an index$")
+    public void i_create_an_index() throws Throwable {
+        index = IndexCreator.create(manifest);
+        assert(index.matches("^<html>.*</html>$"));
+    }
+
+    @Then("^the output file should list the file name$")
+    public void the_output_file_should_list_the_file_name() throws Throwable {
+        assert(index.matches(String.format("^.*%s.*$", m_fileName)));
+    }
+
+    @Then("^the output file should have a static link to the file$")
+    public void the_output_file_should_have_a_static_link_to_the_file() throws Throwable {
+        assert(index.matches(String.format("^.*a href.*%s.*$",m_fileName)));
+    }
+
+    @Then("^the output file should include the last Ethereum hash$")
+    public void the_output_file_should_include_the_hash_information_for_the_file() throws Throwable {
+        assert(index.matches(String.format("^.*%s.*$",manifest.get().get("EthereumBlockHash"))));
     }
 }
