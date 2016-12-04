@@ -79,11 +79,11 @@ public class Manifest {
     }
 
     public void setGUID(UUID guid) {
-	m_guid = guid;
+        m_guid = guid;
     }
 
     public UUID getGUID() {
-	return m_guid;
+        return m_guid;
     }
 
     @SuppressWarnings("unchecked") // JSONObject doesn't support parameters to make it generic
