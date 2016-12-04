@@ -237,11 +237,14 @@ public class Stepdefs {
         assertEquals(guid, getTag(ProvenLib.PROVEN_GUID));
     }
 
+    IndexCreator indexCreator;
     String index;
+
 
     @When("^I create an index$")
     public void i_create_an_index() throws Throwable {
-        index = IndexCreator.create(manifest);
+        indexCreator = new IndexCreator(manifest);
+        index = indexCreator.toString();
         assert(index.matches("^<html>.*</html>$"));
     }
 
