@@ -44,6 +44,12 @@
             <artifactId>xmpcore</artifactId>
             <version>6.1.10</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.j2html</groupId>
+            <artifactId>j2html</artifactId>
+            <version>0.7</version>
+        </dependency>
     </dependencies>
 
     <build>

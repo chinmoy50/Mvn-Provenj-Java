@@ -17,10 +17,12 @@ public class Stepdefs {
 
     // Build manifest
     Manifest manifest = new Manifest();
+    String m_fileName;
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
-    public void a_JPEG_file_named(String filename) throws Throwable {
-	manifest.addFile(filename);
+    public void a_JPEG_file_named(String fileName) throws Throwable {
+	manifest.addFile(fileName);
+        m_fileName = fileName;
     }
 
     @Given("^the current Bitcoin block number (\\d+)$")
@@ -48,9 +50,19 @@ public class Stepdefs {
 	manifest.setPreviousIPFSHash(ipfsHash);
     }
 
+    @Given("^the hashes for the last submitted file \"([^\"]*)\"$")
+    public void the_hashes_for_the_last_submitted_file(String fileHashes) throws Throwable {
+        manifest.setPreviousFileHashes(fileHashes);
+    }
+
+    @Given("^the hashes for the file \"([^\"]*)\"$")
+    public void the_hashes_for_the_file(String fileHashes) throws Throwable {
+        manifest.setFileHashes(fileHashes);
+    }
+
     @Given("^the other hashes for the file \"([^\"]*)\"$")
     public void the_other_hashes_for_the_file(String fileHashes) throws Throwable {
-	manifest.setPreviousFileHashes(fileHashes);
+	manifest.setFileHashes(fileHashes);
     }
 
     @Given("^the GUID for the submission \"([^\"]*)\"$")
@@ -99,10 +111,16 @@ public class Stepdefs {
         assertEquals(hash, json.get(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH));
     }
 
+    @Then("^manifest\\.PreviousFileHashes should equal \"([^\"]*)\"$")
+    public void manifest_PreviousFileHashes_should_equal(String hashes) throws Throwable {
+        JSONObject json = manifest.get();
+        assertEquals(hashes, json.get(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
+    }
+
     @Then("^manifest\\.FileHashes should equal \"([^\"]*)\"$")
     public void manifest_FileHashes_should_equal(String hashes) throws Throwable {
         JSONObject json = manifest.get();
-        assertEquals(hashes, json.get(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
+        assertEquals(hashes, json.get(ProvenLib.PROVEN_FILE_HASHES));
     }
 
     @Then("^manifest\\.GUID should equal \"([^\"]*)\"$")
@@ -219,4 +237,26 @@ public class Stepdefs {
         assertEquals(guid, getTag(ProvenLib.PROVEN_GUID));
     }
 
+    String index;
+
+    @When("^I create an index$")
+    public void i_create_an_index() throws Throwable {
+        index = IndexCreator.create(manifest);
+        assert(index.matches("^<html>.*</html>$"));
+    }
+
+    @Then("^the output file should list the file name$")
+    public void the_output_file_should_list_the_file_name() throws Throwable {
+        assert(index.matches(String.format("^.*%s.*$", m_fileName)));
+    }
+
+    @Then("^the output file should have a static link to the file$")
+    public void the_output_file_should_have_a_static_link_to_the_file() throws Throwable {
+        assert(index.matches(String.format("^.*a href.*%s.*$",m_fileName)));
+    }
+
+    @Then("^the output file should include the last Ethereum hash$")
+    public void the_output_file_should_include_the_hash_information_for_the_file() throws Throwable {
+        assert(index.matches(String.format("^.*%s.*$",manifest.get().get("EthereumBlockHash"))));
+    }
 }
