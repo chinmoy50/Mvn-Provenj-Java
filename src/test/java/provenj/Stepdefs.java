@@ -15,6 +15,8 @@ import static org.junit.Assert.assertEquals;
 
 public class Stepdefs {
 
+    Metadata metadata = new Metadata();
+
     // Build manifest
     Manifest manifest = new Manifest();
     String m_fileName;
@@ -25,53 +27,14 @@ public class Stepdefs {
         m_fileName = fileName;
     }
 
-    @Given("^the current Bitcoin block number (\\d+)$")
-    public void the_current_Bitcoin_block_number(int blockNumber) throws Throwable {
-        manifest.setBitcoinBlockNumber(blockNumber);
-    }
-
-    @Given("^the current Bitcoin block hash \"([^\"]*)\"$")
-    public void the_current_Bitcoin_block_hash(String blockHash) throws Throwable {
-        manifest.setBitcoinBlockHash(blockHash);
-    }
-
-    @Given("^the current Ethereum block number (\\d+)$")
-    public void the_current_Ethereum_block_number(int blockNumber) throws Throwable {
-        manifest.setEthereumBlockNumber(blockNumber);
-    }
-
-    @Given("^the current Ethereum block hash \"([^\"]*)\"$")
-    public void the_current_Ethereum_block_hash(String blockHash) throws Throwable {
-        manifest.setEthereumBlockHash(blockHash);
-    }
-
-    @Given("^the IPFS hash from the last submitted file \"([^\"]*)\"$")
-    public void the_IPFS_hash_from_the_last_submitted_file(String ipfsHash) throws Throwable {
-        manifest.setPreviousIPFSHash(ipfsHash);
-    }
-
-    @Given("^the hashes for the last submitted file \"([^\"]*)\"$")
-    public void the_hashes_for_the_last_submitted_file(String fileHashes) throws Throwable {
-        manifest.setPreviousFileHashes(fileHashes);
-    }
-
     @Given("^the hashes for the file \"([^\"]*)\"$")
     public void the_hashes_for_the_file(String fileHashes) throws Throwable {
         manifest.setFileHashes(fileHashes);
     }
 
-    @Given("^the other hashes for the file \"([^\"]*)\"$")
-    public void the_other_hashes_for_the_file(String fileHashes) throws Throwable {
-        manifest.setFileHashes(fileHashes);
-    }
-
-    @Given("^the GUID for the submission \"([^\"]*)\"$")
-    public void the_GUID_for_the_submission(String guid) throws Throwable {
-        manifest.setGUID(UUID.fromString(guid));
-    }
-
     @When("^I ask for a manifest file$")
     public void i_ask_for_a_manifest_file() throws Throwable {
+        manifest.copy(metadata);
         JSONObject json = manifest.get();
     }
 
@@ -146,37 +109,37 @@ public class Stepdefs {
 
     @Given("^the Bitcoin block number (\\d+)$")
     public void the_Bitcoin_block_number(int blockNumber) throws Throwable {
-        imageTags.setBitcoinBlockNumber(blockNumber);
+        metadata.setBitcoinBlockNumber(blockNumber);
     }
 
     @Given("^the Bitcoin block hash \"([^\"]*)\"$")
     public void the_Bitcoin_block_hash(String blockHash) throws Throwable {
-        imageTags.setBitcoinBlockHash(blockHash);
+        metadata.setBitcoinBlockHash(blockHash);
     }
 
     @Given("^the Ethereum block number (\\d+)$")
     public void the_Ethereum_block_number(int blockNumber) throws Throwable {
-        imageTags.setEthereumBlockNumber(blockNumber);
+        metadata.setEthereumBlockNumber(blockNumber);
     }
 
     @Given("^the Ethereum block hash \"([^\"]*)\"$")
     public void the_Ethereum_block_hash(String blockHash) throws Throwable {
-        imageTags.setEthereumBlockHash(blockHash);
+        metadata.setEthereumBlockHash(blockHash);
     }
 
     @Given("^the IPFS hash from the last file \"([^\"]*)\"$")
     public void the_IPFS_hash_from_the_last_file(String ipfsHash) throws Throwable {
-        imageTags.setPreviousIPFSHash(ipfsHash);
+        metadata.setPreviousIPFSHash(ipfsHash);
     }
 
-    @Given("^the other hashes from the last file \"([^\"]*)\"$")
-    public void the_other_hashes_from_the_last_file(String otherHashes) throws Throwable {
-        imageTags.setPreviousFileHashes(otherHashes);
+    @Given("^the hashes from the last file \"([^\"]*)\"$")
+    public void the_hashes_from_the_last_file(String previousFileHashes) throws Throwable {
+        metadata.setPreviousFileHashes(previousFileHashes);
     }
 
     @Given("^the GUID \"([^\"]*)\"$")
     public void the_GUID(String guid) throws Throwable {
-        imageTags.setGUID(UUID.fromString(guid));
+        metadata.setGUID(UUID.fromString(guid));
     }
 
     private String getTag(String tagName) {
@@ -198,6 +161,7 @@ public class Stepdefs {
 
     @When("^I load the data from the JPEG file returned$")
     public void i_load_the_data_from_the_JPEG_file_returned() throws Throwable {
+        imageTags.copy(metadata);
         FileOutputStream outputFile = imageTags.getFile();
         outputFile.close();
     }
@@ -243,6 +207,7 @@ public class Stepdefs {
 
     @When("^I create an index$")
     public void i_create_an_index() throws Throwable {
+        manifest.copy(metadata);
         indexCreator = new IndexCreator(manifest);
         index = indexCreator.toString();
         assert(index.matches("^<html>.*</html>$"));
@@ -261,5 +226,55 @@ public class Stepdefs {
     @Then("^the output file should include the last Ethereum hash$")
     public void the_output_file_should_include_the_hash_information_for_the_file() throws Throwable {
         assert(index.matches(String.format("^.*%s.*$",manifest.get().get("EthereumBlockHash"))));
+    }
+
+    // Test enclosure creation
+
+    @When("^I ask to create an enclosure for an image$")
+    public void i_ask_to_create_an_enclosure_for_an_image() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^there should exist a directory$")
+    public void there_should_exist_a_directory() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^it should contain a manifest$")
+    public void it_should_contain_a_manifest() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^it should contain an index$")
+    public void it_should_contain_an_index() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^it should contain in the payload directory the file \"([^\"]*)\"$")
+    public void it_should_contain_in_the_payload_directory_the_file(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^the image should contain the Ethereum block number (\\d+)$")
+    public void the_image_should_contain_the_Ethereum_block_number(int arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^the manifest\\.GUID should equal \"([^\"]*)\"$")
+    public void the_manifest_GUID_should_equal(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^the File Hashes of the image should match the File Hashes in the manifest$")
+    public void the_File_Hashes_of_the_image_should_match_the_File_Hashes_in_the_manifest() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }

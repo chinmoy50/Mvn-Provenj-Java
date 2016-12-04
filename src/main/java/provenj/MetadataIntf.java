@@ -18,4 +18,5 @@ public interface MetadataIntf {
     public void setPreviousFileHashes(String fileHashes);
     public UUID getGUID();
     public void setGUID(UUID guid);
+    public Metadata copy(Metadata metadata);
 }
