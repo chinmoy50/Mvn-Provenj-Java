@@ -16,30 +16,17 @@ public class Metadata implements MetadataIntf {
     protected UUID   m_guid;
 
     public int    getBitcoinBlockNumber() { return m_bitcoinBlockNumber; }
-    public void   setBitcoinBlockNumber(int blockNumber) {
-        m_bitcoinBlockNumber = blockNumber;
-    }
+    public void   setBitcoinBlockNumber(int blockNumber) { m_bitcoinBlockNumber = blockNumber; }
     public String getBitcoinBlockHash() { return m_bitcoinBlockHash; }
-    public void   setBitcoinBlockHash(String blockHash) {
-        m_bitcoinBlockHash = blockHash;
-    }
+    public void   setBitcoinBlockHash(String blockHash) { m_bitcoinBlockHash = blockHash; }
     public int    getEthereumBlockNumber() { return m_ethereumBlockNumber; }
-    public void   setEthereumBlockNumber(int blockNumber) {
-        m_ethereumBlockNumber = blockNumber;
-    }
+    public void   setEthereumBlockNumber(int blockNumber) { m_ethereumBlockNumber = blockNumber; }
     public String getEthereumBlockHash() { return m_ethereumBlockHash; }
     public void   setEthereumBlockHash(String blockHash) { m_ethereumBlockHash = blockHash; }
     public String getPreviousIPFSHash() { return m_previousIPFSHash; }
-    public void   setPreviousIPFSHash(String ipfsHash) {
-        m_previousIPFSHash = ipfsHash;
-    }
+    public void   setPreviousIPFSHash(String ipfsHash) { m_previousIPFSHash = ipfsHash; }
     public String getPreviousFileHashes() { return m_previousFileHashes; }
-    public void   setPreviousFileHashes(String fileHashes) {
-        m_previousFileHashes = fileHashes;
-    }
+    public void   setPreviousFileHashes(String fileHashes) { m_previousFileHashes = fileHashes; }
     public UUID   getGUID() { return m_guid; }
-    public void   setGUID(UUID guid) {
-        m_guid = guid;
-    }
-
+    public void   setGUID(UUID guid) { m_guid = guid; }
 }
