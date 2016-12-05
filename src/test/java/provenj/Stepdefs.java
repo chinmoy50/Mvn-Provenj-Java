@@ -7,11 +7,15 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -19,6 +23,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import java.nio.file.Path;
@@ -158,7 +163,11 @@ public class Stepdefs {
         metadata.setGUID(UUID.fromString(guid));
     }
 
-    private String getTag(String tagName) {
+    private String getTag(String tagName){
+        return getTag(tagName, tempOutputFilePath);
+    }
+
+    private String getTag(String tagName, Path filePath) {
         Runtime rt = Runtime.getRuntime();
         String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, tempOutputFilePath.toString());
 
@@ -220,7 +229,6 @@ public class Stepdefs {
     IndexCreator indexCreator;
     String index;
 
-
     @When("^I create an index$")
     public void i_create_an_index() throws Throwable {
         manifest.copy(metadata);
@@ -242,6 +250,16 @@ public class Stepdefs {
     @Then("^the output file should include the last Ethereum hash$")
     public void the_output_file_should_include_the_hash_information_for_the_file() throws Throwable {
         assert(index.matches(String.format("^.*%s.*$",manifest.get().get("EthereumBlockHash"))));
+    }
+
+    protected String calculateFileHash(Path path) throws FileNotFoundException, NoSuchAlgorithmException, IOException {
+        FileInputStream stream = new FileInputStream(path.toString());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
+        DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
+        ByteStreams.copy(stream, dos);
+        dos.close();
+        return DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
+
     }
 
     // Test enclosure creation
@@ -296,43 +314,45 @@ public class Stepdefs {
 
     @Then("^there should exist a directory$")
     public void there_should_exist_a_directory() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assert(Files.isDirectory(enclosure.getPath("")));
     }
 
     @Then("^it should contain a manifest$")
     public void it_should_contain_a_manifest() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assert(Files.exists(enclosure.getPath(ProvenLib.PROVEN_MANIFEST)));
     }
 
     @Then("^it should contain an index$")
     public void it_should_contain_an_index() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assert(Files.exists(enclosure.getPath(ProvenLib.PROVEN_INDEX)));
     }
 
     @Then("^it should contain in the payload directory the file \"([^\"]*)\"$")
-    public void it_should_contain_in_the_payload_directory_the_file(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void it_should_contain_in_the_payload_directory_the_file(String fileName) throws Throwable {
+        assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(),fileName)));
     }
 
     @Then("^the image should contain the Ethereum block number (\\d+)$")
-    public void the_image_should_contain_the_Ethereum_block_number(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void the_image_should_contain_the_Ethereum_block_number(int blockNumber) throws Throwable {
+        assertEquals(Integer.toString(blockNumber),
+                     getTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
+                            Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(),
+                                                        manifest.getFileName())));
     }
 
+    JSONObject finalJson = null;
+
     @Then("^the manifest\\.GUID should equal \"([^\"]*)\"$")
-    public void the_manifest_GUID_should_equal(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void the_manifest_GUID_should_equal(String guid) throws Throwable {
+        String json = new String(Files.readAllBytes(enclosure.getPath(ProvenLib.PROVEN_MANIFEST)));
+        JSONParser parser = new JSONParser();
+        finalJson = (JSONObject) parser.parse(json);
+        assertEquals(guid,finalJson.get(ProvenLib.PROVEN_GUID));
     }
 
     @Then("^the File Hashes of the image should match the File Hashes in the manifest$")
     public void the_File_Hashes_of_the_image_should_match_the_File_Hashes_in_the_manifest() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
+        assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),"xxx");
     }
 }
