@@ -20,20 +20,18 @@ public class IndexCreator {
     }
 
     public String toString() {
-        String result =
-                html().with(
-                        head().with(
-                                title("Proven")
-                        ),
-                        body().with(
-                                main().with(
-                                        a().withHref(String.format("./payload/%s", getManifest().getFileName())).with(
-                                                p(getManifest().getFileName())
-                                        ),
-                                        p(getManifest().getEthereumBlockHash())
-                                )
+        return html().with(
+                head().with(
+                        title("Proven")
+                ),
+                body().with(
+                        main().with(
+                                a().withHref(String.format("./payload/%s", getManifest().getFileName())).with(
+                                        p(getManifest().getFileName())
+                                ),
+                                p(getManifest().getEthereumBlockHash())
                         )
-                ).render();
-        return result;
+                )
+        ).render();
     }
 }

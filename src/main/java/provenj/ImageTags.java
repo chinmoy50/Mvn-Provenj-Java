@@ -2,7 +2,6 @@ package provenj;
 
 import com.adobe.internal.xmp.XMPMeta;
 import com.adobe.internal.xmp.XMPException;
-import java.util.UUID;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class ImageTags extends Metadata {
         m_outputFile = outputFile;
     }
 
-    public FileOutputStream getFile() throws IOException, XMPException {
+    public FileOutputStream getFile() throws XMPException {
         XMPMeta meta = XmpUtil.createXMPMeta();
 
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER, m_bitcoinBlockNumber);

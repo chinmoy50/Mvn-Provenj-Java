@@ -1,6 +1,5 @@
 package provenj;
 
-import java.util.UUID;
 import org.json.simple.JSONObject;
 
 public class Manifest extends Metadata {

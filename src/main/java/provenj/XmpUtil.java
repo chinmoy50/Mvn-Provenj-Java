@@ -67,6 +67,7 @@ public class XmpUtil {
       XMPMetaFactory.getSchemaRegistry().registerNamespace(
           PROVEN_NAMESPACE, PROVEN_PREFIX);
     } catch (XMPException e) {
+      // don't log
     }
   }
   /**
@@ -105,8 +106,7 @@ public class XmpUtil {
         System.arraycopy(
             section.data, XMP_HEADER_SIZE, buffer, 0, buffer.length);
         try {
-          XMPMeta result = XMPMetaFactory.parseFromBuffer(buffer);
-          return result;
+          return XMPMetaFactory.parseFromBuffer(buffer);
         } catch (XMPException e) {
           return null;
         }
