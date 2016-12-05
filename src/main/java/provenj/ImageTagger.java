@@ -6,11 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 // Applies XMP tags to a JPEG image
-public class ImageTags extends Metadata {
+public class ImageTagger extends Metadata {
     private FileInputStream m_inputFile;
     private FileOutputStream m_outputFile;
 
-    public ImageTags(FileInputStream inputFile, FileOutputStream outputFile) {
+    public ImageTagger(FileInputStream inputFile, FileOutputStream outputFile) {
         m_inputFile = inputFile;
         m_outputFile = outputFile;
     }

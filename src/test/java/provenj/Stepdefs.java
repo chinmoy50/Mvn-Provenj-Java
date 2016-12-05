@@ -113,7 +113,7 @@ public class Stepdefs {
     }
 
     // Apply Exif to JPEG
-    ImageTags imageTags = null;
+    ImageTagger imageTagger = null;
     Path tempOutputFilePath = null;
 
     @Given("^a JPEG file \"([^\"]*)\"$")
@@ -126,7 +126,7 @@ public class Stepdefs {
         tempOutputFilePath = tempOutputFile.toPath();
         FileOutputStream outputFile = new FileOutputStream(tempOutputFile.getCanonicalFile());
 
-        imageTags = new ImageTags(inputFile,outputFile);
+        imageTagger = new ImageTagger(inputFile,outputFile);
     }
 
     @Given("^the Bitcoin block number (\\d+)$")
@@ -187,8 +187,8 @@ public class Stepdefs {
 
     @When("^I load the data from the JPEG file returned$")
     public void i_load_the_data_from_the_JPEG_file_returned() throws Throwable {
-        imageTags.copy(metadata);
-        FileOutputStream outputFile = imageTags.getFile();
+        imageTagger.copy(metadata);
+        FileOutputStream outputFile = imageTagger.getFile();
         outputFile.close();
     }
 
@@ -275,10 +275,10 @@ public class Stepdefs {
         manifest.copy(metadata);
 
         // apply the metadata to the images
-        imageTags.copy(metadata);
+        imageTagger.copy(metadata);
 
         // Grab the image we've tagged
-        FileOutputStream outputFile = imageTags.getFile();
+        FileOutputStream outputFile = imageTagger.getFile();
         outputFile.close();
 
         // put the file in the enclosure
