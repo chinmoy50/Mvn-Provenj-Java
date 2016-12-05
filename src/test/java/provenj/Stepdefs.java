@@ -1,16 +1,31 @@
 package provenj;
 
+import com.google.common.io.ByteStreams;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.PendingException;
 import org.json.simple.JSONObject;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.security.DigestInputStream;
+import java.security.DigestOutputStream;
+import java.security.MessageDigest;
 import java.util.UUID;
+
+import java.nio.file.Path;
+
+import javax.xml.bind.DatatypeConverter;
+
 import static org.junit.Assert.assertEquals;
 
 public class Stepdefs {
@@ -23,7 +38,7 @@ public class Stepdefs {
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
     public void a_JPEG_file_named(String fileName) throws Throwable {
-        manifest.addFile(fileName);
+        manifest.setFileName(fileName);
         m_fileName = fileName;
     }
 
@@ -94,15 +109,18 @@ public class Stepdefs {
 
     // Apply Exif to JPEG
     ImageTags imageTags = null;
-    String outputFileName = "";
+    String outputFilePath = "";
+    File tempOutputFile = null;
 
     @Given("^a JPEG file \"([^\"]*)\"$")
-    public void a_JPEG_file(String fileName) throws Throwable {
-        FileInputStream inputFile = new FileInputStream(fileName);
-        File tempFile = File.createTempFile("provenj", ".jpeg");
-        tempFile.deleteOnExit();
-        outputFileName = tempFile.getCanonicalPath();
-        FileOutputStream outputFile = new FileOutputStream(tempFile.getCanonicalFile());
+    public void a_JPEG_file(String inputFilePath) throws Throwable {
+        File file = new File(inputFilePath);
+        manifest.setFileName(file.getName());
+        FileInputStream inputFile = new FileInputStream(file);
+        tempOutputFile = File.createTempFile("provenj", ".jpeg");
+        tempOutputFile.deleteOnExit();
+        outputFilePath = tempOutputFile.getCanonicalPath();
+        FileOutputStream outputFile = new FileOutputStream(tempOutputFile.getCanonicalFile());
 
         imageTags = new ImageTags(inputFile,outputFile);
     }
@@ -144,7 +162,7 @@ public class Stepdefs {
 
     private String getTag(String tagName) {
         Runtime rt = Runtime.getRuntime();
-        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, outputFileName);
+        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, outputFilePath);
 
         try {
             Process proc = rt.exec(command);
@@ -234,13 +252,48 @@ public class Stepdefs {
     @When("^I ask to create an enclosure for an image$")
     public void i_ask_to_create_an_enclosure_for_an_image() throws Throwable {
         // create temporary directory for the enclosure
+        enclosure = new Enclosure();
+
+        // apply the metadata to the manifest
+        manifest.copy(metadata);
+
         // apply the metadata to the images
         imageTags.copy(metadata);
-        // put image in the enclosure
-        // put the file hash in the manifest
-        // put manifest in the enclosure
-        // put index in the enclosure
 
+        // Grab the image we've tagged
+        FileOutputStream outputFile = imageTags.getFile();
+        outputFile.close();
+
+        // open the created file to calculate the hash
+        FileInputStream finalOutputFile = new FileInputStream(outputFilePath);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
+        DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
+        ByteStreams.copy(finalOutputFile, dos);
+        dos.close();
+
+        // put the file in the enclosure
+        Path finalOutputFilePath = Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(), manifest.getFileName());
+        Files.copy(tempOutputFile.toPath(),finalOutputFilePath);
+
+        System.out.println();
+        System.out.println();
+        System.out.println(finalOutputFilePath);
+        System.out.println();
+        System.out.println();
+
+        // put the file hash in the manifest
+        String hash = DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
+        manifest.setFileHashes(hash);
+
+        // put manifest in the enclosure
+        Path manifestFilePath = enclosure.getPath(ProvenLib.PROVEN_MANIFEST);
+        Files.write(manifestFilePath, manifest.get().toJSONString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
+
+        // put index in the enclosure
+        Path indexFilePath = enclosure.getPath(ProvenLib.PROVEN_INDEX);
+        indexCreator = new IndexCreator(manifest);
+        index = indexCreator.toString();
+        Files.write(indexFilePath, indexCreator.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
     }
 
     @Then("^there should exist a directory$")
