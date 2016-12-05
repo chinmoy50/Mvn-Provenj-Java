@@ -280,13 +280,6 @@ public class Stepdefs {
         FileOutputStream outputFile = imageTags.getFile();
         outputFile.close();
 
-        // open the created file to calculate the hash
-        FileInputStream finalOutputFile = new FileInputStream(tempOutputFilePath.toString());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
-        DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
-        ByteStreams.copy(finalOutputFile, dos);
-        dos.close();
-
         // put the file in the enclosure
         Path finalOutputFilePath = Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(), manifest.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
@@ -298,8 +291,7 @@ public class Stepdefs {
         System.out.println();
 
         // put the file hash in the manifest
-        String hash = DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
-        manifest.setFileHashes(hash);
+        manifest.setFileHashes(calculateFileHash(tempOutputFilePath));
 
         // put manifest in the enclosure
         Path manifestFilePath = enclosure.getPath(ProvenLib.PROVEN_MANIFEST);
@@ -353,6 +345,8 @@ public class Stepdefs {
     @Then("^the File Hashes of the image should match the File Hashes in the manifest$")
     public void the_File_Hashes_of_the_image_should_match_the_File_Hashes_in_the_manifest() throws Throwable {
 
-        assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),"xxx");
+        assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
+                     calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(),
+                                                                   finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
     }
 }
