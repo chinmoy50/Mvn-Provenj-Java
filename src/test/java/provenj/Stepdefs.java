@@ -284,12 +284,6 @@ public class Stepdefs {
         Path finalOutputFilePath = Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(), manifest.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
 
-        System.out.println();
-        System.out.println();
-        System.out.println(finalOutputFilePath);
-        System.out.println();
-        System.out.println();
-
         // put the file hash in the manifest
         manifest.setFileHashes(calculateFileHash(tempOutputFilePath));
 
