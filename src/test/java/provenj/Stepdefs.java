@@ -282,7 +282,9 @@ public class Stepdefs {
         outputFile.close();
 
         // put the file in the enclosure
-        Path finalOutputFilePath = Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(), manifest.getFileName());
+        Path finalOutputFilePath =
+            Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                      manifest.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
 
         // put the file hash in the manifest
@@ -290,13 +292,17 @@ public class Stepdefs {
 
         // put manifest in the enclosure
         Path manifestFilePath = enclosure.getPath(ProvenLib.PROVEN_MANIFEST);
-        Files.write(manifestFilePath, manifest.get().toJSONString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
+        Files.write(manifestFilePath,
+                    manifest.get().toJSONString().getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE);
 
         // put index in the enclosure
         Path indexFilePath = enclosure.getPath(ProvenLib.PROVEN_INDEX);
         indexCreator = new IndexCreator(manifest);
         index = indexCreator.toString();
-        Files.write(indexFilePath, indexCreator.toString().getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
+        Files.write(indexFilePath,
+                    indexCreator.toString().getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE);
     }
 
     @Then("^there should exist a directory$")
@@ -316,7 +322,8 @@ public class Stepdefs {
 
     @Then("^it should contain in the payload directory the file \"([^\"]*)\"$")
     public void it_should_contain_in_the_payload_directory_the_file(String fileName) throws Throwable {
-        assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),fileName)));
+        assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                                      fileName)));
     }
 
     @Then("^the image should contain the Ethereum block number (\\d+)$")
@@ -342,6 +349,6 @@ public class Stepdefs {
 
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
                      calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                                                                   finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
+                                                 finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
     }
 }

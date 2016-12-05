@@ -27,7 +27,7 @@ public class IndexCreator {
                 ),
                 body().with(
                         main().with(
-                                a().withHref(String.format("./%s/%s",
+                                a().withHref(String.format("./%1$s/%2$s",
                                                            ProvenLib.PROVEN_CONTENT_DIRECTORY,
                                                            getManifest().getFileName())).with(
                                         p(getManifest().getFileName())
