@@ -5,10 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * Create an enclosure which is a temporary directory that contains all assets to be submitted
- */
-
+// Creates an enclosure which is a temporary directory that contains all assets to be submitted
 public class Enclosure {
     protected Path m_path;
 

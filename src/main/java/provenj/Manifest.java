@@ -2,6 +2,7 @@ package provenj;
 
 import org.json.simple.JSONObject;
 
+// Creates a manifest.json file to be included in the Proven enclosure.
 public class Manifest extends Metadata {
     protected String m_fileName;
     protected String m_fileHashes;

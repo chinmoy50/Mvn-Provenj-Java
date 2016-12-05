@@ -2,10 +2,7 @@ package provenj;
 
 import java.util.UUID;
 
-/**
- * Implements in-memory storage for metadata.
- */
-
+// Implements in-memory storage for metadata.
 public class Metadata implements MetadataIntf {
     protected int    m_bitcoinBlockNumber;
     protected String m_bitcoinBlockHash;

@@ -2,6 +2,7 @@ package provenj;
 
 import static j2html.TagCreator.*;
 
+// Creates an index.html file to be included in the Proven enclosure.
 public class IndexCreator {
 
     protected Manifest m_manifest;
