@@ -2,7 +2,7 @@ package provenj;
 
 import java.util.UUID;
 
-// Constants needed across Proven. This is in an interface because it is never instantiated.
+// Metadata API for hashes from public blockchains, previous submissions, and identifiers.
 public interface MetadataIntf {
     int getBitcoinBlockNumber();
     void setBitcoinBlockNumber(int blockNumber);
