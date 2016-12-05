@@ -17,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.security.DigestInputStream;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
 import java.util.UUID;
@@ -109,17 +108,16 @@ public class Stepdefs {
 
     // Apply Exif to JPEG
     ImageTags imageTags = null;
-    String outputFilePath = "";
-    File tempOutputFile = null;
+    Path tempOutputFilePath = null;
 
     @Given("^a JPEG file \"([^\"]*)\"$")
     public void a_JPEG_file(String inputFilePath) throws Throwable {
         File file = new File(inputFilePath);
         manifest.setFileName(file.getName());
         FileInputStream inputFile = new FileInputStream(file);
-        tempOutputFile = File.createTempFile("provenj", ".jpeg");
+        File tempOutputFile = File.createTempFile("provenj", ".jpeg");
         tempOutputFile.deleteOnExit();
-        outputFilePath = tempOutputFile.getCanonicalPath();
+        tempOutputFilePath = tempOutputFile.toPath();
         FileOutputStream outputFile = new FileOutputStream(tempOutputFile.getCanonicalFile());
 
         imageTags = new ImageTags(inputFile,outputFile);
@@ -162,7 +160,7 @@ public class Stepdefs {
 
     private String getTag(String tagName) {
         Runtime rt = Runtime.getRuntime();
-        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, outputFilePath);
+        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, tempOutputFilePath.toString());
 
         try {
             Process proc = rt.exec(command);
@@ -265,7 +263,7 @@ public class Stepdefs {
         outputFile.close();
 
         // open the created file to calculate the hash
-        FileInputStream finalOutputFile = new FileInputStream(outputFilePath);
+        FileInputStream finalOutputFile = new FileInputStream(tempOutputFilePath.toString());
         ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
         DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
         ByteStreams.copy(finalOutputFile, dos);
@@ -273,7 +271,7 @@ public class Stepdefs {
 
         // put the file in the enclosure
         Path finalOutputFilePath = Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(), manifest.getFileName());
-        Files.copy(tempOutputFile.toPath(),finalOutputFilePath);
+        Files.copy(tempOutputFilePath,finalOutputFilePath);
 
         System.out.println();
         System.out.println();
