@@ -169,7 +169,7 @@ public class Stepdefs {
 
     private String getTag(String tagName, Path filePath) {
         Runtime rt = Runtime.getRuntime();
-        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, tempOutputFilePath.toString());
+        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, filePath.toString());
 
         try {
             Process proc = rt.exec(command);
@@ -252,7 +252,7 @@ public class Stepdefs {
         assert(index.matches(String.format("^.*%s.*$",manifest.get().get("EthereumBlockHash"))));
     }
 
-    protected String calculateFileHash(Path path) throws FileNotFoundException, NoSuchAlgorithmException, IOException {
+    protected String calculateFileHash(Path path) throws NoSuchAlgorithmException, IOException {
         FileInputStream stream = new FileInputStream(path.toString());
         ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
         DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
