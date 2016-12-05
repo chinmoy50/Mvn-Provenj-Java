@@ -4,7 +4,6 @@ import com.adobe.internal.xmp.XMPMeta;
 import com.adobe.internal.xmp.XMPException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 // Applies XMP tags to a JPEG image
 public class ImageTags extends Metadata {
