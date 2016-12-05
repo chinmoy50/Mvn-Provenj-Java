@@ -6,7 +6,7 @@ public interface ProvenLib {
     String PROVEN_PREFIX                = "Proven";
     String PROVEN_INDEX                 = "index.html";
     String PROVEN_MANIFEST              = "manifest.json";
-    String PROVEN_PAYLOAD_DIRECTORY     = "payload";
+    String PROVEN_CONTENT_DIRECTORY     = "content";
     String PROVEN_FILE_NAME             = "FileName";
     String PROVEN_FILE_HASHES           = "FileHashes";
     String PROVEN_BITCOIN_BLOCK_NUMBER  = "BitcoinBlockNumber";

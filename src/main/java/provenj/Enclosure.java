@@ -14,7 +14,7 @@ public class Enclosure {
 
     public Enclosure() throws IOException {
         m_path = Files.createTempDirectory(ProvenLib.PROVEN_PREFIX);
-        Files.createDirectory(getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY));
+        Files.createDirectory(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY));
     }
 
     public Path getPath(String element){

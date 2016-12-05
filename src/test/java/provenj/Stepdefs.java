@@ -282,7 +282,7 @@ public class Stepdefs {
         outputFile.close();
 
         // put the file in the enclosure
-        Path finalOutputFilePath = Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(), manifest.getFileName());
+        Path finalOutputFilePath = Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(), manifest.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
 
         // put the file hash in the manifest
@@ -316,14 +316,14 @@ public class Stepdefs {
 
     @Then("^it should contain in the payload directory the file \"([^\"]*)\"$")
     public void it_should_contain_in_the_payload_directory_the_file(String fileName) throws Throwable {
-        assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(),fileName)));
+        assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),fileName)));
     }
 
     @Then("^the image should contain the Ethereum block number (\\d+)$")
     public void the_image_should_contain_the_Ethereum_block_number(int blockNumber) throws Throwable {
         assertEquals(Integer.toString(blockNumber),
                      getTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
-                            Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(),
+                            Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                         manifest.getFileName())));
     }
 
@@ -341,7 +341,7 @@ public class Stepdefs {
     public void the_File_Hashes_of_the_image_should_match_the_File_Hashes_in_the_manifest() throws Throwable {
 
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
-                     calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_PAYLOAD_DIRECTORY).toString(),
+                     calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                                    finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
     }
 }

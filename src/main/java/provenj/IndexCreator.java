@@ -26,7 +26,9 @@ public class IndexCreator {
                 ),
                 body().with(
                         main().with(
-                                a().withHref(String.format("./payload/%s", getManifest().getFileName())).with(
+                                a().withHref(String.format("./%s/%s",
+                                                           ProvenLib.PROVEN_CONTENT_DIRECTORY,
+                                                           getManifest().getFileName())).with(
                                         p(getManifest().getFileName())
                                 ),
                                 p(getManifest().getEthereumBlockHash())
