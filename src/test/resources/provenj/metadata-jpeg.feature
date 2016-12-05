@@ -8,7 +8,7 @@ Feature: Apply metadata to JPEG photo
     And the Ethereum block number 2619567
     And the Ethereum block hash "0xcca5f32676df55171ffabcb32b69eaec0593ce7ae1912228656bd8e213475ecb"
     And the IPFS hash from the last file "QmP1KyrSsD4KGPFRsVxV66cZ95LqhLWGbwCakzRsoKjrTu"
-    And the other hashes from the last file "dff0c94255cd1f68a824e81005b00f617afecd74c6cccecfbae0d2b7875fabf3"
+    And the hashes from the last file "dff0c94255cd1f68a824e81005b00f617afecd74c6cccecfbae0d2b7875fabf3"
     And the GUID "0b89ff5d-c1d8-4dce-949a-a7e29215b09d"
     When I load the data from the JPEG file returned
     Then Exif.BitcoinBlockNumber should match 438712

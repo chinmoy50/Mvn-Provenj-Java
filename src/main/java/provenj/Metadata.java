@@ -29,4 +29,14 @@ public class Metadata implements MetadataIntf {
     public void   setPreviousFileHashes(String fileHashes) { m_previousFileHashes = fileHashes; }
     public UUID   getGUID() { return m_guid; }
     public void   setGUID(UUID guid) { m_guid = guid; }
+    public Metadata copy(Metadata metadata){
+        setBitcoinBlockNumber(metadata.getBitcoinBlockNumber());
+        setBitcoinBlockHash(metadata.getBitcoinBlockHash());
+        setEthereumBlockNumber(metadata.getEthereumBlockNumber());
+        setEthereumBlockHash(metadata.getEthereumBlockHash());
+        setPreviousIPFSHash(metadata.getPreviousIPFSHash());
+        setPreviousFileHashes(metadata.getPreviousFileHashes());
+        setGUID(metadata.getGUID());
+        return this;
+    }
 }

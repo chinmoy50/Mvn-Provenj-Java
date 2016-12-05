@@ -7,7 +7,7 @@ public class Manifest extends Metadata {
     protected String m_fileName;
     protected String m_fileHashes;
 
-    public void addFile(String fileName) {
+    public void setFileName(String fileName) {
         m_fileName = fileName;
     }
 
