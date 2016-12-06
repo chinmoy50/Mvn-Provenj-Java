@@ -35,23 +35,6 @@ public class Stepdefs {
 
     Metadata metadata = new Metadata();
 
-    // Apply Exif to JPEG
-    ImageTagger imageTagger = null;
-    Path tempOutputFilePath = null;
-
-    @Given("^a JPEG file \"([^\"]*)\"$")
-    public void a_JPEG_file(String inputFilePath) throws Throwable {
-        File file = new File(inputFilePath);
-        metadata.setFileName(file.getName());
-        FileInputStream inputFile = new FileInputStream(file);
-        File tempOutputFile = File.createTempFile("provenj", ".jpeg");
-        tempOutputFile.deleteOnExit();
-        tempOutputFilePath = tempOutputFile.toPath();
-        FileOutputStream outputFile = new FileOutputStream(tempOutputFile.getCanonicalFile());
-
-        imageTagger = new ImageTagger(inputFile,outputFile);
-    }
-
     @Given("^the Bitcoin block number (\\d+)$")
     public void the_Bitcoin_block_number(int blockNumber) throws Throwable {
         metadata.setBitcoinBlockNumber(blockNumber);
@@ -87,10 +70,7 @@ public class Stepdefs {
         metadata.setGUID(UUID.fromString(guid));
     }
 
-    private String getTag(String tagName){
-        return getTag(tagName, tempOutputFilePath);
-    }
-
+    // Read XMP tag from JPEG file using exiftool for testing purposes.
     private String getTag(String tagName, Path filePath) {
         Runtime rt = Runtime.getRuntime();
         String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, filePath.toString());
@@ -121,20 +101,28 @@ public class Stepdefs {
     // Test enclosure creation
     Enclosure enclosure = null;
 
-    @When("^I ask to create an enclosure for an image$")
-    public void i_ask_to_create_an_enclosure_for_an_image() throws Throwable {
+    @When("^I provide a JPEG file \"([^\"]*)\"$")
+    public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
+        // Apply Exif to JPEG
+        File file = new File(inputFilePath);
+        metadata.setFileName(file.getName());
+        FileInputStream inputFile = new FileInputStream(file);
+        File tempOutputFile = File.createTempFile("provenj", ".jpeg");
+        tempOutputFile.deleteOnExit();
+        Path tempOutputFilePath = tempOutputFile.toPath();
+        FileOutputStream outputFile = new FileOutputStream(tempOutputFile.getCanonicalFile());
+
+        // apply the metadata to the images
+        ImageTagger imageTagger = new ImageTagger(metadata);
+        imageTagger.tagImage(inputFile,outputFile);
+        inputFile.close();
+        outputFile.close();
+
         // create temporary directory for the enclosure
         enclosure = new Enclosure();
 
         // apply the metadata to the manifest
         Manifest manifest = new Manifest(metadata);
-
-        // apply the metadata to the images
-        imageTagger.copy(metadata);
-
-        // Grab the image we've tagged
-        FileOutputStream outputFile = imageTagger.getFile();
-        outputFile.close();
 
         // put the file in the enclosure
         Path finalOutputFilePath =
@@ -200,7 +188,6 @@ public class Stepdefs {
 
     @Then("^the File Hashes of the image should match the File Hashes in the manifest$")
     public void the_File_Hashes_of_the_image_should_match_the_File_Hashes_in_the_manifest() throws Throwable {
-
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
                      calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                  finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
