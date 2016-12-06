@@ -39,7 +39,6 @@ public class Enclosure {
         return Paths.get(getPath().toString(), element);
     }
 
-
     protected static String calculateFileHash(Path path) throws NoSuchAlgorithmException, IOException {
         FileInputStream stream = new FileInputStream(path.toString());
         ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
@@ -50,11 +49,8 @@ public class Enclosure {
     }
 
     public Metadata fillEnclosure(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
-        // Get file name
-        File inputFile = new File(inputFilePath.toString());
-
         // Use file name supplied in the path
-        metadata.setFileName(inputFile.getName());
+        metadata.setFileName(inputFilePath.getFileName().toString());
 
         // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
@@ -64,15 +60,14 @@ public class Enclosure {
 
         // apply the metadata to the images
         ImageTagger imageTagger = new ImageTagger(metadata);
-        FileInputStream inputFileStream = new FileInputStream(inputFile);
+        FileInputStream inputFileStream = new FileInputStream(inputFilePath.toFile());
         imageTagger.tagImage(inputFileStream, outputFileStream);
         inputFileStream.close();
         outputFileStream.close();
 
         // copy the image file into the enclosure content directory
-        Path finalOutputFilePath =
-                Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                        metadata.getFileName());
+        Path finalOutputFilePath = Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                                                     metadata.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
 
         // calculate the image file hash and record it in the metadata
