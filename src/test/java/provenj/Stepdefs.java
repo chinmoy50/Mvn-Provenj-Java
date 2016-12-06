@@ -168,12 +168,16 @@ public class Stepdefs {
         assertEquals(fileName, metadata.getFileName());
     }
 
+    // For testing, check a tag in the image in the enclosure.
+    protected String getFinalImageTag(String tag){
+        return getTag(tag, Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                                     metadata.getFileName()));
+    }
+
     @Then("^the image should contain the Ethereum block number (\\d+)$")
     public void the_image_should_contain_the_Ethereum_block_number(int blockNumber) throws Throwable {
         assertEquals(Integer.toString(blockNumber),
-                     getTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
-                            Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                                                        metadata.getFileName())));
+                     getFinalImageTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER));
         assertEquals(metadata.getEthereumBlockNumber(), blockNumber);
     }
 
@@ -194,5 +198,42 @@ public class Stepdefs {
                      calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                  finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
+        // NOTE: the file hash OF the image can't be IN the image.
+    }
+
+    @Then("^the Bitcoin block hash everywhere is \"([^\"]*)\"$")
+    public void the_Bitcoin_block_hash_everywhere_is(String blockHash) throws Throwable {
+        assertEquals(blockHash, finalJson.get(ProvenLib.PROVEN_BITCOIN_BLOCK_HASH));
+        assertEquals(blockHash, getFinalImageTag(ProvenLib.PROVEN_BITCOIN_BLOCK_HASH));
+    }
+
+    @Then("^the Bitcoin block number everywhere is (\\d+)$")
+    public void the_Bitcoin_block_number_everywhere_is(int blockNumber) throws Throwable {
+        assertEquals(Integer.toString(blockNumber), finalJson.get(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER).toString());
+        assertEquals(Integer.toString(blockNumber), getFinalImageTag(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER));
+    }
+
+    @Then("^the Ethereum block hash everywhere is \"([^\"]*)\"$")
+    public void the_Ethereum_block_hash_everywhere_is(String blockHash) throws Throwable {
+        assertEquals(blockHash, finalJson.get(ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH));
+        assertEquals(blockHash, getFinalImageTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH));
+    }
+
+    @Then("^the Ethereum block number everywhere is (\\d+)$")
+    public void the_Ethereum_block_number_everywhere_is(int blockNumber) throws Throwable {
+        assertEquals(Integer.toString(blockNumber), finalJson.get(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER).toString());
+        assertEquals(Integer.toString(blockNumber), getFinalImageTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER));
+    }
+
+    @Then("^the last IPFS file hash everywhere is \"([^\"]*)\"$")
+    public void the_last_IPFS_file_hash_everywhere_is(String ipfsHash) throws Throwable {
+        assertEquals(ipfsHash, finalJson.get(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH));
+        assertEquals(ipfsHash, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH));
+    }
+
+    @Then("^the last file hashes everywhere is \"([^\"]*)\"$")
+    public void the_last_file_hashes_everywhere_is(String fileHashes) throws Throwable {
+        assertEquals(fileHashes, finalJson.get(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
+        assertEquals(fileHashes, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
     }
 }
