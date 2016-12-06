@@ -30,7 +30,6 @@ import java.nio.file.Path;
 import javax.xml.bind.DatatypeConverter;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class Stepdefs {
 
