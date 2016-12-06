@@ -49,6 +49,15 @@ public class Enclosure {
     }
 
     public Metadata fillEnclosure(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
+        metadata = addContent(inputFilePath, metadata);
+        metadata = addManifest(metadata);
+        metadata = addIndex(metadata);
+
+        // has changed
+        return metadata;
+    }
+
+    public Metadata addContent(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
         // Use file name supplied in the path
         metadata.setFileName(inputFilePath.getFileName().toString());
 
@@ -70,22 +79,26 @@ public class Enclosure {
 
         // calculate the image file hash and record it in the metadata
         metadata.setFileHashes(calculateFileHash(finalOutputFilePath));
+        return metadata;
+    }
 
+    public Metadata addManifest(Metadata metadata) throws IOException {
         // write the manifest to the enclosure
         ManifestCreator manifestCreator = new ManifestCreator(metadata);
         Path manifestFilePath = getPath(ProvenLib.PROVEN_MANIFEST);
         Files.write(manifestFilePath,
-                manifestCreator.get().toJSONString().getBytes(StandardCharsets.UTF_8),
-                StandardOpenOption.CREATE);
+                    manifestCreator.get().toJSONString().getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE);
+        return metadata;
+    }
 
+    public Metadata addIndex(Metadata metadata) throws IOException {
         // write the index to the enclosure
         Path indexFilePath = getPath(ProvenLib.PROVEN_INDEX);
         IndexCreator indexCreator = new IndexCreator(metadata);
         Files.write(indexFilePath,
-                indexCreator.toString().getBytes(StandardCharsets.UTF_8),
-                StandardOpenOption.CREATE);
-
-	    // has changed
+                    indexCreator.toString().getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE);
         return metadata;
     }
 }
