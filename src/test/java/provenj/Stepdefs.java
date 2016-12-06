@@ -95,7 +95,6 @@ public class Stepdefs {
         ByteStreams.copy(stream, dos);
         dos.close();
         return DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
-
     }
 
     // Test enclosure creation
@@ -129,13 +128,11 @@ public class Stepdefs {
                       metadata.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
 
-        // calculate the file hash and record it in the manifest
+        // calculate the image file hash and record it in the metadata
         metadata.setFileHashes(calculateFileHash(tempOutputFilePath));
 
-        // apply the metadata to the manifest
-        Manifest manifest = new Manifest(metadata);
-
         // write the manifest to the enclosure
+        Manifest manifest = new Manifest(metadata);
         Path manifestFilePath = enclosure.getPath(ProvenLib.PROVEN_MANIFEST);
         Files.write(manifestFilePath,
                     manifest.get().toJSONString().getBytes(StandardCharsets.UTF_8),
@@ -196,15 +193,6 @@ public class Stepdefs {
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
                      calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                  finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println(finalJson.get(ProvenLib.PROVEN_FILE_HASHES));
-        System.out.println(metadata.getFileHashes());
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
     }
 }
