@@ -123,17 +123,17 @@ public class Stepdefs {
         // create temporary directory for the enclosure
         enclosure = new Enclosure();
 
-        // apply the metadata to the manifest
-        Manifest manifest = new Manifest(metadata);
-
         // copy the image file into the enclosure content directory
         Path finalOutputFilePath =
             Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                      manifest.getFileName());
+                      metadata.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
 
         // calculate the file hash and record it in the manifest
-        manifest.setFileHashes(calculateFileHash(tempOutputFilePath));
+        metadata.setFileHashes(calculateFileHash(tempOutputFilePath));
+
+        // apply the metadata to the manifest
+        Manifest manifest = new Manifest(metadata);
 
         // write the manifest to the enclosure
         Path manifestFilePath = enclosure.getPath(ProvenLib.PROVEN_MANIFEST);
@@ -168,6 +168,7 @@ public class Stepdefs {
     public void it_should_contain_in_the_payload_directory_the_file(String fileName) throws Throwable {
         assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                       fileName)));
+        assertEquals(fileName,metadata.getFileName());
     }
 
     @Then("^the image should contain the Ethereum block number (\\d+)$")
@@ -176,6 +177,7 @@ public class Stepdefs {
                      getTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
                             Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                         metadata.getFileName())));
+        assertEquals(metadata.getEthereumBlockNumber(),blockNumber);
     }
 
     JSONObject finalJson = null;
@@ -186,6 +188,7 @@ public class Stepdefs {
         JSONParser parser = new JSONParser();
         finalJson = (JSONObject) parser.parse(json);
         assertEquals(guid,finalJson.get(ProvenLib.PROVEN_GUID));
+        assertEquals(guid,metadata.getGUID().toString());
     }
 
     @Then("^the File Hashes of the image should match the File Hashes in the manifest$")
@@ -193,5 +196,15 @@ public class Stepdefs {
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
                      calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                  finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println(finalJson.get(ProvenLib.PROVEN_FILE_HASHES));
+        System.out.println(metadata.getFileHashes());
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
     }
 }

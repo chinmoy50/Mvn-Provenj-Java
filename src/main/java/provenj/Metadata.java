@@ -46,6 +46,7 @@ public class Metadata implements MetadataIntf {
         setPreviousIPFSHash(metadata.getPreviousIPFSHash());
         setPreviousFileHashes(metadata.getPreviousFileHashes());
         setFileName(metadata.getFileName());
+        setFileHashes(metadata.getFileHashes());
         setGUID(metadata.getGUID());
         return this;
     }
