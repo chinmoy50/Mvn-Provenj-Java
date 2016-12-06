@@ -56,10 +56,8 @@ public class Stepdefs {
         metadata.setGUID(UUID.fromString(guid));
     }
 
-    // Read XMP tag from JPEG file using exiftool for testing purposes.
-    private String getTag(String tagName, Path filePath) {
+    private String shellCommand(String command){
         Runtime rt = Runtime.getRuntime();
-        String command = String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, filePath.toString());
 
         try {
             Process proc = rt.exec(command);
@@ -74,16 +72,23 @@ public class Stepdefs {
         }
     }
 
+    // Read XMP tag from JPEG file using exiftool for testing purposes.
+    private String getTag(String tagName, Path filePath) {
+        return shellCommand(String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, filePath.toString()));
+    }
+
+    // Verify the MD5 hash independent of the Java implementation
+    private String getMD5(Path imageFilePath){
+        return shellCommand(String.format("md5sum %1$s", imageFilePath.toString()));
+    }
+
     // Test enclosure creation
     Enclosure enclosure = null;
 
     @When("^I provide a JPEG file \"([^\"]*)\"$")
     public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
-        // Get file name
-        metadata.setFileName(Paths.get(inputFilePath).getFileName().toString());
-
         enclosure = new Enclosure();
-        enclosure.fillEnclosure(Paths.get(inputFilePath),metadata);
+        metadata = enclosure.fillEnclosure(Paths.get(inputFilePath),metadata);
     }
 
     @Then("^there should exist a directory$")
@@ -123,8 +128,8 @@ public class Stepdefs {
 
     JSONObject finalJson = null;
 
-    @Then("^the manifest\\.GUID should equal \"([^\"]*)\"$")
-    public void the_manifest_GUID_should_equal(String guid) throws Throwable {
+    @Then("^the GUID everywhere is \"([^\"]*)\"$")
+    public void the_GUID_everywhere_is(String guid) throws Throwable {
         String json = new String(Files.readAllBytes(enclosure.getPath(ProvenLib.PROVEN_MANIFEST)));
         JSONParser parser = new JSONParser();
         finalJson = (JSONObject) parser.parse(json);
@@ -132,13 +137,14 @@ public class Stepdefs {
         assertEquals(guid, metadata.getGUID().toString());
     }
 
-    @Then("^the File Hashes of the image should match the File Hashes in the manifest$")
-    public void the_File_Hashes_of_the_image_should_match_the_File_Hashes_in_the_manifest() throws Throwable {
+    @Then("^the File Hashes are the same everywhere")
+    public void the_File_Hashes_are_the_same_everywhere() throws Throwable {
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
                      Enclosure.calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                            finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
-        // NOTE: the file hash OF the image can't be IN the image.
+        assertEquals(metadata.getFileHashes(),finalJson.get(ProvenLib.PROVEN_FILE_HASHES).toString().toUpperCase());
+        // NOTE: we're not checking tags inside the image because the file hash OF the image can't be IN the image.
     }
 
     @Then("^the Bitcoin block hash everywhere is \"([^\"]*)\"$")

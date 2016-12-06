@@ -15,8 +15,8 @@ Feature: Create an enclosure which is a temporary directory that contains all as
     And it should contain an index
     And it should contain in the payload directory the file "2016-12-01-175915.jpg"
     And the image should contain the Ethereum block number 2619567
-    And the manifest.GUID should equal "0b89ff5d-c1d8-4dce-949a-a7e29215b09d"
-    And the File Hashes of the image should match the File Hashes in the manifest
+    And the GUID everywhere is "0b89ff5d-c1d8-4dce-949a-a7e29215b09d"
+    And the File Hashes are the same everywhere
     And the Bitcoin block hash everywhere is "00000000000000000341b8be019c7c1bff721b2d412285ab796ef5ab2ae36213"
     And the Bitcoin block number everywhere is 438712
     And the Ethereum block hash everywhere is "0xcca5f32676df55171ffabcb32b69eaec0593ce7ae1912228656bd8e213475ecb"

@@ -49,9 +49,12 @@ public class Enclosure {
         return DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
     }
 
-    public Path fillEnclosure(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
+    public Metadata fillEnclosure(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
         // Get file name
         File inputFile = new File(inputFilePath.toString());
+
+        // Use file name supplied in the path
+        metadata.setFileName(inputFile.getName());
 
         // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
@@ -89,6 +92,7 @@ public class Enclosure {
                 indexCreator.toString().getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE);
 
-        return getPath();
+	    // will have changed
+        return metadata;
     }
 }
