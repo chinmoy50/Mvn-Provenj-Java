@@ -115,7 +115,7 @@ public class Stepdefs {
         // apply the metadata to the images
         ImageTagger imageTagger = new ImageTagger(metadata);
         FileInputStream inputFileStream = new FileInputStream(inputFile);
-        imageTagger.tagImage(inputFileStream,outputFileStream);
+        imageTagger.tagImage(inputFileStream, outputFileStream);
         inputFileStream.close();
         outputFileStream.close();
 
@@ -165,7 +165,7 @@ public class Stepdefs {
     public void it_should_contain_in_the_payload_directory_the_file(String fileName) throws Throwable {
         assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                       fileName)));
-        assertEquals(fileName,metadata.getFileName());
+        assertEquals(fileName, metadata.getFileName());
     }
 
     @Then("^the image should contain the Ethereum block number (\\d+)$")
@@ -174,7 +174,7 @@ public class Stepdefs {
                      getTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
                             Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                         metadata.getFileName())));
-        assertEquals(metadata.getEthereumBlockNumber(),blockNumber);
+        assertEquals(metadata.getEthereumBlockNumber(), blockNumber);
     }
 
     JSONObject finalJson = null;
@@ -184,8 +184,8 @@ public class Stepdefs {
         String json = new String(Files.readAllBytes(enclosure.getPath(ProvenLib.PROVEN_MANIFEST)));
         JSONParser parser = new JSONParser();
         finalJson = (JSONObject) parser.parse(json);
-        assertEquals(guid,finalJson.get(ProvenLib.PROVEN_GUID));
-        assertEquals(guid,metadata.getGUID().toString());
+        assertEquals(guid, finalJson.get(ProvenLib.PROVEN_GUID));
+        assertEquals(guid, metadata.getGUID().toString());
     }
 
     @Then("^the File Hashes of the image should match the File Hashes in the manifest$")
