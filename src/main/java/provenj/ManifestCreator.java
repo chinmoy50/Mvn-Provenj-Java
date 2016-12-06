@@ -3,8 +3,8 @@ package provenj;
 import org.json.simple.JSONObject;
 
 // Creates a manifest.json file to be included in the Proven enclosure.
-public class Manifest extends Metadata {
-    Manifest(Metadata metadata){
+public class ManifestCreator extends Metadata {
+    ManifestCreator(Metadata metadata){
         super(metadata);
     }
 

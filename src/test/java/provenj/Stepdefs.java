@@ -132,10 +132,10 @@ public class Stepdefs {
         metadata.setFileHashes(calculateFileHash(tempOutputFilePath));
 
         // write the manifest to the enclosure
-        Manifest manifest = new Manifest(metadata);
+        ManifestCreator manifestCreator = new ManifestCreator(metadata);
         Path manifestFilePath = enclosure.getPath(ProvenLib.PROVEN_MANIFEST);
         Files.write(manifestFilePath,
-                    manifest.get().toJSONString().getBytes(StandardCharsets.UTF_8),
+                    manifestCreator.get().toJSONString().getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE);
 
         // write the index to the enclosure
