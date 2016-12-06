@@ -103,10 +103,11 @@ public class Stepdefs {
 
     @When("^I provide a JPEG file \"([^\"]*)\"$")
     public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
-        // Apply Exif to JPEG
-        File file = new File(inputFilePath);
-        metadata.setFileName(file.getName());
-        FileInputStream inputFile = new FileInputStream(file);
+        // Get file name
+        File inputFile = new File(inputFilePath);
+        metadata.setFileName(inputFile.getName());
+
+        // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
         tempOutputFile.deleteOnExit();
         Path tempOutputFilePath = tempOutputFile.toPath();
@@ -114,8 +115,9 @@ public class Stepdefs {
 
         // apply the metadata to the images
         ImageTagger imageTagger = new ImageTagger(metadata);
-        imageTagger.tagImage(inputFile,outputFile);
-        inputFile.close();
+        FileInputStream inputFileStream = new FileInputStream(inputFile);
+        imageTagger.tagImage(inputFileStream,outputFile);
+        inputFileStream.close();
         outputFile.close();
 
         // create temporary directory for the enclosure
@@ -124,22 +126,22 @@ public class Stepdefs {
         // apply the metadata to the manifest
         Manifest manifest = new Manifest(metadata);
 
-        // put the file in the enclosure
+        // copy the image file into the enclosure content directory
         Path finalOutputFilePath =
             Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                       manifest.getFileName());
         Files.copy(tempOutputFilePath,finalOutputFilePath);
 
-        // put the file hash in the manifest
+        // calculate the file hash and record it in the manifest
         manifest.setFileHashes(calculateFileHash(tempOutputFilePath));
 
-        // put manifest in the enclosure
+        // write the manifest to the enclosure
         Path manifestFilePath = enclosure.getPath(ProvenLib.PROVEN_MANIFEST);
         Files.write(manifestFilePath,
                     manifest.get().toJSONString().getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE);
 
-        // put index in the enclosure
+        // write the index to the enclosure
         Path indexFilePath = enclosure.getPath(ProvenLib.PROVEN_INDEX);
         IndexCreator indexCreator = new IndexCreator(metadata);
         Files.write(indexFilePath,
