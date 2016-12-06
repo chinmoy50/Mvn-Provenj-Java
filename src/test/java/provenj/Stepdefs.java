@@ -119,13 +119,6 @@ public class Stepdefs {
                                      metadata.getFileName()));
     }
 
-    @Then("^the image should contain the Ethereum block number (\\d+)$")
-    public void the_image_should_contain_the_Ethereum_block_number(int blockNumber) throws Throwable {
-        assertEquals(Integer.toString(blockNumber),
-                     getFinalImageTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER));
-        assertEquals(metadata.getEthereumBlockNumber(), blockNumber);
-    }
-
     JSONObject finalJson = null;
 
     @Then("^the GUID everywhere is \"([^\"]*)\"$")

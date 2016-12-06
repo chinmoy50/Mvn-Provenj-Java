@@ -92,7 +92,7 @@ public class Enclosure {
                 indexCreator.toString().getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE);
 
-	    // will have changed
+	    // has changed
         return metadata;
     }
 }
