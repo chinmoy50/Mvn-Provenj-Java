@@ -32,18 +32,10 @@ public class Metadata implements MetadataIntf {
     public void   setPreviousIPFSHash(String ipfsHash) { m_previousIPFSHash = ipfsHash; }
     public String getPreviousFileHashes() { return m_previousFileHashes; }
     public void   setPreviousFileHashes(String fileHashes) { m_previousFileHashes = fileHashes; }
-    public String getFileName() {
-        return m_fileName;
-    }
-    public void   setFileName(String fileName) {
-        m_fileName = fileName;
-    }
-    public String getFileHashes() {
-        return m_fileHashes;
-    }
-    public void   setFileHashes(String fileHashes) {
-        m_fileHashes = fileHashes;
-    }
+    public String getFileName() { return m_fileName; }
+    public void   setFileName(String fileName) { m_fileName = fileName; }
+    public String getFileHashes() { return m_fileHashes; }
+    public void   setFileHashes(String fileHashes) { m_fileHashes = fileHashes; }
     public UUID   getGUID() { return m_guid; }
     public void   setGUID(UUID guid) { m_guid = guid; }
     public Metadata copy(Metadata metadata){
@@ -53,6 +45,7 @@ public class Metadata implements MetadataIntf {
         setEthereumBlockHash(metadata.getEthereumBlockHash());
         setPreviousIPFSHash(metadata.getPreviousIPFSHash());
         setPreviousFileHashes(metadata.getPreviousFileHashes());
+        setFileName(metadata.getFileName());
         setGUID(metadata.getGUID());
         return this;
     }

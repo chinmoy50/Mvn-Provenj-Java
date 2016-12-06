@@ -4,6 +4,10 @@ import org.json.simple.JSONObject;
 
 // Creates a manifest.json file to be included in the Proven enclosure.
 public class Manifest extends Metadata {
+    Manifest(Metadata metadata){
+        super(metadata);
+    }
+
     @SuppressWarnings("unchecked") // JSONObject doesn't support parameters to make it generic
     public JSONObject get() {
        JSONObject result = new JSONObject();

@@ -9,9 +9,13 @@ import java.nio.file.Paths;
 public class Enclosure {
     protected Path m_path;
 
-    public Enclosure() throws IOException {
+    protected void init() throws IOException {
         m_path = Files.createTempDirectory(ProvenLib.PROVEN_PREFIX);
         Files.createDirectory(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY));
+    }
+
+    public Enclosure() throws IOException {
+        init();
     }
 
     public Path getPath(String element){
