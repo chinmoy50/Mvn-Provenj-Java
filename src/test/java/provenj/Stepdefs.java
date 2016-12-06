@@ -111,14 +111,14 @@ public class Stepdefs {
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
         tempOutputFile.deleteOnExit();
         Path tempOutputFilePath = tempOutputFile.toPath();
-        FileOutputStream outputFile = new FileOutputStream(tempOutputFile.getCanonicalFile());
+        FileOutputStream outputFileStream = new FileOutputStream(tempOutputFile.getCanonicalFile());
 
         // apply the metadata to the images
         ImageTagger imageTagger = new ImageTagger(metadata);
         FileInputStream inputFileStream = new FileInputStream(inputFile);
-        imageTagger.tagImage(inputFileStream,outputFile);
+        imageTagger.tagImage(inputFileStream,outputFileStream);
         inputFileStream.close();
-        outputFile.close();
+        outputFileStream.close();
 
         // create temporary directory for the enclosure
         enclosure = new Enclosure();
