@@ -54,8 +54,6 @@ public class Enclosure {
 
         // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
-        tempOutputFile.deleteOnExit();
-        Path tempOutputFilePath = tempOutputFile.toPath();
         FileOutputStream outputFileStream = new FileOutputStream(tempOutputFile.getCanonicalFile());
 
         // apply the metadata to the images
@@ -68,10 +66,10 @@ public class Enclosure {
         // copy the image file into the enclosure content directory
         Path finalOutputFilePath = Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                      metadata.getFileName());
-        Files.copy(tempOutputFilePath,finalOutputFilePath);
+        Files.move(tempOutputFile.toPath(),finalOutputFilePath);
 
         // calculate the image file hash and record it in the metadata
-        metadata.setFileHashes(calculateFileHash(tempOutputFilePath));
+        metadata.setFileHashes(calculateFileHash(finalOutputFilePath));
 
         // write the manifest to the enclosure
         ManifestCreator manifestCreator = new ManifestCreator(metadata);
