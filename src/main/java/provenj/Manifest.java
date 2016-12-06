@@ -4,25 +4,6 @@ import org.json.simple.JSONObject;
 
 // Creates a manifest.json file to be included in the Proven enclosure.
 public class Manifest extends Metadata {
-    protected String m_fileName;
-    protected String m_fileHashes;
-
-    public void setFileName(String fileName) {
-        m_fileName = fileName;
-    }
-
-    public String getFileName() {
-        return m_fileName;
-    }
-
-    public void setFileHashes(String fileHashes) {
-        m_fileHashes = fileHashes;
-    }
-
-    public String getFileHashes() {
-        return m_fileHashes;
-    }
-
     @SuppressWarnings("unchecked") // JSONObject doesn't support parameters to make it generic
     public JSONObject get() {
        JSONObject result = new JSONObject();

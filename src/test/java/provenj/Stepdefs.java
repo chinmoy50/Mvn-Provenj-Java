@@ -38,17 +38,15 @@ public class Stepdefs {
 
     // Build manifest
     Manifest manifest = new Manifest();
-    String m_fileName;
 
     @Given("^a JPEG file named \"([^\"]*)\"$")
     public void a_JPEG_file_named(String fileName) throws Throwable {
-        manifest.setFileName(fileName);
-        m_fileName = fileName;
+        metadata.setFileName(fileName);
     }
 
     @Given("^the hashes for the file \"([^\"]*)\"$")
     public void the_hashes_for_the_file(String fileHashes) throws Throwable {
-        manifest.setFileHashes(fileHashes);
+        metadata.setFileHashes(fileHashes);
     }
 
     @When("^I ask for a manifest file$")
@@ -227,7 +225,7 @@ public class Stepdefs {
         assertEquals(guid, getTag(ProvenLib.PROVEN_GUID));
     }
 
-    IndexCreator indexCreator;
+    IndexCreator indexCreator = new IndexCreator(metadata);
     String index;
 
     @When("^I create an index$")
@@ -240,12 +238,12 @@ public class Stepdefs {
 
     @Then("^the output file should list the file name$")
     public void the_output_file_should_list_the_file_name() throws Throwable {
-        assert(index.matches(String.format("^.*%s.*$", m_fileName)));
+        assert(index.matches(String.format("^.*%s.*$", metadata.getFileName())));
     }
 
     @Then("^the output file should have a static link to the file$")
     public void the_output_file_should_have_a_static_link_to_the_file() throws Throwable {
-        assert(index.matches(String.format("^.*a href.*%s.*$",m_fileName)));
+        assert(index.matches(String.format("^.*a href.*%s.*$",metadata.getFileName())));
     }
 
     @Then("^the output file should include the last Ethereum hash$")
@@ -298,7 +296,7 @@ public class Stepdefs {
 
         // put index in the enclosure
         Path indexFilePath = enclosure.getPath(ProvenLib.PROVEN_INDEX);
-        indexCreator = new IndexCreator(manifest);
+        indexCreator = new IndexCreator(metadata);
         index = indexCreator.toString();
         Files.write(indexFilePath,
                     indexCreator.toString().getBytes(StandardCharsets.UTF_8),

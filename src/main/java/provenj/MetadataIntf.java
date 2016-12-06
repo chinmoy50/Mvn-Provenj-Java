@@ -16,6 +16,10 @@ public interface MetadataIntf {
     void setPreviousIPFSHash(String ipfsHash);
     String getPreviousFileHashes();
     void setPreviousFileHashes(String fileHashes);
+    public String getFileName();
+    public void   setFileName(String fileName);
+    public String getFileHashes();
+    public void   setFileHashes(String fileHashes);
     UUID getGUID();
     void setGUID(UUID guid);
     Metadata copy(Metadata metadata);
