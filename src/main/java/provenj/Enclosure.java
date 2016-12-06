@@ -52,7 +52,6 @@ public class Enclosure {
     public Path fillEnclosure(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
         // Get file name
         File inputFile = new File(inputFilePath.toString());
-        metadata.setFileName(inputFile.getName());
 
         // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
