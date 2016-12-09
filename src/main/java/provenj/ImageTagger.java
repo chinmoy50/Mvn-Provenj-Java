@@ -4,6 +4,7 @@ import com.adobe.internal.xmp.XMPMeta;
 import com.adobe.internal.xmp.XMPException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.UUID;
 
 
 // Applies XMP tags to a JPEG image
@@ -21,6 +22,12 @@ public class ImageTagger extends Metadata {
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH,   getEthereumBlockHash());
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,    getPreviousIPFSHash());
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,  getPreviousFileHashes());
+
+        // Generate a GUID if none specified
+        if (null == getGUID()){
+            setGUID(UUID.randomUUID());
+        }
+
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_GUID,                  getGUID().toString());
 
         XmpUtil.writeXMPMeta(inputFile, outputFile, meta);
