@@ -1,5 +1,9 @@
 package provenj;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 // Implements in-memory storage for metadata.
@@ -13,6 +17,16 @@ public class Metadata implements MetadataIntf {
     protected UUID   m_guid;
     protected String m_fileName;
     protected String m_fileHashes;
+    public static String[] TAGS = {
+            ProvenLib.PROVEN_FILE_NAME,
+            ProvenLib.PROVEN_FILE_HASHES,
+            ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER,
+            ProvenLib.PROVEN_BITCOIN_BLOCK_HASH,
+            ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
+            ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH,
+            ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,
+            ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,
+            ProvenLib.PROVEN_GUID};
 
     public Metadata(){}
 
@@ -22,10 +36,12 @@ public class Metadata implements MetadataIntf {
 
     public int    getBitcoinBlockNumber() { return m_bitcoinBlockNumber; }
     public void   setBitcoinBlockNumber(int blockNumber) { m_bitcoinBlockNumber = blockNumber; }
+    public void   setBitcoinBlockNumber(String blockNumber) { m_bitcoinBlockNumber = Integer.parseInt(blockNumber); }
     public String getBitcoinBlockHash() { return m_bitcoinBlockHash; }
     public void   setBitcoinBlockHash(String blockHash) { m_bitcoinBlockHash = blockHash; }
     public int    getEthereumBlockNumber() { return m_ethereumBlockNumber; }
     public void   setEthereumBlockNumber(int blockNumber) { m_ethereumBlockNumber = blockNumber; }
+    public void   setEthereumBlockNumber(String blockNumber) { m_ethereumBlockNumber = Integer.parseInt(blockNumber); }
     public String getEthereumBlockHash() { return m_ethereumBlockHash; }
     public void   setEthereumBlockHash(String blockHash) { m_ethereumBlockHash = blockHash; }
     public String getPreviousIPFSHash() { return m_previousIPFSHash; }
@@ -38,6 +54,8 @@ public class Metadata implements MetadataIntf {
     public void   setFileHashes(String fileHashes) { m_fileHashes = fileHashes; }
     public UUID   getGUID() { return m_guid; }
     public void   setGUID(UUID guid) { m_guid = guid; }
+    public void   setGUID(String guid) { m_guid = UUID.fromString(guid); }
+
     public Metadata copy(Metadata metadata){
         setBitcoinBlockNumber(metadata.getBitcoinBlockNumber());
         setBitcoinBlockHash(metadata.getBitcoinBlockHash());
@@ -49,5 +67,11 @@ public class Metadata implements MetadataIntf {
         setFileHashes(metadata.getFileHashes());
         setGUID(metadata.getGUID());
         return this;
+    }
+
+    public void setByTag(String tagName, String value) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if( !Arrays.asList(TAGS).contains(tagName)) throw new NoSuchElementException();
+        Method method = this.getClass().getDeclaredMethod(String.format("set%s",tagName),String.class);
+        method.invoke(this,value);
     }
 }

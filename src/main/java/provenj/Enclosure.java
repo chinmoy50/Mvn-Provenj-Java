@@ -1,5 +1,6 @@
 package provenj;
 
+import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.adobe.internal.xmp.XMPException;
 import java.io.ByteArrayOutputStream;
@@ -58,8 +59,9 @@ public class Enclosure {
     }
 
     public Metadata addContent(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
-        // Use file name supplied in the path
-        metadata.setFileName(inputFilePath.getFileName().toString());
+        // If filename is not provided we can infer it from the path sent in.
+        if(Strings.isNullOrEmpty((metadata.getFileName())))
+            metadata.setFileName(inputFilePath.getFileName().toString());
 
         // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
@@ -69,6 +71,8 @@ public class Enclosure {
         ImageTagger imageTagger = new ImageTagger(metadata);
         FileInputStream inputFileStream = new FileInputStream(inputFilePath.toFile());
         imageTagger.tagImage(inputFileStream, outputFileStream);
+        metadata.copy(imageTagger);
+
         inputFileStream.close();
         outputFileStream.close();
 
@@ -89,7 +93,7 @@ public class Enclosure {
         Files.write(manifestFilePath,
                     manifestCreator.get().toJSONString().getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE);
-        return metadata;
+        return metadata.copy(manifestCreator);
     }
 
     public Metadata addIndex(Metadata metadata) throws IOException {
@@ -99,6 +103,6 @@ public class Enclosure {
         Files.write(indexFilePath,
                     indexCreator.toString().getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE);
-        return metadata;
+        return metadata.copy(indexCreator);
     }
 }

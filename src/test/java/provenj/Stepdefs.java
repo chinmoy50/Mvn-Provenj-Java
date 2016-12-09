@@ -23,16 +23,24 @@ public class Stepdefs {
 
     @Given("^the Bitcoin block number (\\d+)$")
     public void the_Bitcoin_block_number(int blockNumber) throws Throwable {
+        // testing set-by-string
+        metadata.setByTag("BitcoinBlockNumber", "999");
+        assertEquals(999, metadata.getBitcoinBlockNumber());
         metadata.setBitcoinBlockNumber(blockNumber);
     }
 
     @Given("^the Bitcoin block hash \"([^\"]*)\"$")
     public void the_Bitcoin_block_hash(String blockHash) throws Throwable {
+        metadata.setByTag("BitcoinBlockHash", "hashtash");
+        assertEquals("hashtash", metadata.getBitcoinBlockHash());
         metadata.setBitcoinBlockHash(blockHash);
     }
 
     @Given("^the Ethereum block number (\\d+)$")
     public void the_Ethereum_block_number(int blockNumber) throws Throwable {
+        // testing set-by-string
+        metadata.setByTag("EthereumBlockNumber", "8888");
+        assertEquals(8888, metadata.getEthereumBlockNumber());
         metadata.setEthereumBlockNumber(blockNumber);
     }
 
@@ -53,8 +61,17 @@ public class Stepdefs {
 
     @Given("^the GUID \"([^\"]*)\"$")
     public void the_GUID(String guid) throws Throwable {
+        // testing set-by-string
+        metadata.setByTag("GUID", "1aa3ded6-7fbc-4cef-8f86-6312ea5aebaa");
+        assertEquals(UUID.fromString("1aa3ded6-7fbc-4cef-8f86-6312ea5aebaa"), metadata.getGUID());
         metadata.setGUID(UUID.fromString(guid));
     }
+
+    @Given("^the file name \"([^\"]*)\"$")
+    public void the_file_name(String fileName) throws Throwable {
+        metadata.setFileName(fileName);
+    }
+
 
     private String shellCommand(String command){
         Runtime rt = Runtime.getRuntime();
@@ -180,5 +197,23 @@ public class Stepdefs {
         assertEquals(fileHashes, finalJson.get(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, metadata.getPreviousFileHashes());
+    }
+
+    @When("^I call the command line interface with nothing$")
+    public void i_call_the_command_line_interface_with_nothing() throws Throwable {
+        String[] args = {};
+        CmdLine.main(args);
+    }
+
+    @When("^I call the command line interface with invalid metadata tags\"$")
+    public void i_call_the_command_line_interface_with_invalid_metadata_tags() throws Throwable {
+        String[] args = {"Bogus.jpeg","-DBogus=BogusValue"};
+        CmdLine.main(args);
+    }
+
+    @When("^I call the command line interface with the JPEG file \"([^\"]*)\"$")
+    public void i_call_the_command_line_interface_with_the_JPEG_file(String arg1) throws Throwable {
+        String[] args = {arg1,String.format("-D%1$s=%2$s",ProvenLib.PROVEN_GUID,UUID.randomUUID().toString())};
+        CmdLine.main(args);
     }
 }
