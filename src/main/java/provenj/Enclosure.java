@@ -58,18 +58,8 @@ public class Enclosure {
     }
 
     public Metadata addContent(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
-        // Use file name supplied in the path if none supplied
-        if("".equals(metadata.getFileName())) {
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println(metadata.getFileName());
-            System.out.println(inputFilePath.getFileName().toString());
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            metadata.setFileName(inputFilePath.getFileName().toString());
-        }
+        metadata.setFileName(inputFilePath.getFileName().toString());
+
         // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
         FileOutputStream outputFileStream = new FileOutputStream(tempOutputFile.getCanonicalFile());
