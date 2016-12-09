@@ -67,6 +67,12 @@ public class Stepdefs {
         metadata.setGUID(UUID.fromString(guid));
     }
 
+    @Given("^the file name \"([^\"]*)\"$")
+    public void the_file_name(String fileName) throws Throwable {
+        metadata.setFileName(fileName);
+    }
+
+
     private String shellCommand(String command){
         Runtime rt = Runtime.getRuntime();
 
