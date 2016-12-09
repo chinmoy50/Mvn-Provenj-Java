@@ -26,3 +26,10 @@ This library will tag JPEG images with the Exif/XMP tags standard for Proven ver
 
 Ubuntu prerequisites:
 `apt-get install maven exiftool`
+
+## Command line
+The Maven packaging is configured to build a [shaded JAR](https://maven.apache.org/plugins/maven-shade-plugin/usage.html) which contains all of the dependencies, which makes it large.
+`mvn package
+java -cp target/provenj-0.0.1.jar provenj.CmdLine IMG_0001.jpeg -DGUID=7e26a501-30fb-4775-a494-c42691dc21e9 -DBitcoinBlockNumber=10101 -DFileName=MemePic.jpg`
+All options are optional.
+It returns a path to the temporary directory of the enclosure.
