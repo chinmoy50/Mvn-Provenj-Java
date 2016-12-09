@@ -18,6 +18,8 @@ public class Metadata implements MetadataIntf {
     protected String m_fileName;
     protected String m_fileHashes;
     public static String[] TAGS = {
+            ProvenLib.PROVEN_FILE_NAME,
+            ProvenLib.PROVEN_FILE_HASHES,
             ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER,
             ProvenLib.PROVEN_BITCOIN_BLOCK_HASH,
             ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
