@@ -27,3 +27,7 @@ Feature: Create an enclosure which is a temporary directory that contains all as
     Given the file name "DogTongue.jpeg"
     When I provide a JPEG file "src/test/resources/provenj/2016-12-01-175915.jpg"
     Then it should contain in the payload directory the file "DogTongue.jpeg"
+
+  Scenario: Command line usage
+    When I call the command line interface with the JPEG file "src/test/resources/provenj/2016-12-01-175915.jpg"
+    Then nothing bad should happen

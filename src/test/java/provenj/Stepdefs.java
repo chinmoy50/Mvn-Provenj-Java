@@ -198,4 +198,15 @@ public class Stepdefs {
         assertEquals(fileHashes, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, metadata.getPreviousFileHashes());
     }
+
+    @When("^I call the command line interface with the JPEG file \"([^\"]*)\"$")
+    public void i_call_the_command_line_interface_with_the_JPEG_file(String arg1) throws Throwable {
+        String[] args = {arg1,String.format("-D%1$s=%2$s",ProvenLib.PROVEN_GUID,UUID.randomUUID().toString())};
+        CmdLine.main(args);
+    }
+
+    @Then("^nothing bad should happen$")
+    public void nothing_bad_should_happen() throws Throwable {
+        assert(true);
+    }
 }
