@@ -12,7 +12,6 @@ import org.apache.commons.cli.ParseException;
 import java.nio.file.Paths;
 
 // Command-line interface for Provenj
-@SuppressWarnings("unchecked")
 public class CmdLine {
     public static void main( String[] args ) {
         // create the parser
