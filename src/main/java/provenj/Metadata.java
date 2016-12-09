@@ -2,6 +2,8 @@ package provenj;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 // Implements in-memory storage for metadata.
@@ -15,6 +17,14 @@ public class Metadata implements MetadataIntf {
     protected UUID   m_guid;
     protected String m_fileName;
     protected String m_fileHashes;
+    public static String[] TAGS = {
+            ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER,
+            ProvenLib.PROVEN_BITCOIN_BLOCK_HASH,
+            ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER,
+            ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH,
+            ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,
+            ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,
+            ProvenLib.PROVEN_GUID};
 
     public Metadata(){}
 
@@ -58,6 +68,7 @@ public class Metadata implements MetadataIntf {
     }
 
     public void setByTag(String tagName, String value) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if( !Arrays.asList(TAGS).contains(tagName)) throw new NoSuchElementException();
         Method method = this.getClass().getDeclaredMethod(String.format("set%s",tagName),String.class);
         method.invoke(this,value);
     }
