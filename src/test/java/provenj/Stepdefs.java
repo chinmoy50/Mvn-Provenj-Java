@@ -23,16 +23,24 @@ public class Stepdefs {
 
     @Given("^the Bitcoin block number (\\d+)$")
     public void the_Bitcoin_block_number(int blockNumber) throws Throwable {
+        // testing set-by-string
+        metadata.setByTag("BitcoinBlockNumber", "999");
+        assertEquals(999, metadata.getBitcoinBlockNumber());
         metadata.setBitcoinBlockNumber(blockNumber);
     }
 
     @Given("^the Bitcoin block hash \"([^\"]*)\"$")
     public void the_Bitcoin_block_hash(String blockHash) throws Throwable {
+        metadata.setByTag("BitcoinBlockHash", "hashtash");
+        assertEquals("hashtash", metadata.getBitcoinBlockHash());
         metadata.setBitcoinBlockHash(blockHash);
     }
 
     @Given("^the Ethereum block number (\\d+)$")
     public void the_Ethereum_block_number(int blockNumber) throws Throwable {
+        // testing set-by-string
+        metadata.setByTag("EthereumBlockNumber", "8888");
+        assertEquals(8888, metadata.getEthereumBlockNumber());
         metadata.setEthereumBlockNumber(blockNumber);
     }
 
@@ -53,6 +61,9 @@ public class Stepdefs {
 
     @Given("^the GUID \"([^\"]*)\"$")
     public void the_GUID(String guid) throws Throwable {
+        // testing set-by-string
+        metadata.setByTag("GUID", "1aa3ded6-7fbc-4cef-8f86-6312ea5aebaa");
+        assertEquals(UUID.fromString("1aa3ded6-7fbc-4cef-8f86-6312ea5aebaa"), metadata.getGUID());
         metadata.setGUID(UUID.fromString(guid));
     }
 
