@@ -1,4 +1,10 @@
 language: java
+before_script:
+  - wget https://dist.ipfs.io/go-ipfs/v0.4.4/go-ipfs_v0.4.4_linux-amd64.tar.gz -O /tmp/go-ipfs_v0.4.4_linux-amd64.tar.gz
+  - tar -xvf /tmp/go-ipfs_v0.4.4_linux-amd64.tar.gz
+  - export PATH=$PATH:$PWD/go-ipfs/
+  - ipfs init
+  - ipfs daemon &
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 notifications:
