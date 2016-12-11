@@ -36,5 +36,3 @@ Feature: Create an enclosure which is a temporary directory that contains all as
 
   Scenario: Incorrect command line usage, part two
     When I call the command line interface with invalid metadata tags"
-
-
