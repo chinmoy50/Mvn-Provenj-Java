@@ -1,7 +1,5 @@
 package provenj;
 
-import com.adobe.internal.xmp.XMPException;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -35,7 +33,7 @@ public class CmdLine {
             }
 
             Enclosure enclosure = new Enclosure();
-            metadata = enclosure.fillEnclosure(Paths.get(args[0]),metadata);
+            metadata = enclosure.fill(Paths.get(args[0]),metadata);
             System.out.println(enclosure.getPath());
         }
         catch( Exception e ) {

@@ -49,7 +49,7 @@ public class Enclosure {
         return DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
     }
 
-    public Metadata fillEnclosure(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
+    public Metadata fill(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
         metadata = addContent(inputFilePath, metadata);
         metadata = addManifest(metadata);
         metadata = addIndex(metadata);

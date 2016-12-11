@@ -10,9 +10,7 @@ import io.ipfs.multihash.Multihash;
 
 // Distributes a file over IPFS
 public class Distributor {
-    public Distributor(){
-
-    }
+    public Distributor() {}
 
     public String publishIPFS(Path path) throws IOException {
         IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
