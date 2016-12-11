@@ -17,7 +17,7 @@
     <scm>
         <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj</url>
         <connection>scm:git:git://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj.git</connection>
-        <developerConnection>scm:git:git@github.com:1AmOXsGnfXdbNg3RMTyPCHkn2aT/java-multiaddr.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj.git</developerConnection>
     </scm>
 
     <licenses>
