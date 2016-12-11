@@ -107,9 +107,12 @@ public class Stepdefs {
     public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
         enclosure = new Enclosure();
         metadata = enclosure.fillEnclosure(Paths.get(inputFilePath),metadata);
-
-        Distributor distributor = new Distributor();
-        ipfsPath = distributor.publishIPFS(enclosure.getPath());
+        ipfsPath = enclosure.publish();
+        System.out.println();
+        System.out.println();
+        System.out.println(ipfsPath);
+        System.out.println();
+        System.out.println();
     }
 
     @Then("^there should exist a directory$")

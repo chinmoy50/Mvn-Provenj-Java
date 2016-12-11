@@ -105,4 +105,9 @@ public class Enclosure {
                     StandardOpenOption.CREATE);
         return metadata.copy(indexCreator);
     }
+
+    public String publish() throws IOException {
+        Distributor dist = new Distributor();
+        return dist.publishIPFS(getPath());
+    }
 }
