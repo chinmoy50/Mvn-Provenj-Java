@@ -107,8 +107,7 @@ public class Stepdefs {
     public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
         enclosure = new Enclosure();
         metadata = enclosure.fillEnclosure(Paths.get(inputFilePath),metadata);
-// can't test this until IPFS is available on Travis
-//        ipfsPath = enclosure.publish();
+        ipfsPath = enclosure.publish();
         System.out.println(ipfsPath);
 
     }
