@@ -9,7 +9,11 @@ project.ext {
 
 jar {
     manifest {
-        from('src/main/java/META-INF/MANIFEST.MF')
+        attributes 'Implementation-Title': 'provenj',
+                   'Implementation-Version': '1.0.0',
+                   'Implementation-Vendor': '1AmOXsGnfXdbNg3RMTyPCHkn2aT',
+                   'Implementation-URL': 'https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj',
+                   'Main-Class': 'provenj.CmdLine'
     }
 }
 dependencies {
