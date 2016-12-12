@@ -10,10 +10,10 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 
