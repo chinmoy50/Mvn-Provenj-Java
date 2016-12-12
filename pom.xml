@@ -34,7 +34,7 @@
             <name>Apache v2</name>
             <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/blob/master/NOTICE</url>
             <distribution>repo</distribution>
-            <comments>XmpUtil.java Copyright (C) 2013 The Android Open Source Project</comments>
+            <comments>Only applies to XmpUtil.java Copyright (C) 2013 The Android Open Source Project</comments>
         </license>
     </licenses>
 
