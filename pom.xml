@@ -77,9 +77,9 @@
             <version>0.7</version>
         </dependency>
         <dependency>
-            <groupId>com.github.celeduc</groupId>
+            <groupId>com.github.ipfs</groupId>
             <artifactId>java-ipfs-api</artifactId>
-            <version>v1.0.0-PRE</version>
+            <version>v1.0.0</version>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
