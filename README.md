@@ -30,6 +30,27 @@ An [IPFS.io](https://ipfs.io) daemon is required to be running on the local mach
 Ubuntu prerequisites:
 `apt-get install maven exiftool`
 
+## Usage
+You can use this project by building the JAR with `mvn package`, or by using [JitPack](https://jitpack.io/#1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/) (also supporting Gradle, SBT, etc).
+
+for Maven, you can add the follwing sections to your POM.XML:
+```
+  <repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.1AmOXsGnfXdbNg3RMTyPCHkn2aT</groupId>
+      <artifactId>provenj</artifactId>
+      <version>v1.0.0</version>
+    </dependency>
+  </dependencies>
+```
+
 ## Command line
 The Maven packaging is configured to build a [shaded JAR](https://maven.apache.org/plugins/maven-shade-plugin/usage.html) which contains all of the dependencies, which makes it large.
 ```

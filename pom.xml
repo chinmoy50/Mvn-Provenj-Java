@@ -4,7 +4,7 @@
 
     <groupId>cucumber</groupId>
     <artifactId>provenj</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>provenj</name>
     <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj</url>
