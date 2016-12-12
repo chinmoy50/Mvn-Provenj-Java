@@ -2,12 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cucumber</groupId>
+    <groupId>proven</groupId>
     <artifactId>provenj</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>provenj</name>
     <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj</url>
+    <organization>
+        <name>1AmOXsGnfXdbNg3RMTyPCHkn2aT</name>
+        <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT</url>
+    </organization>
 
     <issueManagement>
         <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/issues</url>
@@ -25,6 +29,12 @@
             <name>AGPL v3</name>
             <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/blob/master/LICENSE</url>
             <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>Apache v2</name>
+            <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/blob/master/NOTICE</url>
+            <distribution>repo</distribution>
+            <comments>Only applies to XmpUtil.java Copyright (C) 2013 The Android Open Source Project</comments>
         </license>
     </licenses>
 
@@ -77,9 +87,9 @@
             <version>0.7</version>
         </dependency>
         <dependency>
-            <groupId>com.github.celeduc</groupId>
+            <groupId>com.github.ipfs</groupId>
             <artifactId>java-ipfs-api</artifactId>
-            <version>v1.0.0-PRE</version>
+            <version>v1.0.0</version>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
@@ -124,7 +134,11 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <Main-Class>provenj.CmdLine</Main-Class>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>

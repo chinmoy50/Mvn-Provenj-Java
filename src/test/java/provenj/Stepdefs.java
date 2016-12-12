@@ -10,10 +10,10 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 
@@ -101,15 +101,22 @@ public class Stepdefs {
 
     // Test enclosure creation
     Enclosure enclosure = null;
-    String ipfsPath = "";
+    String ipfsHash = "";
 
     @When("^I provide a JPEG file \"([^\"]*)\"$")
     public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
         enclosure = new Enclosure();
         metadata = enclosure.fill(Paths.get(inputFilePath),metadata);
-        ipfsPath = enclosure.publish();
-        System.out.println(ipfsPath);
+        ipfsHash = enclosure.publish();
+        System.out.println(ipfsHash);
 
+    }
+
+    @Then("^the IPFS hash returned should be accessible from the IPFS gateway$")
+    public void the_IPFS_hash_returned_should_be_accessible_from_the_IPFS_gateway() throws Throwable {
+        JSONParser parser = new JSONParser();
+        JSONObject ipfsJson = (JSONObject) parser.parse(shellCommand(String.format("curl https://ipfs.io/ipfs/%s/manifest.json",ipfsHash)));
+        assertEquals(metadata.getFileName(), ipfsJson.get(ProvenLib.PROVEN_FILE_NAME));
     }
 
     @Then("^there should exist a directory$")
