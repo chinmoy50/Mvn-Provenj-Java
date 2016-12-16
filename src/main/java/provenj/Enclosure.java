@@ -40,13 +40,16 @@ public class Enclosure {
         return Paths.get(getPath().toString(), element);
     }
 
-    protected static String calculateFileHash(Path path) throws NoSuchAlgorithmException, IOException {
-        FileInputStream stream = new FileInputStream(path.toString());
+    public static String calculateFileHash(FileInputStream fileInputStream) throws NoSuchAlgorithmException, IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
         DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
-        ByteStreams.copy(stream, dos);
+        ByteStreams.copy(fileInputStream, dos);
         dos.close();
         return DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
+    }
+
+    public static String calculateFileHash(Path path) throws NoSuchAlgorithmException, IOException {
+        return calculateFileHash(new FileInputStream(path.toString()));
     }
 
     public Metadata fill(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
