@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
-import io.ipfs.multihash.Multihash;
 
 // Distributes a file over IPFS
 public class Distributor {
