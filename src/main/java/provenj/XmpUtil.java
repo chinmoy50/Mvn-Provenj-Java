@@ -46,7 +46,6 @@ import java.util.List;
  * XmpUtil.writeXMPMeta(filename, xmpMeta);
  */
 public class XmpUtil {
-  private static final String TAG = "XmpUtil";
   private static final int XMP_HEADER_SIZE = 29;
   private static final String XMP_HEADER = "http://ns.adobe.com/xap/1.0/\0";
   private static final int MAX_XMP_BUFFER_SIZE = 65502;
