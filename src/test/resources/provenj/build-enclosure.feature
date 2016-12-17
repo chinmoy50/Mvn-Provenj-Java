@@ -29,6 +29,13 @@ Feature: Create an enclosure which is a temporary directory that contains all as
     Then it should contain in the payload directory the file "DogTongue.jpeg"
     And the IPFS hash returned should be accessible from the IPFS gateway
 
+  Scenario: Modify existing file
+    Given the Bitcoin block number 438712
+    And the GUID "0b89ff5d-c1d8-4dce-949a-a7e29215b09d"
+    When I ask to directly tag a copy of the JPEG file "src/test/resources/provenj/2016-12-01-175915.jpg"
+    Then the GUID everywhere is "0b89ff5d-c1d8-4dce-949a-a7e29215b09d"
+    And the Bitcoin block number everywhere is 438712
+
   Scenario: Command line usage
     When I call the command line interface with the JPEG file "src/test/resources/provenj/2016-12-01-175915.jpg"
 

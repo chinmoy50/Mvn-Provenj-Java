@@ -4,6 +4,7 @@ import com.adobe.internal.xmp.XMPMeta;
 import com.adobe.internal.xmp.XMPException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 
@@ -13,7 +14,7 @@ public class ImageTagger extends Metadata {
         super(metadata);
     }
 
-    public void tagImage(FileInputStream inputFile, FileOutputStream outputFile) throws XMPException {
+    public void tagImage(FileInputStream inputFileStream, FileOutputStream outputFileStream) throws XMPException {
         XMPMeta meta = XmpUtil.createXMPMeta();
 
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER,  getBitcoinBlockNumber());
@@ -30,6 +31,14 @@ public class ImageTagger extends Metadata {
 
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_GUID,                  getGUID().toString());
 
-        XmpUtil.writeXMPMeta(inputFile, outputFile, meta);
+        XmpUtil.writeXMPMeta(inputFileStream, outputFileStream, meta);
+    }
+
+    public Metadata tagAndClose(FileInputStream inputFileStream, FileOutputStream outputFileStream) throws XMPException, IOException {
+        // apply the metadata to the images
+        tagImage(inputFileStream, outputFileStream);
+        inputFileStream.close();
+        outputFileStream.close();
+        return this;
     }
 }

@@ -8,18 +8,23 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class Stepdefs {
 
     Metadata metadata = new Metadata();
+    Enclosure enclosure = null;
 
     @Given("^the Bitcoin block number (\\d+)$")
     public void the_Bitcoin_block_number(int blockNumber) throws Throwable {
@@ -100,7 +105,6 @@ public class Stepdefs {
     }
 
     // Test enclosure creation
-    Enclosure enclosure = null;
     String ipfsHash = "";
 
     @When("^I provide a JPEG file \"([^\"]*)\"$")
@@ -155,6 +159,7 @@ public class Stepdefs {
         JSONParser parser = new JSONParser();
         finalJson = (JSONObject) parser.parse(json);
         assertEquals(guid, finalJson.get(ProvenLib.PROVEN_GUID));
+        assertEquals(guid, getFinalImageTag(ProvenLib.PROVEN_GUID));
         assertEquals(guid, metadata.getGUID().toString());
     }
 
@@ -208,6 +213,22 @@ public class Stepdefs {
         assertEquals(fileHashes, finalJson.get(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, metadata.getPreviousFileHashes());
+    }
+
+    @When("^I ask to directly tag a copy of the JPEG file \"([^\"]*)\"$")
+    public void i_ask_to_directly_tag_a_copy_of_the_JPEG_file(String inputFilePath) throws Throwable {
+        enclosure = new Enclosure();
+        File tempOutputFile = File.createTempFile("stepdefs", ".jpeg");
+        Files.copy(Paths.get(inputFilePath),tempOutputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        assertNotNull(enclosure);
+        assertNotNull(metadata);
+        assertNotNull(tempOutputFile);
+        metadata.setFileName(tempOutputFile.getName());
+        metadata = enclosure.addContent(tempOutputFile, metadata, true);
+        metadata = enclosure.addIndex(metadata);
+        metadata = enclosure.addManifest(metadata);
+        // double check that we didn't mess up the test case and modify the test file
+        assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,Paths.get(inputFilePath)));
     }
 
     @When("^I call the command line interface with the JPEG file \"([^\"]*)\"$")

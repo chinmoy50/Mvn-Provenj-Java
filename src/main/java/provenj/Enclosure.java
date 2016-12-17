@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
@@ -62,9 +63,13 @@ public class Enclosure {
     }
 
     public Metadata addContent(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
+        return addContent(inputFilePath.toFile(), metadata, false );
+    }
+
+    public Metadata addContent(File file, Metadata metadata, boolean modifyOriginalFile) throws IOException, XMPException, NoSuchAlgorithmException {
         // If filename is not provided we can infer it from the path sent in.
         if(Strings.isNullOrEmpty((metadata.getFileName())))
-            metadata.setFileName(inputFilePath.getFileName().toString());
+            metadata.setFileName(file.getName());
 
         // Create temporary output file
         File tempOutputFile = File.createTempFile("provenj", ".jpeg");
@@ -72,17 +77,17 @@ public class Enclosure {
 
         // apply the metadata to the images
         ImageTagger imageTagger = new ImageTagger(metadata);
-        FileInputStream inputFileStream = new FileInputStream(inputFilePath.toFile());
-        imageTagger.tagImage(inputFileStream, outputFileStream);
-        metadata.copy(imageTagger);
-
-        inputFileStream.close();
-        outputFileStream.close();
+        FileInputStream inputFileStream = new FileInputStream(file);
+        metadata.copy(imageTagger.tagAndClose(inputFileStream, outputFileStream));
 
         // copy the image file into the enclosure content directory
         Path finalOutputFilePath = Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                      metadata.getFileName());
-        Files.move(tempOutputFile.toPath(),finalOutputFilePath);
+
+        if (modifyOriginalFile) {
+            Files.copy(tempOutputFile.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+        Files.move(tempOutputFile.toPath(), finalOutputFilePath);
 
         // calculate the image file hash and record it in the metadata
         metadata.setFileHashes(calculateFileHash(finalOutputFilePath));
