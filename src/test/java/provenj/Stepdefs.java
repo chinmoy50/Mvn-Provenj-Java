@@ -110,7 +110,7 @@ public class Stepdefs {
     @When("^I provide a JPEG file \"([^\"]*)\"$")
     public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
         enclosure = new Enclosure();
-        metadata = enclosure.fill(Paths.get(inputFilePath),metadata);
+        metadata = enclosure.fill(Paths.get(inputFilePath).toFile(), metadata);
         ipfsHash = enclosure.publish();
         System.out.println(ipfsHash);
 
@@ -224,9 +224,7 @@ public class Stepdefs {
         assertNotNull(metadata);
         assertNotNull(tempOutputFile);
         metadata.setFileName(tempOutputFile.getName());
-        metadata = enclosure.addContent(tempOutputFile, metadata, true);
-        metadata = enclosure.addIndex(metadata);
-        metadata = enclosure.addManifest(metadata);
+        metadata = enclosure.fill(tempOutputFile, metadata, true);
         // double check that we didn't mess up the test case and modify the test file
         assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,Paths.get(inputFilePath)));
     }
