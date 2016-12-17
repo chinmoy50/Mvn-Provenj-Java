@@ -10,7 +10,7 @@ project.ext {
 jar {
     manifest {
         attributes 'Implementation-Title': 'provenj',
-                   'Implementation-Version': '1.0.0',
+                   'Implementation-Version': '1.2.0',
                    'Implementation-Vendor': '1AmOXsGnfXdbNg3RMTyPCHkn2aT',
                    'Implementation-URL': 'https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj',
                    'Main-Class': 'provenj.CmdLine'
