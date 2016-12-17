@@ -53,17 +53,17 @@ public class Enclosure {
         return calculateFileHash(new FileInputStream(path.toString()));
     }
 
-    public Metadata fill(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
-        metadata = addContent(inputFilePath, metadata);
+    public Metadata fill(File file, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
+        return fill(file, metadata, false);
+    }
+
+    public Metadata fill(File file, Metadata metadata, boolean modifyOriginalFile) throws IOException, XMPException, NoSuchAlgorithmException {
+        metadata = addContent(file, metadata, modifyOriginalFile);
         metadata = addManifest(metadata);
         metadata = addIndex(metadata);
 
         // has changed
         return metadata;
-    }
-
-    public Metadata addContent(Path inputFilePath, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
-        return addContent(inputFilePath.toFile(), metadata, false );
     }
 
     public Metadata addContent(File file, Metadata metadata, boolean modifyOriginalFile) throws IOException, XMPException, NoSuchAlgorithmException {

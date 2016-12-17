@@ -33,7 +33,7 @@ public class CmdLine {
             }
 
             Enclosure enclosure = new Enclosure();
-            metadata = enclosure.fill(Paths.get(args[0]),metadata);
+            metadata = enclosure.fill(Paths.get(args[0]).toFile(),metadata);
             System.out.println(enclosure.getPath());
         }
         catch( Exception e ) {
