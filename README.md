@@ -30,7 +30,7 @@ This library will tag JPEG images with the Exif/XMP tags standard for Proven ver
 An [IPFS.io](https://ipfs.io) daemon is required to be running on the local machine (for testing and for publishing to IPFS).
 
 Ubuntu prerequisites:
-`apt-get install maven exiftool`
+`apt-get install maven exiftool curl`
 
 ## Usage
 You can use this project by building the JAR with `mvn package`, or by using [JitPack](https://jitpack.io/#1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/) (also supporting Gradle, SBT, etc).
