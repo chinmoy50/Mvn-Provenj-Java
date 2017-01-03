@@ -228,26 +228,4 @@ public class Stepdefs {
         // double check that we didn't mess up the test case and modify the test file
         assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,Paths.get(inputFilePath)));
     }
-
-    @When("^I call the command line interface with the JPEG file \"([^\"]*)\"$")
-    public void i_call_the_command_line_interface_with_the_JPEG_file(String arg1) throws Throwable {
-        String[] args = {arg1,String.format("-D%1$s=%2$s",ProvenLib.PROVEN_GUID,UUID.randomUUID().toString())};
-        CmdLine.main(args);
-    }
-
-    @When("^I call the command line interface with nothing$")
-    public void i_call_the_command_line_interface_with_nothing() throws Throwable {
-        // this is just for code coverage
-        CmdLine cmdLine = new CmdLine();
-        String[] args = {};
-        // This pukes
-        cmdLine.main(args);
-    }
-
-    @When("^I call the command line interface with invalid metadata tags\"$")
-    public void i_call_the_command_line_interface_with_invalid_metadata_tags() throws Throwable {
-        String[] args = {"Bogus.jpeg","-DBogus=BogusValue"};
-        // this pukes
-        CmdLine.main(args);
-    }
 }

@@ -96,11 +96,3 @@ String previousFileHashes = metadata.getFileHashes();
 String previousIPFShash = ipfsHash;
 
 ```
-
-## Command line
-The Maven packaging is configured to build a [shaded JAR](https://maven.apache.org/plugins/maven-shade-plugin/usage.html) which contains all of the dependencies, which makes it large.
-```sh
-mvn package 
-java -cp target/provenj-0.0.1.jar provenj.CmdLine IMG_0001.jpeg -DGUID=7e26a501-30fb-4775-a494-c42691dc21e9 -DBitcoinBlockNumber=10101 -DFileName=MemePic.jpg
-```
-All of the properties in the metadata can optionally be set.  It returns to standard output a path to the temporary directory of the enclosure.  It does not publish to IPFS, which can be done with `ipfs add -r the_directory`.
