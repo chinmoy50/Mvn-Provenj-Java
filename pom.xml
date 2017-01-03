@@ -4,7 +4,7 @@
 
     <groupId>proven</groupId>
     <artifactId>provenj</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.2</version>
     <packaging>jar</packaging>
     <name>provenj</name>
     <url>https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj</url>
@@ -89,7 +89,7 @@
         <dependency>
             <groupId>com.github.celeduc</groupId>
             <artifactId>ipfs-api-kotlin</artifactId>
-            <version>0.999999</version>
+            <version>0.9999999</version>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>

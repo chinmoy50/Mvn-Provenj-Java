@@ -21,7 +21,7 @@ project.ext {
 jar {
     manifest {
         attributes 'Implementation-Title': 'provenj',
-                   'Implementation-Version': '2.0.0',
+                   'Implementation-Version': '2.0.2',
                    'Implementation-Vendor': '1AmOXsGnfXdbNg3RMTyPCHkn2aT',
                    'Implementation-URL': 'https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj',
                    'Main-Class': 'provenj.CmdLine'
@@ -32,7 +32,7 @@ dependencies {
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    compile group: 'com.github.celeduc', name: 'ipfs-api-kotlin', version: '0.999999'
+    compile group: 'com.github.celeduc', name: 'ipfs-api-kotlin', version: '0.9999999'
     compile group: 'com.adobe.xmp', name: 'xmpcore', version: '6.1.10'
     compile group: 'com.j2html', name: 'j2html', version: '0.7'
     compile group: 'commons-cli', name: 'commons-cli', version: '1.3.1'
