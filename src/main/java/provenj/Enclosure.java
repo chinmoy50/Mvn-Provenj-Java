@@ -49,8 +49,8 @@ public class Enclosure {
         return DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
     }
 
-    public static String calculateFileHash(Path path) throws NoSuchAlgorithmException, IOException {
-        return calculateFileHash(new FileInputStream(path.toString()));
+    public static String calculateFileHash(String path) throws NoSuchAlgorithmException, IOException {
+        return calculateFileHash(new FileInputStream(path));
     }
 
     public Metadata fill(File file, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
@@ -90,7 +90,7 @@ public class Enclosure {
         Files.move(tempOutputFile.toPath(), finalOutputFilePath);
 
         // calculate the image file hash and record it in the metadata
-        metadata.setFileHashes(calculateFileHash(finalOutputFilePath));
+        metadata.setFileHashes(calculateFileHash(new FileInputStream( finalOutputFilePath.toFile())));
         return metadata;
     }
 
