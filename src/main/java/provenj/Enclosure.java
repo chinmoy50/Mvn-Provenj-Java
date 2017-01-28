@@ -26,19 +26,19 @@ public class Enclosure {
 
     protected void init() throws IOException {
         m_path = Files.createTempDirectory(ProvenLib.PROVEN_PREFIX);
-        Files.createDirectory(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY));
+        Files.createDirectory(Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY)));
     }
 
     public Enclosure() throws IOException {
         init();
     }
 
-    public Path getPath(){
-        return m_path;
+    public String getPath(){
+        return m_path.toString();
     }
 
-    public Path getPath(String element) {
-        return Paths.get(getPath().toString(), element);
+    public String getPath(String element){
+        return getPath() + System.getProperty("file.separator") + element;
     }
 
     public static String calculateFileHash(FileInputStream fileInputStream) throws NoSuchAlgorithmException, IOException {
@@ -97,7 +97,8 @@ public class Enclosure {
     public Metadata addManifest(Metadata metadata) throws IOException {
         // write the manifest to the enclosure
         ManifestCreator manifestCreator = new ManifestCreator(metadata);
-        Path manifestFilePath = getPath(ProvenLib.PROVEN_MANIFEST);
+
+        Path manifestFilePath = Paths.get(getPath(ProvenLib.PROVEN_MANIFEST));
         Files.write(manifestFilePath,
                     manifestCreator.get().toJSONString().getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE);
@@ -106,7 +107,7 @@ public class Enclosure {
 
     public Metadata addIndex(Metadata metadata) throws IOException {
         // write the index to the enclosure
-        Path indexFilePath = getPath(ProvenLib.PROVEN_INDEX);
+        Path indexFilePath = Paths.get(getPath(ProvenLib.PROVEN_INDEX));
         IndexCreator indexCreator = new IndexCreator(metadata);
         Files.write(indexFilePath,
                     indexCreator.toString().getBytes(StandardCharsets.UTF_8),

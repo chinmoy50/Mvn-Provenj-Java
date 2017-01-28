@@ -10,12 +10,10 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -169,7 +167,7 @@ public class Stepdefs {
 
     @Then("^the GUID everywhere is \"([^\"]*)\"$")
     public void the_GUID_everywhere_is(String guid) throws Throwable {
-        String json = new String(Files.readAllBytes(enclosure.getPath(ProvenLib.PROVEN_MANIFEST)));
+        String json = Files.toString(new File(enclosure.getPath(ProvenLib.PROVEN_MANIFEST)), Charsets.UTF_8);
         JSONParser parser = new JSONParser();
         finalJson = (JSONObject) parser.parse(json);
         assertEquals(guid, finalJson.get(ProvenLib.PROVEN_GUID));
@@ -232,8 +230,9 @@ public class Stepdefs {
     @When("^I ask to directly tag a copy of the JPEG file \"([^\"]*)\"$")
     public void i_ask_to_directly_tag_a_copy_of_the_JPEG_file(String inputFilePath) throws Throwable {
         enclosure = new Enclosure();
+        File inputFile = new File(inputFilePath);
         File tempOutputFile = File.createTempFile("stepdefs", ".jpeg");
-        Files.copy(Paths.get(inputFilePath),tempOutputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(inputFile,tempOutputFile);
         assertNotNull(enclosure);
         assertNotNull(metadata);
         assertNotNull(tempOutputFile);
