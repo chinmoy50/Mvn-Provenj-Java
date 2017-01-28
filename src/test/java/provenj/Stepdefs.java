@@ -180,7 +180,7 @@ public class Stepdefs {
     @Then("^the File Hashes are the same everywhere")
     public void the_File_Hashes_are_the_same_everywhere() throws Throwable {
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
-                     Enclosure.calculateFileHash(file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                     Enclosure.calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                            finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
         assertEquals(metadata.getFileHashes(),finalJson.get(ProvenLib.PROVEN_FILE_HASHES).toString().toUpperCase());
