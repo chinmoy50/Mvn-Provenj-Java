@@ -1,19 +1,17 @@
 package provenj;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
+import com.google.common.io.Files;
 import com.adobe.internal.xmp.XMPException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -85,9 +83,9 @@ public class Enclosure {
                                                      metadata.getFileName());
 
         if (modifyOriginalFile) {
-            Files.copy(tempOutputFile.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(tempOutputFile, file);
         }
-        Files.move(tempOutputFile.toPath(), finalOutputFilePath);
+        Files.move(tempOutputFile, finalOutputFilePath.toFile());
 
         // calculate the image file hash and record it in the metadata
         metadata.setFileHashes(calculateFileHash(new FileInputStream( finalOutputFilePath.toFile())));
@@ -99,9 +97,9 @@ public class Enclosure {
         ManifestCreator manifestCreator = new ManifestCreator(metadata);
 
         Path manifestFilePath = Paths.get(getPath(ProvenLib.PROVEN_MANIFEST));
-        Files.write(manifestFilePath,
-                    manifestCreator.get().toJSONString().getBytes(StandardCharsets.UTF_8),
-                    StandardOpenOption.CREATE);
+        Files.write(manifestCreator.get().toJSONString(),
+                    manifestFilePath.toFile(),
+                    Charsets.UTF_8);
         return metadata.copy(manifestCreator);
     }
 
@@ -109,9 +107,9 @@ public class Enclosure {
         // write the index to the enclosure
         Path indexFilePath = Paths.get(getPath(ProvenLib.PROVEN_INDEX));
         IndexCreator indexCreator = new IndexCreator(metadata);
-        Files.write(indexFilePath,
-                    indexCreator.toString().getBytes(StandardCharsets.UTF_8),
-                    StandardOpenOption.CREATE);
+        Files.write(indexCreator.toString(),
+                    indexFilePath.toFile(),
+                    Charsets.UTF_8);
         return metadata.copy(indexCreator);
     }
 
