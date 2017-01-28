@@ -149,17 +149,20 @@ public class Stepdefs {
         return file.isDirectory();
     }
 
+    private String file_path(String path, String fileName){
+        return path + System.getProperty("file.separator") + fileName;
+    }
+
     @Then("^it should contain in the payload directory the file \"([^\"]*)\"$")
     public void it_should_contain_in_the_payload_directory_the_file(String fileName) throws Throwable {
-        assert(file_exists(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString() + System.getProperty("file.separator") + fileName));
+        assert(file_exists(file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(), fileName)));
         assertEquals(fileName, metadata.getFileName());
     }
 
     // For testing, check a tag in the image in the enclosure.
     protected String getFinalImageTag(String tag){
-        return getTag(tag, enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString()
-                           + System.getProperty("file.separator")
-                           + metadata.getFileName());
+        return getTag(tag, file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                                     metadata.getFileName()));
     }
 
     JSONObject finalJson = null;
@@ -177,7 +180,7 @@ public class Stepdefs {
     @Then("^the File Hashes are the same everywhere")
     public void the_File_Hashes_are_the_same_everywhere() throws Throwable {
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES),
-                     Enclosure.calculateFileHash(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                     Enclosure.calculateFileHash(file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                            finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
         assertEquals(metadata.getFileHashes(),finalJson.get(ProvenLib.PROVEN_FILE_HASHES).toString().toUpperCase());
