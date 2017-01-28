@@ -95,13 +95,13 @@ public class Stepdefs {
     }
 
     // Read XMP tag from JPEG file using exiftool for testing purposes.
-    private String getTag(String tagName, Path filePath) {
-        return shellCommand(String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, filePath.toString()));
+    private String getTag(String tagName, String filePath) {
+        return shellCommand(String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, filePath));
     }
 
     // Verify the MD5 hash independent of the Java implementation
-    private String getMD5(Path imageFilePath){
-        return shellCommand(String.format("md5sum %1$s", imageFilePath.toString()));
+    private String getMD5(String imageFilePath){
+        return shellCommand(String.format("md5sum %1$s", imageFilePath));
     }
 
     // Test enclosure creation
@@ -110,7 +110,8 @@ public class Stepdefs {
     @When("^I provide a JPEG file \"([^\"]*)\"$")
     public void i_provide_a_jpeg_file(String inputFilePath) throws Throwable {
         enclosure = new Enclosure();
-        metadata = enclosure.fill(Paths.get(inputFilePath).toFile(), metadata);
+        File file = new File(inputFilePath);
+        metadata = enclosure.fill(file, metadata);
         ipfsHash = enclosure.publish();
         System.out.println(ipfsHash);
 
@@ -125,30 +126,40 @@ public class Stepdefs {
 
     @Then("^there should exist a directory$")
     public void there_should_exist_a_directory() throws Throwable {
-        assert(Files.isDirectory(enclosure.getPath()));
+        assert(is_directory(enclosure.getPath().toString()));
     }
 
     @Then("^it should contain a manifest$")
     public void it_should_contain_a_manifest() throws Throwable {
-        assert(Files.exists(enclosure.getPath(ProvenLib.PROVEN_MANIFEST)));
+        assert(file_exists(enclosure.getPath(ProvenLib.PROVEN_MANIFEST).toString()));
     }
 
     @Then("^it should contain an index$")
     public void it_should_contain_an_index() throws Throwable {
-        assert(Files.exists(enclosure.getPath(ProvenLib.PROVEN_INDEX)));
+        assert(file_exists(enclosure.getPath(ProvenLib.PROVEN_INDEX).toString()));
+    }
+
+    private boolean file_exists(String path){
+        File file = new File(path);
+        return file.exists();
+    }
+
+    private boolean is_directory(String path){
+        File file = new File(path);
+        return file.isDirectory();
     }
 
     @Then("^it should contain in the payload directory the file \"([^\"]*)\"$")
     public void it_should_contain_in_the_payload_directory_the_file(String fileName) throws Throwable {
-        assert(Files.exists(Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                                      fileName)));
+        assert(file_exists(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString() + System.getProperty("file.separator") + fileName));
         assertEquals(fileName, metadata.getFileName());
     }
 
     // For testing, check a tag in the image in the enclosure.
     protected String getFinalImageTag(String tag){
-        return getTag(tag, Paths.get(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                                     metadata.getFileName()));
+        return getTag(tag, enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString()
+                           + System.getProperty("file.separator")
+                           + metadata.getFileName());
     }
 
     JSONObject finalJson = null;
@@ -226,6 +237,6 @@ public class Stepdefs {
         metadata.setFileName(tempOutputFile.getName());
         metadata = enclosure.fill(tempOutputFile, metadata, true);
         // double check that we didn't mess up the test case and modify the test file
-        assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,Paths.get(inputFilePath)));
+        assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,inputFilePath));
     }
 }
