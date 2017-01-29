@@ -24,7 +24,8 @@ public class Enclosure {
 
     protected void init() throws IOException {
         m_path = Files.createTempDir().toPath();
-        Files.createParentDirs(Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY)).toFile());
+        // TODO: change to Guava
+        java.nio.file.Files.createDirectory(Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY)));
     }
 
     public Enclosure() throws IOException {
