@@ -23,8 +23,8 @@ public class Enclosure {
     protected Path m_path;
 
     protected void init() throws IOException {
-        m_path = Files.createTempDirectory(ProvenLib.PROVEN_PREFIX);
-        Files.createDirectory(Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY)));
+        m_path = Files.createTempDir().toPath();
+        Files.createParentDirs(Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY)).toFile());
     }
 
     public Enclosure() throws IOException {
