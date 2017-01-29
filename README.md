@@ -9,6 +9,8 @@ Java library with APIs for interacting with Proven:
 * creating Proven-compliant IPFS payloads and manifests
 * submitting those payloads to a local IFPS node (not in-process, external)
 
+This is written in Java 7 with JDK 1.6 and avoids java.nio libraries to provide Android support.
+
 ## IPFS file layout
 Proven stores each submission in a directory in IPFS. This allows us to store
 original file names as well as metadata, and allows us to present the file
