@@ -57,7 +57,6 @@ In your application:
 ```java
 import provenj.Metadata;
 import provenj.Enclosure;
-import java.nio.file.Path;
 import java.util.UUID;
 
 // Set up the metadata for the picture.
@@ -83,7 +82,7 @@ Enclosure enclosure = new Enclosure();
 metadata = enclosure.fill("/path/to/SOURCE_IMG_001.jpeg", metadata);
 
 // Where the image and files where saved
-Path temporaryFolder = enclosure.getPath();
+String temporaryFolder = enclosure.getPath();
 // Publish the folder to IPFS and return the hash
 String ipfsHash = enclosure.publish();
 // You might want to save the GUID for tracking status

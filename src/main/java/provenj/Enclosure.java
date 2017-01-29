@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.DigestOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,8 +22,8 @@ public class Enclosure {
 
     protected void init() throws IOException {
         m_path = Files.createTempDir().getPath();
-        // TODO: change to Guava
-        java.nio.file.Files.createDirectory(Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY)));
+        File file = new File(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY));
+        file.mkdir();
     }
 
     public Enclosure() throws IOException {
@@ -80,16 +78,16 @@ public class Enclosure {
         metadata.copy(imageTagger.tagAndClose(inputFileStream, outputFileStream));
 
         // copy the image file into the enclosure content directory
-        Path finalOutputFilePath = Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY),
+        File finalOutputFile = new File(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY),
                                                      metadata.getFileName());
 
         if (modifyOriginalFile) {
             Files.copy(tempOutputFile, file);
         }
-        Files.move(tempOutputFile, finalOutputFilePath.toFile());
+        Files.move(tempOutputFile, finalOutputFile);
 
         // calculate the image file hash and record it in the metadata
-        metadata.setFileHashes(calculateFileHash(new FileInputStream( finalOutputFilePath.toFile())));
+        metadata.setFileHashes(calculateFileHash(new FileInputStream(finalOutputFile)));
         return metadata;
     }
 
@@ -97,19 +95,19 @@ public class Enclosure {
         // write the manifest to the enclosure
         ManifestCreator manifestCreator = new ManifestCreator(metadata);
 
-        Path manifestFilePath = Paths.get(getPath(ProvenLib.PROVEN_MANIFEST));
+        File manifestFile = new File(getPath(ProvenLib.PROVEN_MANIFEST));
         Files.write(manifestCreator.get().toJSONString(),
-                    manifestFilePath.toFile(),
+                    manifestFile,
                     Charsets.UTF_8);
         return metadata.copy(manifestCreator);
     }
 
     public Metadata addIndex(Metadata metadata) throws IOException {
         // write the index to the enclosure
-        Path indexFilePath = Paths.get(getPath(ProvenLib.PROVEN_INDEX));
+        File indexFile = new File(getPath(ProvenLib.PROVEN_INDEX));
         IndexCreator indexCreator = new IndexCreator(metadata);
         Files.write(indexCreator.toString(),
-                    indexFilePath.toFile(),
+                    indexFile,
                     Charsets.UTF_8);
         return metadata.copy(indexCreator);
     }
