@@ -20,10 +20,10 @@ import javax.xml.bind.DatatypeConverter;
 
 // Creates an enclosure which is a temporary directory that contains all assets to be submitted
 public class Enclosure {
-    protected Path m_path;
+    protected String m_path;
 
     protected void init() throws IOException {
-        m_path = Files.createTempDir().toPath();
+        m_path = Files.createTempDir().getPath();
         // TODO: change to Guava
         java.nio.file.Files.createDirectory(Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY)));
     }
@@ -33,7 +33,7 @@ public class Enclosure {
     }
 
     public String getPath(){
-        return m_path.toString();
+        return m_path;
     }
 
     public String getPath(String element){
@@ -80,7 +80,7 @@ public class Enclosure {
         metadata.copy(imageTagger.tagAndClose(inputFileStream, outputFileStream));
 
         // copy the image file into the enclosure content directory
-        Path finalOutputFilePath = Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+        Path finalOutputFilePath = Paths.get(getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY),
                                                      metadata.getFileName());
 
         if (modifyOriginalFile) {
