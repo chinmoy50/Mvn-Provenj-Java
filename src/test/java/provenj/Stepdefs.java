@@ -181,7 +181,7 @@ public class Stepdefs {
                      Enclosure.calculateFileHash(file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
                                                            finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
         assertEquals(finalJson.get(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
-        assertEquals(metadata.getFileHashes(),finalJson.get(ProvenLib.PROVEN_FILE_HASHES).toString().toUpperCase());
+        assertEquals(metadata.getFileHashes().toUpperCase(),finalJson.get(ProvenLib.PROVEN_FILE_HASHES).toString().toUpperCase());
         // NOTE: we're not checking tags inside the image because the file hash OF the image can't be IN the image.
     }
 

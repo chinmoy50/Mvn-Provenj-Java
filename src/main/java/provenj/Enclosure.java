@@ -14,7 +14,7 @@ import java.security.DigestOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.xml.bind.DatatypeConverter;
+import io.ipfs.multibase.*;
 
 // Creates an enclosure which is a temporary directory that contains all assets to be submitted
 public class Enclosure {
@@ -43,7 +43,7 @@ public class Enclosure {
         DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
         ByteStreams.copy(fileInputStream, dos);
         dos.close();
-        return DatatypeConverter.printHexBinary(dos.getMessageDigest().digest());
+        return Base16.encode(dos.getMessageDigest().digest());
     }
 
     public static String calculateFileHash(String path) throws NoSuchAlgorithmException, IOException {

@@ -32,6 +32,7 @@ dependencies {
     testCompile 'junit:junit:' + junitVersion
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile group: 'com.github.celeduc', name: 'ipfs-api-kotlin', version: '0.9999999'
+    compile group: 'com.github.multiformats', name: 'java-multibase', version: 'v1.0.0'
     compile group: 'com.adobe.xmp', name: 'xmpcore', version: '6.1.10'
     compile group: 'com.j2html', name: 'j2html', version: '0.7'
     compile group: 'com.google.guava', name: 'guava', version: '20.0'
