@@ -1,6 +1,6 @@
 package provenj;
 
-import org.json.simple.JSONObject;
+import com.google.gson.JsonObject;
 
 // Creates a manifest.json file to be included in the Proven enclosure.
 public class ManifestCreator extends Metadata {
@@ -9,8 +9,8 @@ public class ManifestCreator extends Metadata {
     }
 
     @SuppressWarnings("unchecked") // JSONObject doesn't support parameters to make it generic
-    public JSONObject get() {
-       JSONObject result = new JSONObject();
+    public JsonObject get() {
+       JsonObject result = new JsonObject();
        result.put(ProvenLib.PROVEN_FILE_NAME,             getFileName());
        result.put(ProvenLib.PROVEN_FILE_HASHES,           getFileHashes());
        result.put(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER,  getBitcoinBlockNumber());
