@@ -9,9 +9,9 @@ import okhttp3.Response;
 
 // Retrieves information from public blockchains
 public abstract class BlockchainInfo {
-    protected int m_lastBlockNumber;
-    protected String m_lastBlockHash;
-    protected long m_lastRefreshed = 0;
+    private int m_lastBlockNumber;
+    private String m_lastBlockHash;
+    private long m_lastRefreshed = 0;
 
     // Returns the most recent block in the given chain
     public int getLastBlockNumber(){
@@ -19,10 +19,18 @@ public abstract class BlockchainInfo {
         return m_lastBlockNumber;
     }
 
+    protected void setLastBlockNumber(int blockNumber){
+        m_lastBlockNumber = blockNumber;
+    }
+
     // Returns the hash of the most recent block in the given chain
     public String getLastBlockHash(){
         refresh();
         return m_lastBlockHash;
+    }
+
+    protected void setLastBlockHash(String blockHash){
+        m_lastBlockHash = blockHash;
     }
 
     protected void refresh(){
@@ -58,4 +66,7 @@ public abstract class BlockchainInfo {
 
     // Call the class to look up the needed attribute in the body
     protected abstract void applyAttributes(JSONObject json);
+
+    // Set the blockchain-specific info in the metadata
+    public abstract Metadata apply(Metadata metadata);
 }

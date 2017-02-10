@@ -14,7 +14,13 @@ public class BitcoinInfo extends BlockchainInfo {
     }
 
     protected void applyAttributes(JSONObject json) {
-        m_lastBlockNumber = Integer.parseInt(json.get("height").toString());
-        m_lastBlockHash = json.get("hash").toString();
+        setLastBlockNumber(Integer.parseInt(json.get("height").toString()));
+        setLastBlockHash(json.get("hash").toString());
+    }
+
+    public Metadata apply(Metadata metadata){
+        metadata.setBitcoinBlockNumber(getLastBlockNumber());
+        metadata.setBitcoinBlockHash(getLastBlockHash());
+        return metadata;
     }
 }

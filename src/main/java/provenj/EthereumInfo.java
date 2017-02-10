@@ -15,7 +15,13 @@ public class EthereumInfo extends BlockchainInfo {
 
     protected void applyAttributes(JSONObject json) {
         JSONObject result = (JSONObject) json.get("result");
-        m_lastBlockNumber = Integer.decode(result.get("number").toString());
-        m_lastBlockHash = result.get("hash").toString();
+        setLastBlockNumber(Integer.decode(result.get("number").toString()));
+        setLastBlockHash(result.get("hash").toString());
+    }
+
+    public Metadata apply(Metadata metadata){
+        metadata.setEthereumBlockNumber(getLastBlockNumber());
+        metadata.setEthereumBlockHash(getLastBlockHash());
+        return metadata;
     }
 }

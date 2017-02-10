@@ -76,6 +76,35 @@ public class Stepdefs {
         metadata.setFileName(fileName);
     }
 
+    BitcoinInfo bitcoinInfo = null;
+
+    @Given("^the current Bitcoin block info$")
+    public void the_current_Bitcoin_block_info() throws Throwable {
+        if (bitcoinInfo == null) bitcoinInfo = new BitcoinInfo();
+        metadata = bitcoinInfo.apply(metadata);
+    }
+
+    @Then("^the Bitcoin block number everywhere is greater than (\\d+)$")
+    public void the_Bitcoin_block_number_everywhere_is_greater_than(int blockNumber) throws Throwable {
+        assert(metadata.getBitcoinBlockNumber() > blockNumber);
+        assert((Long)finalJson.get(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER) > blockNumber);
+        assert(Integer.parseInt(getFinalImageTag(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER)) > blockNumber);
+    }
+
+    EthereumInfo ethereumInfo = null;
+
+    @Given("^the current Ethereum block info$")
+    public void the_current_Ethereum_block_info() throws Throwable {
+        if (ethereumInfo == null) ethereumInfo = new EthereumInfo();
+        metadata = ethereumInfo.apply(metadata);
+    }
+
+    @Then("^the Ethereum block number everywhere is greater than (\\d+)$")
+    public void the_Ethereum_block_number_everywhere_is_greater_than(int blockNumber) throws Throwable {
+        assert(metadata.getEthereumBlockNumber() > blockNumber);
+        assert((Long)finalJson.get(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER) > blockNumber);
+        assert(Integer.parseInt(getFinalImageTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER)) > blockNumber);
+    }
 
     private String shellCommand(String command){
         Runtime rt = Runtime.getRuntime();
@@ -113,7 +142,6 @@ public class Stepdefs {
         metadata = enclosure.fill(file, metadata);
         ipfsHash = enclosure.publish();
         System.out.println(ipfsHash);
-
     }
 
     @Then("^the IPFS hash returned should be accessible from the IPFS gateway$")
@@ -243,10 +271,9 @@ public class Stepdefs {
         assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,inputFilePath));
     }
 
-    BitcoinInfo bitcoinInfo = new BitcoinInfo();
-
     @When("^I request the most recent Bitcoin block number$")
     public void i_request_the_most_recent_Bitcoin_block_number() throws Throwable {
+        if (bitcoinInfo == null) bitcoinInfo = new BitcoinInfo();
         assert (bitcoinInfo.getLastBlockNumber() > 0);
     }
 
@@ -257,6 +284,7 @@ public class Stepdefs {
 
     @When("^I request the most recent Bitcoin block hash$")
     public void i_request_the_most_recent_Bitcoin_block_hash() throws Throwable {
+        if (bitcoinInfo == null) bitcoinInfo = new BitcoinInfo();
         assert (bitcoinInfo.getLastBlockHash().length() > 0);
     }
 
@@ -265,10 +293,9 @@ public class Stepdefs {
         assertEquals(bitcoinInfo.getLastBlockHash().length(), length);
     }
 
-    EthereumInfo ethereumInfo = new EthereumInfo();
-
     @When("^I request the most recent Ethereum block number$")
     public void i_request_the_most_recent_Ethereum_block_number() throws Throwable {
+        if (ethereumInfo == null) ethereumInfo = new EthereumInfo();
         assert (ethereumInfo.getLastBlockNumber() > 0);
     }
 
@@ -279,6 +306,7 @@ public class Stepdefs {
 
     @When("^I request the most recent Ethereum block hash$")
     public void i_request_the_most_recent_Ethereum_block_hash() throws Throwable {
+        if (ethereumInfo == null) ethereumInfo = new EthereumInfo();
         assert (ethereumInfo.getLastBlockHash().length() > 0);
     }
 

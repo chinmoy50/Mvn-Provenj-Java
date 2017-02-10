@@ -25,9 +25,16 @@ Feature: Create an enclosure which is a temporary directory that contains all as
 
   Scenario: Create another enclosure but specify a filename
     Given the file name "DogTongue.jpeg"
+    And the current Bitcoin block info
+    And the current Ethereum block info
+    And the GUID "1c9a004e-d2e2-3edf-121c-c3b17321c154"
     When I provide a JPEG file "src/test/resources/provenj/2016-12-01-175915.jpg"
     Then it should contain in the payload directory the file "DogTongue.jpeg"
+    And the GUID everywhere is "1c9a004e-d2e2-3edf-121c-c3b17321c154"
     And the IPFS hash returned should be accessible from the IPFS gateway
+    And the Bitcoin block number everywhere is greater than 452428
+    And the Ethereum block number everywhere is greater than 3158860
+
 
   Scenario: Modify existing file
     Given the Bitcoin block number 438712
