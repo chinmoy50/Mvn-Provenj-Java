@@ -1,5 +1,6 @@
 package provenj;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -241,4 +242,41 @@ public class Stepdefs {
         // double check that we didn't mess up the test case and modify the test file
         assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,inputFilePath));
     }
+
+    @When("^I request the most recent Bitcoin block number$")
+    public void i_request_the_most_recent_Bitcoin_block_number() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^it should be greater than (\\d+)$")
+    public void it_should_be_greater_than(int knownBitcoinBlockHeight) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @When("^I request the most recent Bitcoin block hash$")
+    public void i_request_the_most_recent_Bitcoin_block_hash() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^it should be (\\d+) characters long$")
+    public void it_should_be_characters_long(int arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @When("^I request the most recent Ethereum block number$")
+    public void i_request_the_most_recent_Ethereum_block_number() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @When("^I request the most recent Ethereum block hash$")
+    public void i_request_the_most_recent_Ethereum_block_hash() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
 }
