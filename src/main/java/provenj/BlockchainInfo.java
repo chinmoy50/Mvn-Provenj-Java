@@ -1,5 +1,12 @@
 package provenj;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 // Retrieves information from public blockchains
 public abstract class BlockchainInfo {
     protected int m_lastBlockNumber;
@@ -26,9 +33,29 @@ public abstract class BlockchainInfo {
         }
     }
 
-    // Get the most recent info from whatever source
-    protected abstract void fetchLatest();
+    protected void fetchLatest(){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(getURL())
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(response.body().string());
+            applyAttributes(json);
+        }
+        catch (Exception e) {
+            // sometimes bad things happen
+        }
+    }
 
     // The refresh interval (in seconds)
     protected abstract int getInterval();
+
+    // The URL for the web service we're calling
+    protected abstract String getURL();
+
+    // Call the class to look up the needed attribute in the body
+    protected abstract void applyAttributes(JSONObject json);
 }

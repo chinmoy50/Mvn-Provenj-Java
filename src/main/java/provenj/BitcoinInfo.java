@@ -1,11 +1,6 @@
 package provenj;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 // Retrieves info on the Bitcoin blockchain
 public class BitcoinInfo extends BlockchainInfo {
@@ -14,21 +9,12 @@ public class BitcoinInfo extends BlockchainInfo {
         return 10*60;
     }
 
-    protected void fetchLatest(){
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://blockchain.info/latestblock")
-                .build();
+    protected String getURL(){
+        return "https://blockchain.info/latestblock";
+    }
 
-        try {
-            Response response = client.newCall(request).execute();
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(response.body().string());
-            m_lastBlockNumber = Integer.parseInt(json.get("height").toString());
-            m_lastBlockHash = json.get("hash").toString();
-        }
-        catch (Exception e) {
-            // sometimes bad things happen
-        }
+    protected void applyAttributes(JSONObject json) {
+        m_lastBlockNumber = Integer.parseInt(json.get("height").toString());
+        m_lastBlockHash = json.get("hash").toString();
     }
 }
