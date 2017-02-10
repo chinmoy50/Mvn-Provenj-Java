@@ -243,40 +243,48 @@ public class Stepdefs {
         assertNull(getTag(ProvenLib.PROVEN_FILE_NAME,inputFilePath));
     }
 
+    BitcoinInfo bitcoinInfo = new BitcoinInfo();
+
     @When("^I request the most recent Bitcoin block number$")
     public void i_request_the_most_recent_Bitcoin_block_number() throws Throwable {
-        BitcoinInfo bitcoinInfo = new BitcoinInfo();
         assert (bitcoinInfo.getLastBlockNumber() > 0);
     }
 
-    @Then("^it should be greater than (\\d+)$")
-    public void it_should_be_greater_than(int knownHeight) throws Throwable {
-        BitcoinInfo bitcoinInfo = new BitcoinInfo();
+    @Then("^the Bitcoin block number should be greater than (\\d+)$")
+    public void the_Bitcoin_block_number_should_be_greater_than(int knownHeight) throws Throwable {
         assert (bitcoinInfo.getLastBlockNumber() > knownHeight);
     }
 
     @When("^I request the most recent Bitcoin block hash$")
     public void i_request_the_most_recent_Bitcoin_block_hash() throws Throwable {
-        BitcoinInfo bitcoinInfo = new BitcoinInfo();
         assert (bitcoinInfo.getLastBlockHash().length() > 0);
     }
 
-    @Then("^it should be (\\d+) characters long$")
-    public void it_should_be_characters_long(int length) throws Throwable {
-        BitcoinInfo bitcoinInfo = new BitcoinInfo();
+    @Then("^the Bitcoin block hash should be (\\d+) characters long$")
+    public void the_Bitcoin_block_hash_should_be_characters_long(int length) throws Throwable {
         assertEquals(bitcoinInfo.getLastBlockHash().length(), length);
     }
 
+    EthereumInfo ethereumInfo = new EthereumInfo();
+
     @When("^I request the most recent Ethereum block number$")
     public void i_request_the_most_recent_Ethereum_block_number() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assert (ethereumInfo.getLastBlockNumber() > 0);
+    }
+
+    @Then("^the Ethereum block number should be greater than (\\d+)$")
+    public void the_Ethereum_block_number_should_be_greater_than(int blockNumber) throws Throwable {
+        assert (ethereumInfo.getLastBlockNumber() > blockNumber);
     }
 
     @When("^I request the most recent Ethereum block hash$")
     public void i_request_the_most_recent_Ethereum_block_hash() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assert (ethereumInfo.getLastBlockHash().length() > 0);
+    }
+
+    @Then("^the Ethereum block hash should be (\\d+) characters long$")
+    public void the_Ethereum_block_hash_should_be_characters_long(int length) throws Throwable {
+        assertEquals(ethereumInfo.getLastBlockHash().length(), length);
     }
 
 }

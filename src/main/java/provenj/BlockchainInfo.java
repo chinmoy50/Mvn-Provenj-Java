@@ -11,7 +11,7 @@ import okhttp3.Response;
 public abstract class BlockchainInfo {
     protected int m_lastBlockNumber;
     protected String m_lastBlockHash;
-    protected volatile long m_lastRefreshed = 0;
+    protected long m_lastRefreshed = 0;
 
     // Returns the most recent block in the given chain
     public int getLastBlockNumber(){
