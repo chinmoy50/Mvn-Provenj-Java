@@ -245,26 +245,26 @@ public class Stepdefs {
 
     @When("^I request the most recent Bitcoin block number$")
     public void i_request_the_most_recent_Bitcoin_block_number() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        BitcoinInfo bitcoinInfo = new BitcoinInfo();
+        assert (bitcoinInfo.getLastBlockNumber() > 0);
     }
 
     @Then("^it should be greater than (\\d+)$")
-    public void it_should_be_greater_than(int knownBitcoinBlockHeight) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void it_should_be_greater_than(int knownHeight) throws Throwable {
+        BitcoinInfo bitcoinInfo = new BitcoinInfo();
+        assert (bitcoinInfo.getLastBlockNumber() > knownHeight);
     }
 
     @When("^I request the most recent Bitcoin block hash$")
     public void i_request_the_most_recent_Bitcoin_block_hash() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        BitcoinInfo bitcoinInfo = new BitcoinInfo();
+        assert (bitcoinInfo.getLastBlockHash().length() > 0);
     }
 
     @Then("^it should be (\\d+) characters long$")
-    public void it_should_be_characters_long(int arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void it_should_be_characters_long(int length) throws Throwable {
+        BitcoinInfo bitcoinInfo = new BitcoinInfo();
+        assertEquals(bitcoinInfo.getLastBlockHash().length(), length);
     }
 
     @When("^I request the most recent Ethereum block number$")
