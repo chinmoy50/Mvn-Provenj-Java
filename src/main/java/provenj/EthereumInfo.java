@@ -13,7 +13,7 @@ public class EthereumInfo extends BlockchainInfo {
         return "https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=latest&boolean=true";
     }
 
-    protected void applyAttributes(org.json.JSONObject json) throws org.json.JSONException {
+    protected void applyAttributes(JSONObject json) throws org.json.JSONException {
         JSONObject result = (JSONObject) json.get("result");
         setLastBlockNumber(Integer.decode(result.getString("number")));
         setLastBlockHash(result.getString("hash"));

@@ -13,7 +13,7 @@ public class BitcoinInfo extends BlockchainInfo {
         return "https://blockchain.info/latestblock";
     }
 
-    protected void applyAttributes(org.json.JSONObject json) throws org.json.JSONException {
+    protected void applyAttributes(JSONObject json) throws org.json.JSONException {
         setLastBlockNumber(json.getInt("height"));
         setLastBlockHash(json.getString("hash"));
     }

@@ -64,7 +64,7 @@ public abstract class BlockchainInfo {
     protected abstract String getURL();
 
     // Call the class to look up the needed attribute in the body
-    protected abstract void applyAttributes(org.json.JSONObject json) throws org.json.JSONException;
+    protected abstract void applyAttributes(JSONObject json) throws org.json.JSONException;
 
     // Set the blockchain-specific info in the metadata
     public abstract Metadata apply(Metadata metadata);
