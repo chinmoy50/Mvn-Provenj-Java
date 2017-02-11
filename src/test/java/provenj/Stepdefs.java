@@ -87,7 +87,7 @@ public class Stepdefs {
     @Then("^the Bitcoin block number everywhere is greater than (\\d+)$")
     public void the_Bitcoin_block_number_everywhere_is_greater_than(int blockNumber) throws Throwable {
         assert(metadata.getBitcoinBlockNumber() > blockNumber);
-        assert((Long)finalJson.get(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER) > blockNumber);
+        assert(finalJson.getInt(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER) > blockNumber);
         assert(Integer.parseInt(getFinalImageTag(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER)) > blockNumber);
     }
 
@@ -102,7 +102,7 @@ public class Stepdefs {
     @Then("^the Ethereum block number everywhere is greater than (\\d+)$")
     public void the_Ethereum_block_number_everywhere_is_greater_than(int blockNumber) throws Throwable {
         assert(metadata.getEthereumBlockNumber() > blockNumber);
-        assert((Long)finalJson.get(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER) > blockNumber);
+        assert(finalJson.getInt(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER) > blockNumber);
         assert(Integer.parseInt(getFinalImageTag(ProvenLib.PROVEN_ETHEREUM_BLOCK_NUMBER)) > blockNumber);
     }
 
@@ -206,7 +206,7 @@ public class Stepdefs {
     public void the_File_Hashes_are_the_same_everywhere() throws Throwable {
         assertEquals(finalJson.getString(ProvenLib.PROVEN_FILE_HASHES),
                      Enclosure.calculateFileHash(file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                                                           finalJson.get(ProvenLib.PROVEN_FILE_NAME).toString())));
+                                                           finalJson.getString(ProvenLib.PROVEN_FILE_NAME))));
         assertEquals(finalJson.getString(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
         assertEquals(metadata.getFileHashes().toUpperCase(),finalJson.getString(ProvenLib.PROVEN_FILE_HASHES).toString().toUpperCase());
         // NOTE: we're not checking tags inside the image because the file hash OF the image can't be IN the image.

@@ -1,7 +1,7 @@
 package provenj;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -49,8 +49,7 @@ public abstract class BlockchainInfo {
 
         try {
             Response response = client.newCall(request).execute();
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(response.body().string());
+            JSONObject json = (JSONObject) new JSONTokener(response.body().string()).nextValue();
             applyAttributes(json);
         }
         catch (Exception e) {
@@ -65,7 +64,7 @@ public abstract class BlockchainInfo {
     protected abstract String getURL();
 
     // Call the class to look up the needed attribute in the body
-    protected abstract void applyAttributes(JSONObject json);
+    protected abstract void applyAttributes(org.json.JSONObject json) throws org.json.JSONException;
 
     // Set the blockchain-specific info in the metadata
     public abstract Metadata apply(Metadata metadata);

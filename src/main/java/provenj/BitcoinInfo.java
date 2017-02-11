@@ -1,6 +1,6 @@
 package provenj;
 
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
 // Retrieves info on the Bitcoin blockchain
 public class BitcoinInfo extends BlockchainInfo {
@@ -13,9 +13,9 @@ public class BitcoinInfo extends BlockchainInfo {
         return "https://blockchain.info/latestblock";
     }
 
-    protected void applyAttributes(JSONObject json) {
-        setLastBlockNumber(Integer.parseInt(json.get("height").toString()));
-        setLastBlockHash(json.get("hash").toString());
+    protected void applyAttributes(org.json.JSONObject json) throws org.json.JSONException {
+        setLastBlockNumber(json.getInt("height"));
+        setLastBlockHash(json.getString("hash"));
     }
 
     public Metadata apply(Metadata metadata){
