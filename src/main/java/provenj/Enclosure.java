@@ -96,7 +96,7 @@ public class Enclosure {
         ManifestCreator manifestCreator = new ManifestCreator(metadata);
 
         File manifestFile = new File(getPath(ProvenLib.PROVEN_MANIFEST));
-        Files.write(manifestCreator.get().toJSONString(),
+        Files.write(manifestCreator.get().toString(),
                     manifestFile,
                     Charsets.UTF_8);
         return metadata.copy(manifestCreator);
