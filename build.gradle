@@ -21,9 +21,9 @@ project.ext {
 jar {
     manifest {
         attributes 'Implementation-Title': 'provenj',
-                   'Implementation-Version': '4.1.1',
-                   'Implementation-Vendor': '1AmOXsGnfXdbNg3RMTyPCHkn2aT',
-                   'Implementation-URL': 'https://github.com/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj'
+                   'Implementation-Version': '4.1.2',
+                   'Implementation-Vendor': 'Proven',
+                   'Implementation-URL': 'https://github.com/proven-systems/provenj'
     }
 }
 dependencies {

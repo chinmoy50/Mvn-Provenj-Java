@@ -1,9 +1,9 @@
 # provenj
 
-[![Build Status](https://travis-ci.org/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj.svg?branch=master)](https://travis-ci.org/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj)
-[![codecov](https://codecov.io/gh/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/branch/master/graph/badge.svg)](https://codecov.io/gh/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj)
-[![Release](https://jitpack.io/v/1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj.svg)]
-(https://jitpack.io/#1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj)
+[![Build Status](https://travis-ci.org/proven-systems/provenj.svg?branch=master)](https://travis-ci.org/proven-systems/provenj)
+[![codecov](https://codecov.io/gh/proven-systems/provenj/branch/master/graph/badge.svg)](https://codecov.io/gh/proven-systems/provenj)
+[![Release](https://jitpack.io/v/proven-systems/provenj.svg)]
+(https://jitpack.io/#proven-systems/provenj)
 
 Java library with APIs for interacting with Proven:
 * creating Proven-compliant IPFS payloads and manifests
@@ -35,7 +35,7 @@ Ubuntu prerequisites:
 `apt-get install maven exiftool curl`
 
 ## Usage
-You can use this project by building the JAR with `mvn package`, or by using [JitPack](https://jitpack.io/#1AmOXsGnfXdbNg3RMTyPCHkn2aT/provenj/) (also supporting Gradle, SBT, etc).
+You can use this project by building the JAR with `mvn package`, or by using [JitPack](https://jitpack.io/#proven-systems/provenj/) (also supporting Gradle, SBT, etc).
 
 for Maven, you can add the follwing sections to your POM.XML:
 ```xml
@@ -48,9 +48,9 @@ for Maven, you can add the follwing sections to your POM.XML:
 
   <dependencies>
     <dependency>
-      <groupId>com.github.1AmOXsGnfXdbNg3RMTyPCHkn2aT</groupId>
+      <groupId>com.github.proven-systems</groupId>
       <artifactId>provenj</artifactId>
-      <version>v1.0.0</version>
+      <version>v4.1.1</version>
     </dependency>
   </dependencies>
 ```
