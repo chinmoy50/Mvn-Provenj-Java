@@ -4,7 +4,7 @@
 
     <groupId>proven</groupId>
     <artifactId>provenj</artifactId>
-    <version>4.1.2</version>
+    <version>4.1.3</version>
     <packaging>jar</packaging>
     <name>provenj</name>
     <url>https://github.com/proven-systems/provenj</url>
