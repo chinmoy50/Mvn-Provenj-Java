@@ -5,6 +5,8 @@ public interface ProvenLib {
     // These define the structure of the enclosure posted to IPFS with each submission.
     String PROVEN_INDEX                 = "index.html";
     String PROVEN_MANIFEST              = "manifest.json";
+    String PROVEN_MANIFEST_VERSION_TAG  = "ManifestVersion";
+    String PROVEN_MANIFEST_VERSION      = "1.0.0";
     String PROVEN_CONTENT_DIRECTORY     = "content";
 
     // These are the names of XMP tags that appear within submitted files

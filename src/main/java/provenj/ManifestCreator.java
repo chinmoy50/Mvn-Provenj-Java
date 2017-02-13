@@ -12,6 +12,7 @@ public class ManifestCreator extends Metadata {
     public JSONObject get() {
         JSONObject result = new JSONObject();
         try{
+            result.put(ProvenLib.PROVEN_MANIFEST_VERSION_TAG,  ProvenLib.PROVEN_MANIFEST_VERSION);
             result.put(ProvenLib.PROVEN_FILE_NAME,             getFileName());
             result.put(ProvenLib.PROVEN_FILE_HASHES,           getFileHashes());
             result.put(ProvenLib.PROVEN_BITCOIN_BLOCK_NUMBER,  getBitcoinBlockNumber());
