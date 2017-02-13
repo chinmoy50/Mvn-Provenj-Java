@@ -87,14 +87,19 @@
             <version>0.7</version>
         </dependency>
         <dependency>
-            <groupId>com.github.celeduc</groupId>
+            <groupId>com.github.ligi</groupId>
             <artifactId>ipfs-api-kotlin</artifactId>
-            <version>0.9999999</version>
+            <version>0.9</version>
         </dependency>
         <dependency>
             <groupId>com.github.multiformats</groupId>
             <artifactId>java-multibase</artifactId>
             <version>v1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.multiformats</groupId>
+            <artifactId>java-multihash</artifactId>
+            <version>v1.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
