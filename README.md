@@ -50,7 +50,7 @@ for Maven, you can add the follwing sections to your POM.XML:
     <dependency>
       <groupId>com.github.proven-systems</groupId>
       <artifactId>provenj</artifactId>
-      <version>v4.1.1</version>
+      <version>v5.0.0</version>
     </dependency>
   </dependencies>
 ```
