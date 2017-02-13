@@ -205,8 +205,8 @@ public class Stepdefs {
     @Then("^the File Hashes are the same everywhere")
     public void the_File_Hashes_are_the_same_everywhere() throws Throwable {
         assertEquals(finalJson.getString(ProvenLib.PROVEN_FILE_HASHES),
-                     Enclosure.calculateFileHash(file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
-                                                           finalJson.getString(ProvenLib.PROVEN_FILE_NAME))));
+                     Enclosure.calculateFileHashes(new File(file_path(enclosure.getPath(ProvenLib.PROVEN_CONTENT_DIRECTORY).toString(),
+                                                           finalJson.getString(ProvenLib.PROVEN_FILE_NAME)))));
         assertEquals(finalJson.getString(ProvenLib.PROVEN_FILE_HASHES), metadata.getFileHashes());
         assertEquals(metadata.getFileHashes().toUpperCase(),finalJson.getString(ProvenLib.PROVEN_FILE_HASHES).toString().toUpperCase());
         // NOTE: we're not checking tags inside the image because the file hash OF the image can't be IN the image.

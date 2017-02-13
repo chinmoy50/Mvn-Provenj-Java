@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import io.ipfs.multibase.*;
+import io.ipfs.multihash.*;
 
 // Creates an enclosure which is a temporary directory that contains all assets to be submitted
 public class Enclosure {
@@ -38,16 +39,22 @@ public class Enclosure {
         return getPath() + System.getProperty("file.separator") + element;
     }
 
-    public static String calculateFileHash(FileInputStream fileInputStream) throws NoSuchAlgorithmException, IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
-        DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance("md5"));
-        ByteStreams.copy(fileInputStream, dos);
-        dos.close();
-        return Base16.encode(dos.getMessageDigest().digest());
-    }
+    public static String calculateFileHashes(File file) throws NoSuchAlgorithmException, IOException {
+        String result = "";
+        Object[][] hashfuncs = new Object[][]{
+                {Multihash.Type.sha1,     "SHA-1"},
+                {Multihash.Type.sha2_256, "SHA-256"},
+                {Multihash.Type.sha2_512, "SHA-512"}};
 
-    public static String calculateFileHash(String path) throws NoSuchAlgorithmException, IOException {
-        return calculateFileHash(new FileInputStream(path));
+        for(Object[] hf: hashfuncs) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
+            DigestOutputStream dos = new DigestOutputStream(baos, MessageDigest.getInstance((String)hf[1]));
+            ByteStreams.copy(new FileInputStream(file), dos);
+            dos.close();
+            result += new Multihash((Multihash.Type)hf[0], dos.getMessageDigest().digest()).toString()
+                   + " ";
+        }
+        return result.trim();
     }
 
     public Metadata fill(File file, Metadata metadata) throws IOException, XMPException, NoSuchAlgorithmException {
@@ -87,7 +94,7 @@ public class Enclosure {
         Files.move(tempOutputFile, finalOutputFile);
 
         // calculate the image file hash and record it in the metadata
-        metadata.setFileHashes(calculateFileHash(new FileInputStream(finalOutputFile)));
+        metadata.setFileHashes(calculateFileHashes(finalOutputFile));
         return metadata;
     }
 
