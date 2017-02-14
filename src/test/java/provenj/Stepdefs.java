@@ -313,4 +313,16 @@ public class Stepdefs {
         assertEquals(ethereumInfo.getLastBlockHash().length(), length);
     }
 
+    String result = "";
+    @When("^I submit to the gateway the hash \"([^\"]*)\"$")
+    public void i_submit_to_the_gateway_the_hash(String ipfsHash) throws Throwable {
+        result = Publisher.publishToGateway(ipfsHash);
+    }
+
+    @Then("^something should happen$")
+    public void something_should_happen() throws Throwable {
+        System.out.println(result);
+        assert(true);
+    }
+
 }
