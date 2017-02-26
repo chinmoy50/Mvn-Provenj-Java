@@ -14,6 +14,7 @@ public class Metadata implements MetadataIntf {
     protected String m_ethereumBlockHash;
     protected String m_previousIPFSHash;
     protected String m_previousFileHashes;
+    protected UUID   m_previousGUID;
     protected UUID   m_guid;
     protected String m_fileName;
     protected String m_fileHashes;
@@ -26,6 +27,7 @@ public class Metadata implements MetadataIntf {
             ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH,
             ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,
             ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,
+            ProvenLib.PROVEN_PREVIOUS_GUID,
             ProvenLib.PROVEN_GUID};
 
     public Metadata(){}
@@ -52,6 +54,9 @@ public class Metadata implements MetadataIntf {
     public void   setFileName(String fileName) { m_fileName = fileName; }
     public String getFileHashes() { return m_fileHashes; }
     public void   setFileHashes(String fileHashes) { m_fileHashes = fileHashes; }
+    public UUID   getPreviousGUID() { return m_previousGUID; }
+    public void   setPreviousGUID(UUID previousGUID) { m_previousGUID = previousGUID; }
+    public void   setPreviousGUID(String previousGUID) { m_previousGUID = UUID.fromString(previousGUID); }
     public UUID   getGUID() { return m_guid; }
     public void   setGUID(UUID guid) { m_guid = guid; }
     public void   setGUID(String guid) { m_guid = UUID.fromString(guid); }
@@ -66,6 +71,7 @@ public class Metadata implements MetadataIntf {
         setFileName(metadata.getFileName());
         setFileHashes(metadata.getFileHashes());
         setGUID(metadata.getGUID());
+        setPreviousGUID(metadata.getPreviousGUID());
         return this;
     }
 

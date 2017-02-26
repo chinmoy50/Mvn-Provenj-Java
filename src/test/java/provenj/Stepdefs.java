@@ -1,6 +1,5 @@
 package provenj;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -71,6 +70,14 @@ public class Stepdefs {
         metadata.setGUID(UUID.fromString(guid));
     }
 
+    @Given("^the previous GUID \"([^\"]*)\"$")
+    public void the_previous_GUID(String guid) throws Throwable {
+        metadata.setPreviousGUID(guid);
+        assertEquals(metadata.getPreviousGUID(),UUID.fromString(guid));
+        metadata.setPreviousGUID(UUID.fromString(guid));
+        assertEquals(metadata.getPreviousGUID(),UUID.fromString(guid));
+    }
+
     @Given("^the file name \"([^\"]*)\"$")
     public void the_file_name(String fileName) throws Throwable {
         metadata.setFileName(fileName);
@@ -125,11 +132,6 @@ public class Stepdefs {
     // Read XMP tag from JPEG file using exiftool for testing purposes.
     private String getTag(String tagName, String filePath) {
         return shellCommand(String.format("exiftool -xmp:%1$s -a -b %2$s", tagName, filePath));
-    }
-
-    // Verify the MD5 hash independent of the Java implementation
-    private String getMD5(String imageFilePath){
-        return shellCommand(String.format("md5sum %1$s", imageFilePath));
     }
 
     // Test enclosure creation
@@ -202,6 +204,13 @@ public class Stepdefs {
         assertEquals(guid, metadata.getGUID().toString());
     }
 
+    @Then("^the previous GUID everywhere is \"([^\"]*)\"$")
+    public void the_previous_GUID_everywhere_is(String guid) throws Throwable {
+        assertEquals(guid, finalJson.getString(ProvenLib.PROVEN_PREVIOUS_GUID));
+        assertEquals(guid, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_GUID));
+        assertEquals(guid, metadata.getPreviousGUID().toString());
+    }
+
     @Then("^the File Hashes are the same everywhere")
     public void the_File_Hashes_are_the_same_everywhere() throws Throwable {
         assertEquals(finalJson.getString(ProvenLib.PROVEN_FILE_HASHES),
@@ -253,6 +262,12 @@ public class Stepdefs {
         assertEquals(fileHashes, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, metadata.getPreviousFileHashes());
     }
+
+    @Then("^the manifest contains the current version$")
+    public void the_manifest_contains_the_current_version() throws Throwable {
+        assertEquals(ProvenLib.PROVEN_MANIFEST_VERSION, finalJson.getString(ProvenLib.PROVEN_MANIFEST_VERSION_TAG));
+    }
+
 
     @When("^I ask to directly tag a copy of the JPEG file \"([^\"]*)\"$")
     public void i_ask_to_directly_tag_a_copy_of_the_JPEG_file(String inputFilePath) throws Throwable {

@@ -19,6 +19,9 @@ public interface MetadataIntf {
     void   setPreviousIPFSHash(String ipfsHash);
     String getPreviousFileHashes();
     void   setPreviousFileHashes(String fileHashes);
+    UUID   getPreviousGUID();
+    void   setPreviousGUID(UUID guid);
+    void   setPreviousGUID(String guid);
     String getFileName();
     void   setFileName(String fileName);
     String getFileHashes();

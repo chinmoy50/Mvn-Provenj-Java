@@ -6,7 +6,7 @@ public interface ProvenLib {
     String PROVEN_INDEX                 = "index.html";
     String PROVEN_MANIFEST              = "manifest.json";
     String PROVEN_MANIFEST_VERSION_TAG  = "ManifestVersion";
-    String PROVEN_MANIFEST_VERSION      = "1.0.0";
+    String PROVEN_MANIFEST_VERSION      = "1.1.0";
     String PROVEN_CONTENT_DIRECTORY     = "content";
 
     // These are the names of XMP tags that appear within submitted files
@@ -19,6 +19,7 @@ public interface ProvenLib {
     String PROVEN_ETHEREUM_BLOCK_HASH   = "EthereumBlockHash";
     String PROVEN_PREVIOUS_IPFS_HASH    = "PreviousIPFSHash";
     String PROVEN_PREVIOUS_FILE_HASHES  = "PreviousFileHashes";
+    String PROVEN_PREVIOUS_GUID         = "PreviousGUID";
     String PROVEN_GUID                  = "GUID";
 
     // These define the XMP namespace and tag prefix used within files

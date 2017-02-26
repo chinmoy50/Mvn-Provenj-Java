@@ -24,6 +24,11 @@ public class ImageTagger extends Metadata {
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,    getPreviousIPFSHash());
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,  getPreviousFileHashes());
 
+        // Include the previous GUID if available
+        if(null != getPreviousGUID()) {
+            meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_PREVIOUS_GUID, getPreviousGUID().toString());
+        }
+
         // Generate a GUID if none specified
         if (null == getGUID()){
             setGUID(UUID.randomUUID());

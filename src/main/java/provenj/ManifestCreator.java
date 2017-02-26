@@ -21,6 +21,8 @@ public class ManifestCreator extends Metadata {
             result.put(ProvenLib.PROVEN_ETHEREUM_BLOCK_HASH,   getEthereumBlockHash());
             result.put(ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,    getPreviousIPFSHash());
             result.put(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,  getPreviousFileHashes());
+            if(null != getPreviousGUID())
+                result.put(ProvenLib.PROVEN_PREVIOUS_GUID,     getPreviousGUID().toString());
             result.put(ProvenLib.PROVEN_GUID,                  getGUID().toString());
         }
         catch( Exception e) {
