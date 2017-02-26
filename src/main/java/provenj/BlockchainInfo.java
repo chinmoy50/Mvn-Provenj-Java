@@ -12,6 +12,7 @@ public abstract class BlockchainInfo {
     private int m_lastBlockNumber;
     private String m_lastBlockHash;
     private long m_lastRefreshed = 0;
+    private long m_lastBlockTime = 0;
 
     // Returns the most recent block in the given chain
     public int getLastBlockNumber(){
@@ -37,8 +38,17 @@ public abstract class BlockchainInfo {
         if ((m_lastRefreshed == 0)
         ||  (m_lastRefreshed + (getInterval()*1000) < System.currentTimeMillis()  )){
             fetchLatest();
-            m_lastRefreshed = System.currentTimeMillis();
+            m_lastRefreshed = getLastBlockTime() * 1000;
         }
+    }
+
+    protected void setLastBlockTime(long lastBlockTime){
+        m_lastBlockTime = lastBlockTime;
+    }
+
+    // Returns the UNIX epoch of the most recent block
+    public long getLastBlockTime(){
+        return m_lastBlockTime;
     }
 
     protected void fetchLatest(){
@@ -50,6 +60,7 @@ public abstract class BlockchainInfo {
         try {
             Response response = client.newCall(request).execute();
             JSONObject json = (JSONObject) new JSONTokener(response.body().string()).nextValue();
+            System.out.println("FETCHED " + getURL());
             applyAttributes(json);
         }
         catch (Exception e) {

@@ -16,6 +16,7 @@ public class BitcoinInfo extends BlockchainInfo {
     protected void applyAttributes(JSONObject json) throws org.json.JSONException {
         setLastBlockNumber(json.getInt("height"));
         setLastBlockHash(json.getString("hash"));
+        setLastBlockTime(json.getLong("time"));
     }
 
     public Metadata apply(Metadata metadata){

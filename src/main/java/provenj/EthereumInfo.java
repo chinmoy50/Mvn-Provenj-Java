@@ -5,8 +5,8 @@ import org.json.JSONObject;
 // Retrieves info on the Bitcoin blockchain
 public class EthereumInfo extends BlockchainInfo {
     protected int getInterval(){
-        // In theory there is a new Ethereum block every 10 seconds.
-        return 10;
+        // On average there is a new Ethereum block every 14 seconds.
+        return 14;
     }
 
     protected String getURL(){
@@ -17,6 +17,7 @@ public class EthereumInfo extends BlockchainInfo {
         JSONObject result = (JSONObject) json.get("result");
         setLastBlockNumber(Integer.decode(result.getString("number")));
         setLastBlockHash(result.getString("hash"));
+        setLastBlockTime(Integer.decode(result.getString("timestamp")));
     }
 
     public Metadata apply(Metadata metadata){
