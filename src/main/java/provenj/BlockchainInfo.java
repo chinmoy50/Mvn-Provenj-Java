@@ -60,7 +60,6 @@ public abstract class BlockchainInfo {
         try {
             Response response = client.newCall(request).execute();
             JSONObject json = (JSONObject) new JSONTokener(response.body().string()).nextValue();
-            System.out.println("FETCHED " + getURL());
             applyAttributes(json);
         }
         catch (Exception e) {
