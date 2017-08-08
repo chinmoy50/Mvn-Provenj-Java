@@ -4,7 +4,7 @@
 
     <groupId>proven</groupId>
     <artifactId>provenj</artifactId>
-    <version>5.2.0</version>
+    <version>6.0.0</version>
     <packaging>jar</packaging>
     <name>provenj</name>
     <url>https://github.com/proven-systems/provenj</url>
@@ -49,7 +49,7 @@
         <java.version>1.7</java.version>
         <junit.version>4.12</junit.version>
         <cucumber.version>1.2.5</cucumber.version>
-        <maven.compiler.version>3.3</maven.compiler.version>
+        <maven.compiler.version>3.5</maven.compiler.version>
     </properties>
 
     <dependencies>
@@ -84,12 +84,12 @@
         <dependency>
             <groupId>com.j2html</groupId>
             <artifactId>j2html</artifactId>
-            <version>0.7</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.ligi</groupId>
             <artifactId>ipfs-api-kotlin</artifactId>
-            <version>0.9</version>
+            <version>0.11</version>
         </dependency>
         <dependency>
             <groupId>com.github.multiformats</groupId>
@@ -104,12 +104,12 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>20.0</version>
+            <version>23.0</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.6.0</version>
+            <version>3.8.1</version>
         </dependency>
     </dependencies>
 
