@@ -3,7 +3,7 @@ apply plugin: 'maven'
 apply plugin: 'jacoco'
 
 buildscript {
-  ext.kotlin_version = '1.0.6'
+  ext.kotlin_version = '1.1.2'
   repositories {
     mavenCentral()
   }
@@ -31,7 +31,7 @@ dependencies {
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
     compile group: 'org.json', name: 'json', version: '20160810'
-    compile group: 'com.github.ligi', name: 'ipfs-api-kotlin', version: '0.9'
+    compile group: 'com.github.ligi', name: 'ipfs-api-kotlin', version: '0.11'
     compile group: 'com.github.multiformats', name: 'java-multibase', version: 'v1.0.0'
     compile group: 'com.github.multiformats', name: 'java-multihash', version: 'v1.1.0'
     compile group: 'com.adobe.xmp', name: 'xmpcore', version: '6.1.10'
