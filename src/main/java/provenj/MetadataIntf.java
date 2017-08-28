@@ -29,6 +29,8 @@ public interface MetadataIntf {
     UUID   getGUID();
     void   setGUID(UUID guid);
     void   setGUID(String guid);
+    String getCreator();
+    void   setCreator(String creator);
     Metadata copy(Metadata metadata);
     public void setByTag(String tagName, String value) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException;
 }

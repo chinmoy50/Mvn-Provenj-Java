@@ -83,6 +83,11 @@ public class Stepdefs {
         metadata.setFileName(fileName);
     }
 
+    @Given("^the creator \"([^\"]*)\"$")
+    public void the_creator(String creator) throws Throwable {
+        metadata.setCreator(creator);
+    }
+
     BitcoinInfo bitcoinInfo = null;
 
     @Given("^the current Bitcoin block info$")
@@ -261,6 +266,13 @@ public class Stepdefs {
         assertEquals(fileHashes, finalJson.getString(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, getFinalImageTag(ProvenLib.PROVEN_PREVIOUS_FILE_HASHES));
         assertEquals(fileHashes, metadata.getPreviousFileHashes());
+    }
+
+    @Then("^the creator everywhere is \"([^\"]*)\"$")
+    public void the_creator_everywhere_is(String creator) throws Throwable {
+        assertEquals(creator, finalJson.getString(ProvenLib.PROVEN_CREATOR));
+        assertEquals(creator, getFinalImageTag(ProvenLib.PROVEN_CREATOR));
+        assertEquals(creator, metadata.getCreator());
     }
 
     @Then("^the manifest contains the current version$")

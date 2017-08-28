@@ -35,6 +35,7 @@ public class ImageTagger extends Metadata {
         }
 
         meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_GUID,                  getGUID().toString());
+        meta.setProperty(XmpUtil.PROVEN_NAMESPACE, ProvenLib.PROVEN_CREATOR,               getCreator());
 
         XmpUtil.writeXMPMeta(inputFileStream, outputFileStream, meta);
     }

@@ -18,6 +18,7 @@ public class Metadata implements MetadataIntf {
     protected UUID   m_guid;
     protected String m_fileName;
     protected String m_fileHashes;
+    protected String m_creator;
     public static String[] TAGS = {
             ProvenLib.PROVEN_FILE_NAME,
             ProvenLib.PROVEN_FILE_HASHES,
@@ -28,7 +29,9 @@ public class Metadata implements MetadataIntf {
             ProvenLib.PROVEN_PREVIOUS_IPFS_HASH,
             ProvenLib.PROVEN_PREVIOUS_FILE_HASHES,
             ProvenLib.PROVEN_PREVIOUS_GUID,
-            ProvenLib.PROVEN_GUID};
+            ProvenLib.PROVEN_GUID,
+            ProvenLib.PROVEN_CREATOR
+    };
 
     public Metadata(){}
 
@@ -60,6 +63,8 @@ public class Metadata implements MetadataIntf {
     public UUID   getGUID() { return m_guid; }
     public void   setGUID(UUID guid) { m_guid = guid; }
     public void   setGUID(String guid) { m_guid = UUID.fromString(guid); }
+    public String getCreator() { return m_creator; }
+    public void   setCreator(String creator) { m_creator = creator; }
 
     public Metadata copy(Metadata metadata){
         setBitcoinBlockNumber(metadata.getBitcoinBlockNumber());
@@ -72,6 +77,7 @@ public class Metadata implements MetadataIntf {
         setFileHashes(metadata.getFileHashes());
         setGUID(metadata.getGUID());
         setPreviousGUID(metadata.getPreviousGUID());
+        setCreator(metadata.getCreator());
         return this;
     }
 

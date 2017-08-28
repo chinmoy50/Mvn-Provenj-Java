@@ -24,6 +24,7 @@ public class ManifestCreator extends Metadata {
             if(null != getPreviousGUID())
                 result.put(ProvenLib.PROVEN_PREVIOUS_GUID,     getPreviousGUID().toString());
             result.put(ProvenLib.PROVEN_GUID,                  getGUID().toString());
+            result.put(ProvenLib.PROVEN_CREATOR,               getCreator());
         }
         catch( Exception e) {
             // stuff happens
