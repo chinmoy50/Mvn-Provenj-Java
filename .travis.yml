@@ -7,6 +7,9 @@ before_script:
   - export PATH=$PATH:$PWD/go-ipfs/
   - ipfs init
   - ipfs daemon &
+script:
+  - mvn test
+  - ./gradlew clean check
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 notifications:
