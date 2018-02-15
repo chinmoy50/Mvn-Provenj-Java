@@ -33,7 +33,7 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20180130'
     compile group: 'com.github.ligi', name: 'ipfs-api-kotlin', version: '0.11'
     compile group: 'com.github.multiformats', name: 'java-multibase', version: 'v1.0.0'
-    compile group: 'com.github.multiformats', name: 'java-multihash', version: 'v1.1.0'
+    compile group: 'com.github.multiformats', name: 'java-multihash', version: 'v1.2.0'
     compile group: 'com.adobe.xmp', name: 'xmpcore', version: '6.1.10'
     compile group: 'com.j2html', name: 'j2html', version: '1.2.2'
     compile group: 'com.google.guava', name: 'guava', version: '24.0-jre'
