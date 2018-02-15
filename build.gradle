@@ -30,14 +30,14 @@ dependencies {
     testCompile 'info.cukes:cucumber-java:' + cucumberVersion
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
-    compile group: 'org.json', name: 'json', version: '20160810'
+    compile group: 'org.json', name: 'json', version: '20180130'
     compile group: 'com.github.ligi', name: 'ipfs-api-kotlin', version: '0.11'
     compile group: 'com.github.multiformats', name: 'java-multibase', version: 'v1.0.0'
     compile group: 'com.github.multiformats', name: 'java-multihash', version: 'v1.1.0'
     compile group: 'com.adobe.xmp', name: 'xmpcore', version: '6.1.10'
-    compile group: 'com.j2html', name: 'j2html', version: '1.0.0'
-    compile group: 'com.google.guava', name: 'guava', version: '23.0'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.8.1'
+    compile group: 'com.j2html', name: 'j2html', version: '1.2.2'
+    compile group: 'com.google.guava', name: 'guava', version: '24.0-jre'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.1'
 }
 
 repositories {

@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/proven-systems/provenj.svg?branch=master)](https://travis-ci.org/proven-systems/provenj)
 [![codecov](https://codecov.io/gh/proven-systems/provenj/branch/master/graph/badge.svg)](https://codecov.io/gh/proven-systems/provenj)
-[![Release](https://jitpack.io/v/proven-systems/provenj.svg)]
-(https://jitpack.io/#proven-systems/provenj)
+[![Release](https://jitpack.io/v/proven-systems/provenj.svg)](https://jitpack.io/#proven-systems/provenj)
 
 Java library with APIs for interacting with Proven:
 * creating Proven-compliant IPFS payloads and manifests
