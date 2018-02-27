@@ -61,18 +61,18 @@ import provenj.Enclosure;
 import java.util.UUID;
 
 // Set up the metadata for the picture.
-Metadata md = new Metadata();
+Metadata metadata = new Metadata();
 // You can use Bitcoinj or pull this from a web API
-md.setBitcoinBlockNumber(438712);
-md.setBitcoinBlockHash("00000000000000000341b8be019c7c1bff721b2d412285ab796ef5ab2ae36213")
+metadata.setBitcoinBlockNumber(438712);
+metadata.setBitcoinBlockHash("00000000000000000341b8be019c7c1bff721b2d412285ab796ef5ab2ae36213")
 // You can use go-ethereum, ethereumj or pull from a web API
-md.setEthereumBlockNumber(2619567)
-md.setEthereumBlockHash("0xcca5f32676df55171ffabcb32b69eaec0593ce7ae1912228656bd8e213475ecb")
+metadata.setEthereumBlockNumber(2619567)
+metadata.setEthereumBlockHash("0xcca5f32676df55171ffabcb32b69eaec0593ce7ae1912228656bd8e213475ecb")
 // This is from your previous submission, if any, and if desired
-md.setPreviousIPFSHash("Qmb7Uwc39Q7YpPsfkWj54S2rMgdV6D845Sgr75GyxZfV4V")
-md.setPreviousFileHashes("84C5B7886D243D0ADBB3C707B629F3BF")
+metadata.setPreviousIPFSHash("Qmb7Uwc39Q7YpPsfkWj54S2rMgdV6D845Sgr75GyxZfV4V")
+metadata.setPreviousFileHashes("84C5B7886D243D0ADBB3C707B629F3BF")
 // This is the filename you want published for the attachment
-md.setFileName("MyPrettyPicture.jpeg")
+metadata.setFileName("MyPrettyPicture.jpeg")
 
 // Creates a temporary directory for the resulting picture and
 // its metadata
